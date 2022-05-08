@@ -1,16 +1,20 @@
-import React from 'react'
+import React from 'react';
+import styled from 'styled-components';
+
 import Nav from '../header/Navigation';
 
-function MainPage() {
-  return (
-      <>
-      <div className="navigation">
-        <Nav/>
-      </div>
-          <div>This is my mainPage</div>
+const Container = styled.div`
+    height: calc(100vh - 85px);
+    background-color: red;
+`;
 
-      </>
-  )
-}
+export const MainPage = () => {
+    return (
+        <>
+            <Nav />
+            <Container>Introduction</Container>
+        </>
+    );
+};
 
 export default MainPage;

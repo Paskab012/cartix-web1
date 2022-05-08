@@ -1,23 +1,110 @@
-import React from 'react'
-import { HiChevronDown } from "react-icons/hi";
+import React from 'react';
+import styled from 'styled-components';
+import picture from '../../assets/bnr.svg';
+import profile from '../../assets/Profile.png';
 
-function Navigation() {
-  return (
-    <div className="flex justify-between m-10 bg-purple-800 navigation">
-    <div className="flex justify-around bg-red-600 logo_Container">
-      <div className="logo_img">CARTIX</div>
-      <div className="flex logo_buttons mr-3rem ">
-        <button className="flex px-4 py-2 font-semibold bg-red-400 border border-blue-500 rounded border-solid-1px-black logo_btn_one hover:text-white hover:border-transparent">Year:All<HiChevronDown/></button>
-        <button className="flex px-4 py-2 font-semibold border border-blue-500 rounded logo_btn_one hover:text-white hover:border-transparent">Province:All<HiChevronDown/></button>
-        <button className="flex px-4 py-2 font-semibold border border-blue-500 rounded logo_btn_one hover:text-white hover:border-transparent">District:All<HiChevronDown/></button>
-        <button className="flex px-4 py-2 font-semibold border border-blue-500 rounded logo_btn_one hover:text-white hover:border-transparent">Saving Groups:All<HiChevronDown/></button>
-      </div>
-    </div>
-    <div className="bg-purple-200 sign-in-btn">
-      <button className="px-4 py-2 font-semibold border border-blue-500 rounded btn_sign_in hover:text-white hover:border-transparent">SignIn</button>
-    </div>
-    </div>
-  )
-}
+const Container = styled.div`
+    height: 85px;
+    box-shadow: 0px 4px 4px 0px #00000008;
+    display: flex;
+    justify-content: space-between;
+`;
+const Wrapper = styled.div`
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+`;
 
-export default Navigation
+const Left = styled.div`
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    align-content: center;
+`;
+
+const Logo = styled.h1`
+    font-weight: bold;
+    font-size: 22px;
+    margin-left: -70px;
+`;
+
+const Small = styled.span`
+    font-family: Montserrat;
+    font-size: 22px;
+    font-weight: 400;
+    line-height: 27px;
+    letter-spacing: 0.015em;
+    text-align: left;
+`;
+
+const Menu = styled.ul`
+    display: flex;
+    list-style: none;
+
+    @media only screen and (max-width: 480px) {
+        display: none;
+    }
+`;
+
+const MenuItem = styled.li`
+    li {
+        &:hover {
+            font-weight: 600;
+        }
+    }
+    margin-right: 29px;
+    font-size: 15px;
+    color: black;
+    font-weight: 400;
+    cursor: pointer;
+`;
+
+const Button = styled.button`
+    padding: 2px 3px;
+    color: black;
+    font-weight: 500;
+    cursor: pointer;
+    font-size: 15px;
+    margin-right: 24px;
+`;
+
+const Picture = styled.img`
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+`;
+
+const Profile = styled.img`
+    width: 20px;
+    height: 20px;
+    object-fit: cover;
+    margin-bottom: 4px;
+    cursor: pointer;
+`;
+
+const Navbar = () => {
+    return (
+        <Container>
+            <Left>
+                <Picture src={picture} />
+                <Logo>
+                    BNR <Small>CSGs Data</Small>
+                </Logo>
+                <Menu>
+                    <MenuItem>Home</MenuItem>
+                    <MenuItem>Map</MenuItem>
+                    <MenuItem>Downloads</MenuItem>
+                    <MenuItem>BNR</MenuItem>
+                </Menu>
+            </Left>
+            <Wrapper>
+                <Profile src={profile} />
+                <Button>Sign In</Button>
+            </Wrapper>
+        </Container>
+    );
+};
+
+export default Navbar;
