@@ -6,6 +6,7 @@ import Nav from '../header/Navigation';
 import map from '../../assets/map.png';
 import rwandaProvinces from '../../assets/groupMap.png';
 import Feature from '../features/Features';
+import Methodology from '../features/methodology';
 
 const Container = styled.div`
     height: calc(100vh - 85px);
@@ -88,6 +89,7 @@ export const MainPage = () => {
                 </Right>
             </Container>
             <Feature />
+            <Methodology />
         </>
     );
 };

@@ -1,11 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import App from '../../assets/rectangle1.png';
-import AnimatedBack from '../animations/AnimatedBack';
+import App from '../../assets/reactangle2.png';
 
 const Container = styled.div`
     display: flex;
-    background-color: #f9f1e3;
+    background-color: #fff;
     height: 100vh;
     width: 100%;
     @media only screen and (max-width: 480px) {
@@ -24,20 +23,6 @@ const ActualDiv = styled.div`
 `;
 
 const Left = styled.div`
-    width: 50%;
-    margin-left: 5%;
-    @media only screen and (max-width: 480px) {
-        display: none;
-    }
-`;
-
-const Image = styled.img`
-    width: 438px;
-    height: 438px;
-    margin-left: 15%;
-`;
-
-const Right = styled.div`
     width: 100%;
     display: flex;
     align-content: center;
@@ -46,6 +31,20 @@ const Right = styled.div`
     margin: 6%;
     @media only screen and (max-width: 480px) {
         width: 100%;
+    }
+`;
+
+const Image = styled.img`
+    width: 438px;
+    height: 438px;
+    margin-left: -4rem;
+`;
+
+const Right = styled.div`
+    width: 50%;
+    margin-right: 5%;
+    @media only screen and (max-width: 480px) {
+        display: none;
     }
 `;
 
@@ -66,15 +65,12 @@ const Desc = styled.p`
     line-height: 23px;
 `;
 
-const Feature = () => {
+const Methodology = () => {
     return (
         <Container>
             <ActualDiv>
                 <Left>
-                    <Image src={App} />
-                </Left>
-                <Right>
-                    <Title>Context</Title>
+                    <Title>Methodology</Title>
                     <Desc>
                         Savings groups are social groups formed by different NGOs also called
                         promoters to help people within the same community especially low-income
@@ -101,10 +97,13 @@ const Feature = () => {
                         will support in providing additional insights on needed interventions to
                         better serve members of these groups.
                     </Desc>
+                </Left>
+                <Right>
+                    <Image src={App} />
                 </Right>
             </ActualDiv>
         </Container>
     );
 };
 
-export default Feature;
+export default Methodology;
