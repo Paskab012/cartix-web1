@@ -8,6 +8,7 @@ const Container = styled.div`
     box-shadow: 0px 4px 4px 0px #00000008;
     display: flex;
     justify-content: space-between;
+    width: 100%;
 `;
 const Wrapper = styled.div`
     padding: 10px 20px;
