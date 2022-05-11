@@ -43,7 +43,7 @@ const Boxes = styled.div`
 const Title = styled.span`
     font-size: 34px;
     font-weight: 600;
-    color: #753918;
+    color: black;
     margin-bottom: 1rem;
     @media only screen and (max-width: 480px) {
         font-size: 18px;
