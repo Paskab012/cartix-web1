@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import App from '../../assets/rectangle1.png';
-import AnimatedBack from '../animations/AnimatedBack';
 
 const Container = styled.div`
     display: flex;

@@ -65,6 +65,11 @@ const Desc = styled.p`
     line-height: 23px;
 `;
 
+const SubDescription = styled.h5`
+    font-size: 15px;
+    font-weight: bold;
+`;
+
 const Methodology = () => {
     return (
         <Container>
@@ -72,31 +77,30 @@ const Methodology = () => {
                 <Left>
                     <Title>Methodology</Title>
                     <Desc>
-                        Savings groups are social groups formed by different NGOs also called
-                        promoters to help people within the same community especially low-income
-                        people to come out of poverty.These people are mobilized into groups of
-                        20–30 people that save an agreed amount of money – known as the share amount
-                        – on weekly basis.A member can save up to five times the share amount.
+                        In collaboration with the practitioners, all stakeholders selected 13 data
+                        types to consider per saving groups during the mapping exercise. Those data
+                        types include: SG location (Province, District and Sector), SG name, SG year
+                        of creation, SG total membership (female & male members), International NGO
+                        affiliation, Local NGO affiliation, SG status (graduated or supervised), SG
+                        saved amount as of December 2018 and SG outstanding loan as of December
+                        2018.
                         <br />
                         <br />
-                        From these resources the group will lend members up to three times the
-                        amount they have saved, which they pay back over a short period of time
-                        (typically three months) with interest. FinScope 2012 and 2016 studies
-                        revealed that 30% of the Rwandan population uses informal mechanism to
-                        access financial services hence bringing to light the important role saving
-                        groups are playing NOT ONLY in the lives of the poor people but also in the
-                        entire financial market spectrum. Saving groups are believed to build the
-                        financial literacy and financial capability of its members.
-                        <br />
-                        <br />
-                        AFR in collaboration with MINECOFIN and Saving Groups (SGs) promoters worked
-                        together on the development of a Savings groups map to display or
-                        demonstrate the status of the savings groups and understand the contribution
-                        of SGs towards financial inclusion (volume of savings mobilized and loans
-                        disbursed).This is an exercise that will be rolled out on a yearly basis and
-                        will support in providing additional insights on needed interventions to
-                        better serve members of these groups.
+                        All practitioners compiled their data in the provided excel template and
+                        uploaded their data through cartix platform. Cartix is embedded with machine
+                        learning capabilities whereby it assisted practitioners by applying
+                        auto-correct or flagging fields that needed to be revised. This feature
+                        allowed practitioners to fast-track the data collection, compilation & data
+                        validation phases simultaneously.Other financial datasets were also
+                        considered, these datasets include: data on financial institutions (banks,
+                        MFIs & SACCOs), data on mobile agents (Telco agents & bank agents) and
+                        finally we used FinScope data (2012 & 2016 surveys). This allowed us to
+                        contrast the informal financial sector with the formal financial sector to
+                        get more insight on the current outlook from a data perspective.
                     </Desc>
+                    <SubDescription>
+                        The mapped datasets were collected between 2010 and 2018.
+                    </SubDescription>
                 </Left>
                 <Right>
                     <Image src={App} />
