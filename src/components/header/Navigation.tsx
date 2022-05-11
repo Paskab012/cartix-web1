@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import picture from '../../assets/bnr.svg';
 import profile from '../../assets/Profile.png';
+import addUser from '../../assets/AddUser.png';
+import { Link } from 'react-router-dom';
 
 const Container = styled.div`
     height: 85px;
@@ -50,11 +52,6 @@ const Menu = styled.ul`
 `;
 
 const MenuItem = styled.li`
-    li {
-        &:hover {
-            font-weight: 600;
-        }
-    }
     margin-right: 29px;
     font-size: 15px;
     color: black;
@@ -85,6 +82,31 @@ const Profile = styled.img`
     cursor: pointer;
 `;
 
+const AddUser = styled.img`
+    width: 21px;
+    height: 19px;
+    object-fit: cover;
+    margin-bottom: 4px;
+    cursor: pointer;
+`;
+
+const StyledLink = styled(Link)`
+    color: black;
+    text-decoration: none;
+    font-size: 15px;
+    transition: 0.2s all ease-in-out;
+    user-select: none; /* supported by Chrome and Opera */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    &:hover {
+        transition: 0.2s all ease-in-out;
+        color: #753918;
+        font-weight: 600;
+    }
+`;
+
 const Navbar = () => {
     return (
         <Container>
@@ -94,13 +116,23 @@ const Navbar = () => {
                     BNR <Small>CSGs Data</Small>
                 </Logo>
                 <Menu>
-                    <MenuItem>Home</MenuItem>
-                    <MenuItem>Map</MenuItem>
+                    <MenuItem>
+                        <StyledLink className="animate__animated" to="/">
+                            Home
+                        </StyledLink>
+                    </MenuItem>
+                    <MenuItem>
+                        <StyledLink className="animate__animated" to="/savings-group-map">
+                            Map
+                        </StyledLink>
+                    </MenuItem>
                     <MenuItem>Downloads</MenuItem>
                     <MenuItem>BNR</MenuItem>
                 </Menu>
             </Left>
             <Wrapper>
+                <AddUser src={addUser} />
+                <Button>Sign Up</Button>
                 <Profile src={profile} />
                 <Button>Sign In</Button>
             </Wrapper>
