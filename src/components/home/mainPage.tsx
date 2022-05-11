@@ -8,6 +8,7 @@ import rwandaProvinces from '../../assets/groupMap.png';
 import Feature from '../features/Features';
 import Methodology from '../features/methodology';
 import Fiddings from '../features/Fidings';
+import Footer from '../features/Footer';
 
 const Container = styled.div`
     height: calc(100vh - 85px);
@@ -92,6 +93,7 @@ export const MainPage = () => {
             <Feature />
             <Methodology />
             <Fiddings />
+            <Footer />
         </>
     );
 };
