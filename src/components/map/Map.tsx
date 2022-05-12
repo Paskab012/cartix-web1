@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import Navbar from '../header/Navigation';
+import MapNavbar from './MapHeader';
 
 const Container = styled.div`
     margin: 0;
@@ -10,7 +10,7 @@ const Container = styled.div`
 function Map() {
     return (
         <>
-            <Navbar />
+            <MapNavbar />
             <Container>Here is where will go my map components</Container>
         </>
     );
