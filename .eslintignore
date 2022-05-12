@@ -1,0 +1,17 @@
+/src/serviceWorker.js
+node_modules/
+/build/**
+/src/**/*.css
+/src/**/*.scss
+/src/**/*.test.js
+/src/__tests__
+src/react-app-env.d.ts
+src/reportWebVitals.ts
+// .eslintignore
+.idea
+.storybook
+.config
+node_modules/*
+config/*
+public/*
+scripts/*
