@@ -1,12 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
+import map from '../../../assets/mappage.png';
+import chart from '../../../assets/groups.png';
 
 const Container = styled.div`
     width: 96%;
     display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    background-color: white;
+    justify-content: space-between;
     height: 818px;
     border-radius: 3px;
     margin-left: 2%;
@@ -15,32 +15,37 @@ const Container = styled.div`
 `;
 
 const Left = styled.div`
-    background-color: gray;
-    width: 55%;
-    padding: 2%;
-    height: 100%;
+    background-color: white;
+    width: 68%;
+    height: 90%;
+    padding: 1rem;
+    border-radius: 5px;
 `;
 
 const CardMap = styled.img`
     width: 100%
-    object-fit: cover;
+    object-fit: contain;
+    height: 100%;
+    mix-blend-mode: luminosity;
 `;
 
 const Right = styled.div`
-    width: 45%;
+    width: 30%;
+    height: 100vh;
 `;
 
 const Diagrams = styled.img`
     width: 100%;
+    height: 70%;
 `;
 export const Rwanda = () => {
     return (
         <Container>
             <Left>
-                <CardMap></CardMap>
+                <CardMap src={map} />
             </Left>
             <Right>
-                <Diagrams />
+                <Diagrams src={chart} />
             </Right>
         </Container>
     );
