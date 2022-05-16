@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import map from '../../../assets/mappage.png';
 import chart from '../../../assets/groups.png';
+import InteractiveCart from './interactive.cart';
 
 const Container = styled.div`
     width: 96%;
@@ -20,6 +21,7 @@ const Left = styled.div`
     height: 90%;
     padding: 1rem;
     border-radius: 5px;
+    position: relative;
 `;
 
 const CardMap = styled.img`
@@ -43,10 +45,12 @@ export const Rwanda = () => {
         <Container>
             <Left>
                 <CardMap src={map} />
+                <InteractiveCart />
             </Left>
             <Right>
                 <Diagrams src={chart} />
             </Right>
+
         </Container>
     );
 };
