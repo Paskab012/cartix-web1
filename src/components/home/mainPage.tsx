@@ -75,7 +75,6 @@ export const MainPage = () => {
             <Nav />
             <Container>
                 <AnimatedBack />
-
                 <Left>
                     <Title>Welcome to the Savings Groups Map</Title>
                     <Paragraphe>
