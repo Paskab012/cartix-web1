@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import picture from '../../assets/bnr.svg';
 import profile from '../../assets/Profile.png';
 import { Link } from 'react-router-dom';
-import CountryDropDown from './CountryDropDown';
 
 const Container = styled.div`
     height: 85px;
@@ -99,7 +98,7 @@ const StyledLink = styled(Link)`
     }
 `;
 
-const MapNavbar = () => {
+const DataNavbar = () => {
     return (
         <Container>
             <Left>
@@ -126,9 +125,6 @@ const MapNavbar = () => {
                 </Menu>
             </Left>
             <Wrapper>
-                <Button>
-                    <CountryDropDown />
-                </Button>
                 <Profile src={profile} />
                 <Button>Mugisha Roger</Button>
             </Wrapper>
@@ -136,4 +132,4 @@ const MapNavbar = () => {
     );
 };
 
-export default MapNavbar;
+export default DataNavbar;
