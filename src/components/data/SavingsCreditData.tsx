@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import DataNav from './DataNavbar';
-import SavingsCreditgroupsdata from './ConsentForm';
-import SavingGroupsTable from '../data/tables/ConsentFormTable';
+import SavingsCreditgroupsdata from './Savings&Creditgroupsdata';
+import SavingGroupsTable from '../data/tables/SavingGroupsTable';
 
 const Container = styled.section`
     background-color: #f2f2f2;

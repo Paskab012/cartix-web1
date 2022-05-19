@@ -1,7 +1,7 @@
 /* eslint-disable array-callback-return */
 import React, { useMemo } from 'react';
 import { useTable } from 'react-table';
-import DATA from './SCGs_DATA.json';
+import DATA from './CONSENT_MOCK.json';
 import { COLUMNS } from './columns';
 import './table.css';
 

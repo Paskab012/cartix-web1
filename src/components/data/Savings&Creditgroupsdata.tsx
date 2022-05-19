@@ -39,6 +39,16 @@ const SavingsButton = styled.button`
     font-weight: normal;
     padding: 12px 20px;
     border-radius: 5px;
+    transition: 0.3s all ease-in-out;
+    cursor: pointer;
+
+    &:hover {
+        border: 1px solid white;
+        transition: 0.2s all ease-in-out;
+        background-color: #dba628;
+        font-weight: bold;
+        color: black;
+    }
 `;
 
 const StyledLink = styled(Link)`
@@ -72,6 +82,12 @@ const Hdr = styled.div`
     display: flex;
 `;
 
+const StylelinkUpload = styled(Link)`
+    color: rgba(0, 0, 0, 0.5);
+    text-decoration: none;
+    font-size: 15px;
+`;
+
 const SavingsCreditgroupsdata = () => {
     return (
         <>
@@ -89,9 +105,10 @@ const SavingsCreditgroupsdata = () => {
                             </StyledLink>
                         </Item>
                     </Hdr>
-
                     <Btn>
-                        <SavingsButton>Upload data</SavingsButton>
+                        <StylelinkUpload className="animate__animated" to="/UploadData">
+                            <SavingsButton>Upload data</SavingsButton>
+                        </StylelinkUpload>
                     </Btn>
                 </Header>
             </Container>
