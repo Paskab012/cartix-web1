@@ -132,9 +132,13 @@ const Navbar = () => {
             </Left>
             <Wrapper>
                 <AddUser src={addUser} />
-                <Button>Sign Up</Button>
+                <StyledLink className="animate__animated" to="/signup">
+                    <Button>Sign Up</Button>
+                </StyledLink>
                 <Profile src={profile} />
-                <Button>Sign In</Button>
+                <StyledLink className="animate__animated" to="/login">
+                    <Button>Sign In</Button>
+                </StyledLink>
             </Wrapper>
         </Container>
     );

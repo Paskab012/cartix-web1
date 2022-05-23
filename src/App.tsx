@@ -6,8 +6,11 @@ import Map from './components/map/Map';
 import SavingsGroupsdata from './components/data/SavingsCreditData';
 import ConsentFormData from './components/data/Data';
 import XlsxUpload from './components/data/UploadData';
+import SignUp from './components/authentication/signup/SignUp';
+import Login from './components/authentication/Login';
+import ResetPassword from './components/authentication/ResetPassword';
 
-function App() {
+const App: React.FC = () => {
     return (
         <Router>
             <Routes>
@@ -17,9 +20,12 @@ function App() {
                 <Route path="/SavingData" element={<SavingsGroupsdata />}></Route>
                 <Route path="/ConsentForm" element={<ConsentFormData />}></Route>
                 <Route path="/UploadData" element={<XlsxUpload />}></Route>
+                <Route path="/signup" element={<SignUp />}></Route>
+                <Route path="/login" element={<Login />}></Route>
+                <Route path="/reset-password" element={<ResetPassword />}></Route>
             </Routes>
         </Router>
     );
-}
+};
 
 export default App;
