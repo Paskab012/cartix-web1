@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-// import './formInput.css';
 
 const Label = styled.label`
     font-size: 14px;

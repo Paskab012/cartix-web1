@@ -4,10 +4,11 @@ import picture from '../../../assets/bnr.svg';
 import { media } from '../../../mediaQueries/projectBreakPoints';
 import { FormInput } from './FormInput';
 import { Link } from 'react-router-dom';
+
 const Container = styled.div`
     width: 28%;
     background-color: white;
-    height: 850px;
+    height: 400px !important;
     border-radius: 5px;
     color: black;
     display: flex;
@@ -110,7 +111,7 @@ const ButtonContainer = styled.div`
 `;
 
 const Button = styled.button`
-    width: 70%;
+    width: 100%;
     background-color: #3981ed;
     color: white;
     border-radius: 5px;
@@ -124,9 +125,8 @@ const Login = styled.p`
     text-decoration-line: underline;
     cursor: pointer;
 `;
-
 const StyledLink = styled(Link)`
-    color: black;
+    width: 32%;
     text-decoration: none;
     font-size: 15px;
     transition: 0.2s all ease-in-out;
@@ -138,7 +138,8 @@ const StyledLink = styled(Link)`
     &:hover {
         transition: 0.2s all ease-in-out;
         color: #753918;
-        font-weight: 600;
+        font-weight: normal;
+        color: red;
     }
 `;
 const Input = () => {
@@ -152,35 +153,6 @@ const Input = () => {
     });
 
     const Inputs = [
-        {
-            id: 1,
-            name: 'ngoName',
-            type: 'text',
-            placeholder: 'select your NGO name',
-            errorMessage: 'Please select your NGO',
-            label: 'NGO name',
-            required: true,
-        },
-        {
-            id: 2,
-            name: 'fullName',
-            type: 'text',
-            placeholder: 'input name',
-            errorMessage:
-                'Your names should be 5-25 characters and should not include any special character',
-            label: 'Full names',
-            pattern: '^[A-Za-z0-9]{5,25}$',
-            required: true,
-        },
-        {
-            id: 3,
-            name: 'position',
-            type: 'text',
-            placeholder: 'input position',
-            errorMessage: 'Please enter your actual position',
-            label: 'Position',
-            required: true,
-        },
         {
             id: 4,
             name: 'email',
@@ -199,16 +171,6 @@ const Input = () => {
                 'Please enter a 8-20 characters and it should inlude at least 1 letter, 1 number and 1 special character!',
             label: 'Set password',
             pattern: '^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$',
-            required: true,
-        },
-        {
-            id: 6,
-            name: 'confirmPassword',
-            type: 'password',
-            placeholder: 'confirm password',
-            errorMessage: 'Password do not match! Please re-write your created password',
-            label: 'Confirm password',
-            pattern: values.password,
             required: true,
         },
     ];
@@ -233,7 +195,7 @@ const Input = () => {
                 </Header>
             </Content>
             <FormContainer>
-                <Title>NGO Sign Up</Title>
+                <Title>Admin login</Title>
                 <MyForm onSubmit={handleSubmit}>
                     {Inputs.map((input) => (
                         <FormInput
@@ -244,9 +206,11 @@ const Input = () => {
                         />
                     ))}
                     <ButtonContainer>
-                        <Button>Submit sign up request</Button>
-                        <StyledLink to="/login">
-                            <Login>Login</Login>
+                        <StyledLink to="/savings-group-map">
+                            <Button>Log in</Button>
+                        </StyledLink>
+                        <StyledLink to="/reset-password">
+                            <Login>Reset password</Login>
                         </StyledLink>
                     </ButtonContainer>
                 </MyForm>

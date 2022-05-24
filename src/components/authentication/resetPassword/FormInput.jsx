@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-// import './formInput.css';
 
 const Label = styled.label`
     font-size: 14px;
@@ -20,9 +19,10 @@ const ErrorMessage = styled.span`
     border-radius: 2px;
     font-weight: semi-bold;
     display: none;
-    position: absolute;
     background-color: red;
     width: 100%;
+    padding: 4px;
+    margin: 4px;
 `;
 
 const InputField = styled.input`

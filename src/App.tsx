@@ -7,8 +7,8 @@ import SavingsGroupsdata from './components/data/SavingsCreditData';
 import ConsentFormData from './components/data/Data';
 import XlsxUpload from './components/data/UploadData';
 import SignUp from './components/authentication/signup/SignUp';
-import Login from './components/authentication/Login';
-import ResetPassword from './components/authentication/ResetPassword';
+import Login from './components/authentication/singin/Login';
+import ResetPassword from './components/authentication/resetPassword/ResetPassword';
 
 const App: React.FC = () => {
     return (
