@@ -9,6 +9,8 @@ import XlsxUpload from './components/data/UploadData';
 import SignUp from './components/authentication/signup/SignUp';
 import Login from './components/authentication/singin/Login';
 import ResetPassword from './components/authentication/resetPassword/ResetPassword';
+import Activate from './components/authentication/resetPassword/Activate';
+import ConfirmResetPass from './components/authentication/resetPassword/ConfirmResetPass';
 
 const App: React.FC = () => {
     return (
@@ -23,6 +25,11 @@ const App: React.FC = () => {
                 <Route path="/signup" element={<SignUp />}></Route>
                 <Route path="/login" element={<Login />}></Route>
                 <Route path="/reset-password" element={<ResetPassword />}></Route>
+                <Route
+                    path="/password/reset/confirm/:uid/:token"
+                    element={<ConfirmResetPass />}
+                ></Route>
+                <Route path="/activte/:uid/:token" element={<Activate />}></Route>
             </Routes>
         </Router>
     );
