@@ -196,7 +196,7 @@ const Input = () => {
             </Content>
             <FormContainer>
                 <Title>Admin login</Title>
-                <MyForm onSubmit={handleSubmit}>
+                <MyForm>
                     {Inputs.map((input) => (
                         <FormInput
                             key={input.id}
