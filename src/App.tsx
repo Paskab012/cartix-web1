@@ -12,12 +12,9 @@ import ResetPassword from './components/authentication/resetPassword/ResetPasswo
 import Activate from './components/authentication/resetPassword/Activate';
 import ConfirmResetPass from './components/authentication/resetPassword/ConfirmResetPass';
 
-import { Provider } from 'react-redux';
-import store from './redux/store';
 
 const App: React.FC = () => {
     return (
-        <Provider store={store}>
             <Router>
                 <Routes>
                     <Route path="/" element={<MainPage />}></Route>
@@ -36,7 +33,6 @@ const App: React.FC = () => {
                     <Route path="/activte/:uid/:token" element={<Activate />}></Route>
                 </Routes>
             </Router>
-        </Provider>
     );
 };
 
