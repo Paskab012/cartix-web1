@@ -12,26 +12,31 @@ import ResetPassword from './components/authentication/resetPassword/ResetPasswo
 import Activate from './components/authentication/resetPassword/Activate';
 import ConfirmResetPass from './components/authentication/resetPassword/ConfirmResetPass';
 
+import { Provider } from 'react-redux';
+import store from './redux/store';
+
 const App: React.FC = () => {
     return (
-        <Router>
-            <Routes>
-                <Route path="/" element={<MainPage />}></Route>
-                <Route path="/savings-group-map" element={<Map />}></Route>
-                <Route path="/savings-group-map/data" element={<Data />}></Route>
-                <Route path="/SavingData" element={<SavingsGroupsdata />}></Route>
-                <Route path="/ConsentForm" element={<ConsentFormData />}></Route>
-                <Route path="/UploadData" element={<XlsxUpload />}></Route>
-                <Route path="/signup" element={<SignUp />}></Route>
-                <Route path="/login" element={<Login />}></Route>
-                <Route path="/reset-password" element={<ResetPassword />}></Route>
-                <Route
-                    path="/password/reset/confirm/:uid/:token"
-                    element={<ConfirmResetPass />}
-                ></Route>
-                <Route path="/activte/:uid/:token" element={<Activate />}></Route>
-            </Routes>
-        </Router>
+        <Provider store={store}>
+            <Router>
+                <Routes>
+                    <Route path="/" element={<MainPage />}></Route>
+                    <Route path="/savings-group-map" element={<Map />}></Route>
+                    <Route path="/savings-group-map/data" element={<Data />}></Route>
+                    <Route path="/SavingData" element={<SavingsGroupsdata />}></Route>
+                    <Route path="/ConsentForm" element={<ConsentFormData />}></Route>
+                    <Route path="/UploadData" element={<XlsxUpload />}></Route>
+                    <Route path="/signup" element={<SignUp />}></Route>
+                    <Route path="/login" element={<Login />}></Route>
+                    <Route path="/reset-password" element={<ResetPassword />}></Route>
+                    <Route
+                        path="/password/reset/confirm/:uid/:token"
+                        element={<ConfirmResetPass />}
+                    ></Route>
+                    <Route path="/activte/:uid/:token" element={<Activate />}></Route>
+                </Routes>
+            </Router>
+        </Provider>
     );
 };
 

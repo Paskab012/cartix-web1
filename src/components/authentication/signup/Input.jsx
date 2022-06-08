@@ -99,6 +99,7 @@ const FormContainer = styled.div`
 
 const MyForm = styled.form`
     width: 100%;
+    background-color: chocolate;
 `;
 
 const ButtonContainer = styled.div`
@@ -240,7 +241,7 @@ const Input = () => {
                             key={input.id}
                             {...input}
                             value={values[input.name]}
-                            onChange={onChange}
+                            onChange={(e) => onChange(e)}
                         />
                     ))}
                     <ButtonContainer>

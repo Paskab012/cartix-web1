@@ -3,7 +3,8 @@ import styled from 'styled-components';
 import picture from '../../../assets/bnr.svg';
 import { media } from '../../../mediaQueries/projectBreakPoints';
 import { FormInput } from './FormInput';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 const Container = styled.div`
     width: 28%;
@@ -100,6 +101,7 @@ const FormContainer = styled.div`
 
 const MyForm = styled.form`
     width: 100%;
+    background-color: aqua;
 `;
 
 const ButtonContainer = styled.div`
@@ -144,17 +146,15 @@ const StyledLink = styled(Link)`
 `;
 const Input = () => {
     const [values, setValues] = useState({
-        ngoName: '',
-        fullNames: '',
-        position: '',
         email: '',
         password: '',
-        confirmPassword: '',
     });
+
+    const { email, password } = values;
 
     const Inputs = [
         {
-            id: 4,
+            id: 1,
             name: 'email',
             type: 'email',
             placeholder: 'input email',
@@ -163,7 +163,7 @@ const Input = () => {
             required: true,
         },
         {
-            id: 5,
+            id: 2,
             name: 'password',
             type: 'password',
             placeholder: 'password',
@@ -175,15 +175,19 @@ const Input = () => {
         },
     ];
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-    };
-
     const onChange = (e) => {
         setValues({ ...values, [e.target.name]: e.target.value });
     };
 
-    console.log(values);
+    const onSubmit = (e) => {
+        e.preventDefault();
+
+        // login(email, password)
+    };
+
+    // Is the user authenticated?
+    // Navigate them to the home page
+
     return (
         <Container>
             <Content>
@@ -196,18 +200,18 @@ const Input = () => {
             </Content>
             <FormContainer>
                 <Title>Admin login</Title>
-                <MyForm>
+                <MyForm onSubmit={(e) => onSubmit(e)}>
                     {Inputs.map((input) => (
                         <FormInput
                             key={input.id}
                             {...input}
                             value={values[input.name]}
-                            onChange={onChange}
+                            onChange={(e) => onChange(e)}
                         />
                     ))}
                     <ButtonContainer>
-                        <StyledLink to="/savings-group-map">
-                            <Button>Log in</Button>
+                        <StyledLink to="">
+                            <Button type="submit">Log in</Button>
                         </StyledLink>
                         <StyledLink to="/reset-password">
                             <Login>Reset password</Login>
@@ -218,4 +222,9 @@ const Input = () => {
         </Container>
     );
 };
+
+// const mapStateToProps = (state) => ({
+// is authenticated?
+// });
+
 export default Input;
