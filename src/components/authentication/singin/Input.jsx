@@ -5,6 +5,7 @@ import { media } from '../../../mediaQueries/projectBreakPoints';
 import { FormInput } from './FormInput';
 import { Link, Navigate } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { login } from '../../../redux/actions/auth';
 
 const Container = styled.div`
     width: 28%;
@@ -120,7 +121,7 @@ const Button = styled.button`
     padding: 12px 20px;
 `;
 
-const Login = styled.p`
+const Paragraph = styled.p`
     font-size: 14px;
     line-height: 17px;
     color: #3981ed;
@@ -144,7 +145,7 @@ const StyledLink = styled(Link)`
         color: red;
     }
 `;
-const Input = () => {
+const Input = ({ login }) => {
     const [values, setValues] = useState({
         email: '',
         password: '',
@@ -182,7 +183,7 @@ const Input = () => {
     const onSubmit = (e) => {
         e.preventDefault();
 
-        // login(email, password)
+        login(email, password);
     };
 
     // Is the user authenticated?
@@ -214,7 +215,7 @@ const Input = () => {
                             <Button type="submit">Log in</Button>
                         </StyledLink>
                         <StyledLink to="/reset-password">
-                            <Login>Reset password</Login>
+                            <Paragraph>Reset password</Paragraph>
                         </StyledLink>
                     </ButtonContainer>
                 </MyForm>
@@ -227,4 +228,4 @@ const Input = () => {
 // is authenticated?
 // });
 
-export default Input;
+export default connect(null, { login })(Input);
