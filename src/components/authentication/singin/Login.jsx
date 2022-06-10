@@ -31,7 +31,7 @@ const Logo = styled.img`
     `};
 `;
 
-const SignUp = () => {
+const Login = () => {
     return (
         <Background>
             <Logo src={image} />
@@ -40,4 +40,4 @@ const SignUp = () => {
     );
 };
 
-export default SignUp;
+export default Login;

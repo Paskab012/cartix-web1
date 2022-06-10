@@ -6,6 +6,7 @@ import { FormInput } from './FormInput';
 import { Link, Navigate } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { login } from '../../../redux/actions/auth';
+import { useDispatch } from 'react-redux';
 
 const Container = styled.div`
     width: 28%;
@@ -146,6 +147,7 @@ const StyledLink = styled(Link)`
     }
 `;
 const Input = ({ login }) => {
+    const dispatch = useDispatch();
     const [values, setValues] = useState({
         email: '',
         password: '',
@@ -170,7 +172,7 @@ const Input = ({ login }) => {
             placeholder: 'password',
             errorMessage:
                 'Please enter a 8-20 characters and it should inlude at least 1 letter, 1 number and 1 special character!',
-            label: 'Set password',
+            label: 'Input password',
             pattern: '^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$',
             required: true,
         },
@@ -182,7 +184,7 @@ const Input = ({ login }) => {
 
     const onSubmit = (e) => {
         e.preventDefault();
-        login(email, password);
+        login(email, password)(dispatch);
     };
 
     // Is the user authenticated?
