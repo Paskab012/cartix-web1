@@ -11,11 +11,12 @@ import Login from './components/authentication/singin/Login';
 import ResetPassword from './components/authentication/resetPassword/ResetPassword';
 import Activate from './components/authentication/resetPassword/Activate';
 import ConfirmResetPass from './components/authentication/resetPassword/ConfirmResetPass';
-
+import Layout from './components/helpers/Layout';
 
 const App: React.FC = () => {
     return (
-            <Router>
+        <Router>
+            <Layout>
                 <Routes>
                     <Route path="/" element={<MainPage />}></Route>
                     <Route path="/savings-group-map" element={<Map />}></Route>
@@ -32,7 +33,8 @@ const App: React.FC = () => {
                     ></Route>
                     <Route path="/activte/:uid/:token" element={<Activate />}></Route>
                 </Routes>
-            </Router>
+            </Layout>
+        </Router>
     );
 };
 

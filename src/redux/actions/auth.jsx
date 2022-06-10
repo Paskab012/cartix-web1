@@ -5,7 +5,7 @@ export const load_user = () => async (dispatch) => {
     if (localStorage.getItem('access')) {
         const config = {
             headers: {
-                'Content-Type': 'Application/json',
+                'Content-Type': 'application/json',
                 Authorization: `JWT ${localStorage.getItem('access')}`,
                 Accept: 'application/json',
             },
@@ -32,7 +32,7 @@ export const load_user = () => async (dispatch) => {
 export const login = (email, password) => async (dispatch) => {
     const config = {
         headers: {
-            'Content-Type': 'Application/json',
+            'Content-Type': 'application/json',
         },
     };
 
@@ -40,7 +40,7 @@ export const login = (email, password) => async (dispatch) => {
 
     try {
         const res = await axios.post(
-            `${process.env.AUTH_BNR_API_URL}/auth/jwt/create/ `,
+            `${process.env.AUTH_BNR_API_URL}/api/auth/otp-code/ `,
             body,
             config,
         );

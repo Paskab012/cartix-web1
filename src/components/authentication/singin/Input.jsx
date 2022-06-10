@@ -182,7 +182,6 @@ const Input = ({ login }) => {
 
     const onSubmit = (e) => {
         e.preventDefault();
-
         login(email, password);
     };
 
