@@ -1,11 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
+import DataNavbar from '../data/DataNavbar';
+import { connect } from 'react-redux';
+import { checkAuthenticated, load_user } from '../../redux/actions/auth';
 
 const Container = styled.div`
     width: 100%;
 `;
 function Layout(props) {
-    return <Container>{props.children}</Container>;
+    useEffect(() => {}, []);
+
+    return (
+        <>
+            {/* <DataNavbar /> */}
+            <Container>{props.children}</Container>;
+        </>
+    );
 }
 
-export default Layout;
+export default connect(null, { checkAuthenticated, load_user })(Layout);

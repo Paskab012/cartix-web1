@@ -11,7 +11,7 @@ import { useDispatch } from 'react-redux';
 const Container = styled.div`
     width: 28%;
     background-color: white;
-    height: 400px !important;
+    height: 50% !important;
     border-radius: 5px;
     color: black;
     display: flex;
@@ -103,7 +103,7 @@ const FormContainer = styled.div`
 
 const MyForm = styled.form`
     width: 100%;
-    background-color: aqua;
+    /* background-color: aqua; */
 `;
 
 const ButtonContainer = styled.div`

@@ -4,14 +4,15 @@ import picture from '../../../assets/bnr.svg';
 import { media } from '../../../mediaQueries/projectBreakPoints';
 import { FormInput } from './FormInput';
 import { Link } from 'react-router-dom';
+
 const Container = styled.div`
     width: 28%;
     background-color: white;
-    height: 850px;
+    height: 80% !important;
     border-radius: 5px;
     color: black;
     display: flex;
-    flex-direction: column;
+    justify-content: center;
 
     ${media.md`
       height: 650px;
@@ -92,14 +93,14 @@ const Title = styled.h1`
 const FormContainer = styled.div`
     width: 88%;
     height: 100%;
-    margin: 6%;
+    margin: 4%;
     display: flex;
     flex-direction: column;
 `;
 
 const MyForm = styled.form`
     width: 100%;
-    background-color: chocolate;
+    /* background-color: chocolate; */
 `;
 
 const ButtonContainer = styled.div`

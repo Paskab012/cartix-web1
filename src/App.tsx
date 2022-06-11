@@ -5,7 +5,7 @@ import MainPage from './components/home/mainPage';
 import Map from './components/map/Map';
 import SavingsGroupsdata from './components/data/SavingsCreditData';
 import ConsentFormData from './components/data/Data';
-import XlsxUpload from './components/data/UploadData';
+import XlsxUpload from './components/uploadFiles/UploadData';
 import SignUp from './components/authentication/signup/SignUp';
 import Login from './components/authentication/singin/Login';
 import ResetPassword from './components/authentication/resetPassword/ResetPassword';
