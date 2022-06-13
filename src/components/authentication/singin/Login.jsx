@@ -1,8 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux';
+
 import image from '../../../assets/signup.svg';
 import { media } from '../../../mediaQueries/projectBreakPoints';
+import { login, loginOtp } from '../../../redux/actions/auth';
 import Input from './Input';
+
 
 const Background = styled.div`
     min-width: 100%;
@@ -32,10 +36,26 @@ const Logo = styled.img`
 `;
 
 const Login = () => {
+    const dispatch = useDispatch();
+    const auth = useSelector((state) => state.auth);
+    const handleLogin = () => {
+        const email = 'makutanolucien@gmail.com';
+        const password = '&hg57AS45Ap';
+        // console.log('CallLogin action');
+        login(email, password)(dispatch);
+    };
+
+    const handleLoginOtp = () => {
+        const token = auth.token
+        const code = "agdajsdeyu23"
+        // console.log('CallLogin action');
+        loginOtp(token, code)(dispatch);
+    };
+    console.log(auth);
     return (
         <Background>
             <Logo src={image} />
-            <Input />
+            <Input handleLogin={handleLogin} />
         </Background>
     );
 };

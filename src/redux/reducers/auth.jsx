@@ -10,10 +10,10 @@ import {
 } from '../actions/types';
 
 const initialState = {
-    access: localStorage.getItem('access'),
-    refresh: localStorage.getItem('refresh'),
+    // access: localStorage.getItem('access'),
+    // refresh: localStorage.getItem('refresh'),
     isAuthenticated: null,
-    user: null,
+    data: null,
 };
 
 export default function (state = initialState, action) {
@@ -30,8 +30,9 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 isAuthenticated: true,
-                access: payload.access,
-                refresh: payload.refresh,
+                // access: payload.access,
+                // refresh: payload.refresh,
+                data: payload,
             };
         case USER_LOADED_SUCCESS:
             return {

@@ -146,7 +146,7 @@ const StyledLink = styled(Link)`
         color: red;
     }
 `;
-const Input = ({ login }) => {
+const Input = ({ login, handleLogin }) => {
     const dispatch = useDispatch();
     const [values, setValues] = useState({
         email: '',
@@ -177,6 +177,9 @@ const Input = ({ login }) => {
             required: true,
         },
     ];
+
+    // console.log(login);
+    console.log(values);
 
     const onChange = (e) => {
         setValues({ ...values, [e.target.name]: e.target.value });
@@ -213,7 +216,9 @@ const Input = ({ login }) => {
                     ))}
                     <ButtonContainer>
                         <StyledLink to="">
-                            <Button type="submit">Log in</Button>
+                            <Button onClick={handleLogin} type="submit">
+                                Log in
+                            </Button>
                         </StyledLink>
                         <StyledLink to="/reset-password">
                             <Paragraph>Reset password</Paragraph>
