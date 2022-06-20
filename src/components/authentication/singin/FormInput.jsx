@@ -68,7 +68,7 @@ export const FormInput = (props) => {
                     onFocus={() => inputProps.name === 'confirmPassword' && setFocused(true)}
                     focused={focused.toString()}
                 />
-                <ErrorMessage className="span">{errorMessage}</ErrorMessage>
+                {/* <ErrorMessage className="span">{errorMessage}</ErrorMessage> */}
             </Form>
         </>
     );

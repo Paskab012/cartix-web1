@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+
 import Data from './components/data/Data';
 import MainPage from './components/home/mainPage';
 import Map from './components/map/Map';
@@ -12,6 +13,7 @@ import ResetPassword from './components/authentication/resetPassword/ResetPasswo
 import Activate from './components/authentication/resetPassword/Activate';
 import ConfirmResetPass from './components/authentication/resetPassword/ConfirmResetPass';
 import Layout from './components/helpers/Layout';
+import LoginOTP from './components/authentication/singin/loginOtp';
 
 const App: React.FC = () => {
     return (
@@ -31,7 +33,7 @@ const App: React.FC = () => {
                         path="/password/reset/confirm/:uid/:token"
                         element={<ConfirmResetPass />}
                     ></Route>
-                    <Route path="/activte/:uid/:token" element={<Activate />}></Route>
+                    <Route path="/activte/:uid/:token" element={<LoginOTP />}></Route>
                 </Routes>
             </Layout>
         </Router>
