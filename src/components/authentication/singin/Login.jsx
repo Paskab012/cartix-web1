@@ -180,7 +180,6 @@ const StyledLink = styled(Link)`
 const Login = ({ login, isAuthenticated }) => {
     const dispatch = useDispatch();
     const auth = useSelector((state) => state.auth);
-
     const [formData, setFormData] = useState({
         email: '',
         password: '',
@@ -192,11 +191,11 @@ const Login = ({ login, isAuthenticated }) => {
 
     const { email, password } = formData;
 
+
     const handleLogin = (e) => {
         e.preventDefault();
         // const email = 'makutanolucien@gmail.com';
         // const password = '&hg57AS45Ap';
-        // console.log('CallLogin action');
         login(email, password)(dispatch);
     };
 
