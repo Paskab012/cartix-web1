@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import image from '../../../assets/signup.svg';
 import { media } from '../../../mediaQueries/projectBreakPoints';
-import { useDispatch, useSelector } from 'react-redux';
+import { connect } from 'react-redux';
+import {signup } from '../../../redux/actions/auth';
 
 import picture from '../../../assets/bnr.svg';
 import { Link, Navigate } from 'react-router-dom';
@@ -250,36 +251,47 @@ const InputOption = styled.option`
     border: solid 1px red;
 `;
 
-const SignUp = () => {
+const SignUp = ({singup, isAuthenticated}) => {
     const [focused, setFocused] = useState(false);
-    const [values, setValues] = useState({
+    const [userSingup, setUserSingup] = useState(false);
+    const [formValues, setFormValues] = useState({
         ngoName: '',
         ngoType: '',
-        fullNames: '',
+        fullName: '',
         position: '',
         email: '',
         password: '',
         confirmPassword: '',
     });
 
-    const handleSignup = (e) => {
-        e.preventDefault();
-        // login(email, password)(dispatch);
-    };
+    const { ngoName, ngoType, fullName, position, email, password, confirmPassword } = formValues
 
     const handleSubmit = (e) => {
         e.preventDefault();
+
+        if (password === confirmPassword) {
+            signup(ngoName, ngoType, fullName, position, email, password, confirmPassword);
+            setUserSingup(true);
+        }
     };
 
     const onChange = (e) => {
-        setValues({ ...values, [e.target.name]: e.target.value });
+        setFormValues({ ...formValues, [e.target.name]: e.target.value });
     };
 
-    console.log(values);
+    if (isAuthenticated) {
+        return <Navigate to='/' />
+    }
+    if (userSingup) {
+        return <Navigate to='/login' />
+    }
+
+    console.log(formValues);
 
     const handleFocus = (e) => {
         setFocused(true);
     };
+
     return (
         <Background>
             <Logo src={image} />
@@ -422,7 +434,7 @@ const SignUp = () => {
                             {/* <ErrorMessage className="span">{errorMessage}</ErrorMessage> */}
                         </Form>
                         <ButtonContainer>
-                            <Button type="submit" onClick={handleSignup}>
+                            <Button type="submit" onClick={handleSubmit}>
                                 Submit sign up request
                             </Button>
                             <StyledLink to="/login">
