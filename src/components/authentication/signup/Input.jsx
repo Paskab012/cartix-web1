@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux';
+
+
 import picture from '../../../assets/bnr.svg';
 import { media } from '../../../mediaQueries/projectBreakPoints';
 import { FormInput } from './FormInput';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 
 const Container = styled.div`
     width: 28%;
@@ -215,6 +218,11 @@ const Input = () => {
         },
     ];
 
+    const handleSignup = (e) => {
+        e.preventDefault();
+        // login(email, password)(dispatch);
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
     };
@@ -246,7 +254,7 @@ const Input = () => {
                         />
                     ))}
                     <ButtonContainer>
-                        <Button>Submit sign up request</Button>
+                        <Button type='submit' onClick={handleSignup}>Submit sign up request</Button>
                         <StyledLink to="/login">
                             <Login>Login</Login>
                         </StyledLink>

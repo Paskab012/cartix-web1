@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import DataNavbar from '../data/DataNavbar';
 import { connect } from 'react-redux';
 import { checkAuthenticated, load_user } from '../../redux/actions/auth';
 
@@ -8,7 +7,10 @@ const Container = styled.div`
     width: 100%;
 `;
 function Layout(props) {
-    useEffect(() => {}, []);
+    useEffect(() => {
+        props.checkAuthenticated();
+        props.load_user();
+    }, []);
 
     return (
         <>

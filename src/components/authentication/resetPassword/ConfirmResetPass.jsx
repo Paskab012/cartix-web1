@@ -8,7 +8,7 @@ import { media } from '../../../mediaQueries/projectBreakPoints';
 import picture from '../../../assets/bnr.svg';
 import { FormInput } from './FormInput';
 import { Link, Navigate } from 'react-router-dom';
-import { reset_password } from '../../../redux/actions/auth';
+import { reset_password_confirm } from '../../../redux/actions/auth';
 
 const Background = styled.div`
     min-width: 100%;
@@ -174,30 +174,23 @@ const StyledLink = styled(Link)`
     }
 `;
 
-const ResetPassword = ({ reset_password }) => {
+const ConfirmResetPass = ({ match, reset_password_confirm }) => {
     const dispatch = useDispatch();
     const [requestSent, setRequestSent] = useState(false);
     const [values, setValues] = useState({
-        email: '',
+        new_password: '',
+        re_new_password: '',
     });
 
-    const Inputs = [
-        {
-            id: 1,
-            name: 'email',
-            type: 'email',
-            placeholder: 'input email',
-            errorMessage: 'Please enter a valid email adress to reset your password',
-            label: 'Email',
-            required: true,
-        },
-    ];
-
-    const { email } = values;
+    const { new_password, re_new_password } = values;
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        reset_password(email)(dispatch);
+
+        const uid = match.params.uid;
+        const token = match.params.token;
+
+        reset_password_confirm(uid, token, new_password, re_new_password)(dispatch);
         setRequestSent(true);
     };
 
@@ -208,6 +201,27 @@ const ResetPassword = ({ reset_password }) => {
     if (requestSent) {
         return <Navigate to="/" />;
     }
+
+    const Inputs = [
+        {
+            id: 1,
+            name: 'new_password',
+            type: 'password',
+            placeholder: 'Input new password',
+            errorMessage: 'enter a strong password',
+            label: 'Password',
+            required: true,
+        },
+        {
+            id: 2,
+            name: 're_new_password',
+            type: 'password',
+            placeholder: 'Confirm new password',
+            errorMessage: 'enter a strong password',
+            label: 'Confirm Password',
+            required: true,
+        },
+    ];
     return (
         <Background>
             <Logo src={image} />
@@ -221,7 +235,7 @@ const ResetPassword = ({ reset_password }) => {
                     </Header>
                 </Content>
                 <FormContainer>
-                    <Title>Reset your password!</Title>
+                    <Title>Confirm the reset password!</Title>
                     <MyForm onSubmit={handleSubmit}>
                         {Inputs.map((input) => (
                             <FormInput
@@ -232,7 +246,7 @@ const ResetPassword = ({ reset_password }) => {
                             />
                         ))}
                         <ButtonContainer>
-                            <Button onClick={handleSubmit}>Reset password</Button>
+                            <Button onClick={handleSubmit}>confirm password</Button>
                             <StyledLink to="/login">
                                 <Login>Back</Login>
                             </StyledLink>
@@ -244,4 +258,4 @@ const ResetPassword = ({ reset_password }) => {
     );
 };
 
-export default connect(null, { reset_password })(ResetPassword);
+export default connect(null, { reset_password_confirm })(ConfirmResetPass);

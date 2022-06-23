@@ -177,7 +177,7 @@ const StyledLink = styled(Link)`
     }
 `;
 
-const Login = () => {
+const Login = ({ login, isAuthenticated }) => {
     const dispatch = useDispatch();
     const auth = useSelector((state) => state.auth);
 
@@ -213,8 +213,10 @@ const Login = () => {
         // console.log('CallLogin action');
         loginOtp(token, code)(dispatch);
     };
-    console.log(auth);
 
+    if (isAuthenticated) {
+        return <Navigate to="/" />;
+    }
     const Inputs = [
         {
             id: 1,
@@ -277,4 +279,8 @@ const Login = () => {
     );
 };
 
-export default Login;
+const mapStateToProps = (state) => ({
+    isAuthenticated: state.auth.isAuthenticated,
+});
+
+export default connect(mapStateToProps, { login })(Login);

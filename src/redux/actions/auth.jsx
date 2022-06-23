@@ -6,6 +6,10 @@ import {
     USER_LOADED_FAIL,
     AUTHENTICATED_SUCCESS,
     AUTHENTICATED_FAIL,
+    PASSWORD_RESET_SUCCESS,
+    PASSWORD_RESET_FAIL,
+    PASSWORD_RESET_CONFIRM_SUCCESS,
+    PASSWORD_RESET_CONFIRM_FAIL,
     LOGOUT,
 } from './types';
 
@@ -21,11 +25,7 @@ export const checkAuthenticated = () => async (dispatch) => {
         const body = JSON.stringify({ token: localStorage.getItem('access') });
 
         try {
-            const res = await axios.post(
-                `${process.env.AUTH_BNR_API_URL}/api/auth/verify`,
-                body,
-                config,
-            );
+            const res = await axios.post(`http://localhost:8000/api/auth/verify`, body, config);
 
             if (res.data.code !== 'token_not_valid') {
                 dispatch({
@@ -125,6 +125,45 @@ export const loginOtp = (token, otp) => async (dispatch) => {
         });
     }
 };
+export const reset_password = (email) => async (dispatch) => {
+    const config = {
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    };
+
+    const body = JSON.stringify({ email });
+    try {
+        await axios.post(`http://localhost:8000/api/auth/reset-password/`, body, config);
+        dispatch({
+            type: PASSWORD_RESET_SUCCESS,
+        });
+    } catch (err) {
+        dispatch({
+            type: PASSWORD_RESET_FAIL,
+        });
+    }
+};
+
+export const reset_password_confirm =
+    (uid, token, new_password, re_new_password) => async (dispatch) => {
+        const config = {
+            headers: {
+                'Content-type': 'application/json',
+            },
+        };
+        const body = JSON.stringify({ uid, token, new_password, re_new_password });
+        try {
+            await axios.post(`http://localhost:8000/api/auth/reset-password-confirm/`, body, config);
+            dispatch({
+                type: PASSWORD_RESET_CONFIRM_SUCCESS,
+            });
+        } catch (err) {
+            dispatch({
+                type: PASSWORD_RESET_CONFIRM_FAIL,
+            });
+        }
+    };
 
 export const logout = () => (dispatch) => {
     dispatch({
