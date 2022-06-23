@@ -23,7 +23,7 @@ const Background = styled.div`
     position: absolute;
 `;
 
-const Logo = styled.img`
+const Logo = styled.img` 
     object-fit: cover;
     width: 100vw;
     max-height: 100vh;
