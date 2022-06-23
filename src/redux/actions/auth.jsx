@@ -91,7 +91,7 @@ export const login = (email, password) => async (dispatch) => {
     const body = JSON.stringify({ email, password });
 
     try {
-        const res = await axios.post(`http://localhost:8000/api/v1/auth/otp-code/`, body, config);
+        const res = await axios.post(`http://localhost:8000/api/auth/otp-code/`, body, config);
         dispatch({
             type: LOGIN_SUCCESS,
             payload: res.data,
@@ -115,11 +115,7 @@ export const signup =
         const body = JSON.stringify({ full_names, position, email, password, confirm_password });
 
         try {
-            const res = await axios.post(
-                `http://localhost:8000/api/v1/auth/register/`,
-                body,
-                config,
-            );
+            const res = await axios.post(`http://localhost:8000/api/auth/register/`, body, config);
             dispatch({
                 type: SIGNUP_SUCCESS,
                 payload: res.data,
@@ -129,7 +125,7 @@ export const signup =
                 type: SIGNUP_FAIL,
             });
         }
-    }; 
+    };
 
 export const loginOtp = (token, otp) => async (dispatch) => {
     const config = {
@@ -141,7 +137,7 @@ export const loginOtp = (token, otp) => async (dispatch) => {
     const body = JSON.stringify({ token, otp });
 
     try {
-        await axios.post(`http://localhost:8000/api/v1/auth/token/`, body, config);
+        await axios.post(`http://localhost:8000/api/auth/token/`, body, config);
         dispatch({
             type: ACTIVATE_SUCCESS,
         });
@@ -161,7 +157,7 @@ export const reset_password = (email) => async (dispatch) => {
 
     const body = JSON.stringify({ email });
     try {
-        await axios.post(`http://localhost:8000/api/v1/auth/reset-password/`, body, config);
+        await axios.post(`http://localhost:8000/api/auth/reset-password/`, body, config);
         dispatch({
             type: PASSWORD_RESET_SUCCESS,
         });
@@ -182,7 +178,7 @@ export const reset_password_confirm =
         const body = JSON.stringify({ uid, token, new_password, re_new_password });
         try {
             await axios.post(
-                `http://localhost:8000/api/v1/auth/reset-password-confirm/`,
+                `http://localhost:8000/api/auth/reset-password-confirm/`,
                 body,
                 config,
             );
