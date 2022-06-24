@@ -224,7 +224,7 @@ const Login = ({ login, isAuthenticated }) => {
             name: 'email',
             type: 'email',
             placeholder: 'input email',
-            errorMessage: 'Please enter a valid email adress',
+            errorMessage: 'Please enter a valid email address',
             label: 'Email',
             required: true,
         },
@@ -234,7 +234,7 @@ const Login = ({ login, isAuthenticated }) => {
             type: 'password',
             placeholder: 'password',
             errorMessage:
-                'Please enter a 8-20 characters and it should inlude at least 1 letter, 1 number and 1 special character!',
+                'Please enter a 8-20 characters and it should include at least 1 letter, 1 number and 1 special character!',
             label: 'Input password',
             pattern: '^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$',
             required: true,

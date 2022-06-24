@@ -1,4 +1,5 @@
-import axios from 'axios';
+import axios from '../../axios/axiosConfig';
+
 import {
     LOGIN_SUCCESS,
     LOGIN_FAIL,
@@ -19,17 +20,10 @@ import {
 
 export const checkAuthenticated = () => async (dispatch) => {
     if (localStorage.getItem('access')) {
-        const config = {
-            headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-            },
-        };
-
         const body = JSON.stringify({ token: localStorage.getItem('access') });
 
         try {
-            const res = await axios.post(`http://localhost:8000/api/auth/verify`, body, config);
+            const res = await axios.post(`auth/verify`, body);
 
             if (res.data.code !== 'token_not_valid') {
                 dispatch({
@@ -54,16 +48,8 @@ export const checkAuthenticated = () => async (dispatch) => {
 
 export const load_user = () => async (dispatch) => {
     if (localStorage.getItem('access')) {
-        const config = {
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: `JWT ${localStorage.getItem('access')}`,
-                Accept: 'application/json',
-            },
-        };
-
         try {
-            const res = await axios.get(`http://localhost:8000/auth/users/me/ `, config);
+            const res = await axios.get(`users/me/`);
 
             dispatch({
                 type: USER_LOADED_SUCCESS,
@@ -82,16 +68,10 @@ export const load_user = () => async (dispatch) => {
 };
 
 export const login = (email, password) => async (dispatch) => {
-    const config = {
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    };
-
     const body = JSON.stringify({ email, password });
 
     try {
-        const res = await axios.post(`http://localhost:8000/api/auth/otp-code/`, body, config);
+        const res = await axios.post(`auth/otp-code/`, body);
         dispatch({
             type: LOGIN_SUCCESS,
             payload: res.data,
@@ -106,16 +86,10 @@ export const login = (email, password) => async (dispatch) => {
 
 export const signup =
     (full_names, position, email, password, confirm_password) => async (dispatch) => {
-        const config = {
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        };
-
         const body = JSON.stringify({ full_names, position, email, password, confirm_password });
 
         try {
-            const res = await axios.post(`http://localhost:8000/api/v1/auth/register/`, body, config);
+            const res = await axios.post(`auth/register/`, body);
             dispatch({
                 type: SIGNUP_SUCCESS,
                 payload: res.data,
@@ -128,16 +102,10 @@ export const signup =
     };
 
 export const loginOtp = (token, otp) => async (dispatch) => {
-    const config = {
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    };
-
-    const body = JSON.stringify({ token, otp });
+    const body = JSON.stringify({ email: token, code: otp });
 
     try {
-        await axios.post(`http://localhost:8000/api/auth/token/`, body, config);
+        await axios.post(`auth/token/`, body);
         dispatch({
             type: ACTIVATE_SUCCESS,
         });
@@ -149,15 +117,9 @@ export const loginOtp = (token, otp) => async (dispatch) => {
 };
 
 export const reset_password = (email) => async (dispatch) => {
-    const config = {
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    };
-
     const body = JSON.stringify({ email });
     try {
-        await axios.post(`http://localhost:8000/api/auth/reset-password/`, body, config);
+        await axios.post(`auth/reset-password/`, body);
         dispatch({
             type: PASSWORD_RESET_SUCCESS,
         });
@@ -170,17 +132,11 @@ export const reset_password = (email) => async (dispatch) => {
 
 export const reset_password_confirm =
     (uid, token, new_password, re_new_password) => async (dispatch) => {
-        const config = {
-            headers: {
-                'Content-type': 'application/json',
-            },
-        };
         const body = JSON.stringify({ uid, token, new_password, re_new_password });
         try {
             await axios.post(
-                `http://localhost:8000/api/auth/reset-password-confirm/`,
+                `auth/reset-password-confirm/`,
                 body,
-                config,
             );
             dispatch({
                 type: PASSWORD_RESET_CONFIRM_SUCCESS,
