@@ -85,8 +85,11 @@ export const login = (email, password) => async (dispatch) => {
 };
 
 export const signup =
-    (full_names, position, email, password, confirm_password) => async (dispatch) => {
-        const body = JSON.stringify({ full_names, position, email, password, confirm_password });
+    (full_names, position, email, password, ngo) => async (dispatch) => {
+        const body = JSON.stringify({
+            email: email, password: password, profile: {
+                name: full_names, job_title: position, ngo: ngo
+            }});
 
         try {
             const res = await axios.post(`auth/register/`, body);
@@ -131,8 +134,8 @@ export const reset_password = (email) => async (dispatch) => {
 };
 
 export const reset_password_confirm =
-    (uid, token, new_password, re_new_password) => async (dispatch) => {
-        const body = JSON.stringify({ uid, token, new_password, re_new_password });
+    (token, code, new_password) => async (dispatch) => {
+        const body = JSON.stringify({ email: token, password: code, new_password: new_password });
         try {
             await axios.post(
                 `auth/reset-password-confirm/`,

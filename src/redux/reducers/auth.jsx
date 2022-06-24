@@ -43,7 +43,7 @@ export default function (state = initialState, action) {
                 data: payload,
             };
         case SIGNUP_SUCCESS:
-            localStorage.setItem();
+            localStorage.setItem("", "");
             return {
                 ...state,
                 isAuthenticated: false,
