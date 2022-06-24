@@ -115,7 +115,7 @@ export const signup =
         const body = JSON.stringify({ full_names, position, email, password, confirm_password });
 
         try {
-            const res = await axios.post(`http://localhost:8000/api/auth/register/`, body, config);
+            const res = await axios.post(`http://localhost:8000/api/v1/auth/register/`, body, config);
             dispatch({
                 type: SIGNUP_SUCCESS,
                 payload: res.data,
