@@ -2,7 +2,10 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import image from '../../../assets/signup.svg';
 import { media } from '../../../mediaQueries/projectBreakPoints';
-import { useDispatch, useSelector } from 'react-redux';
+import { connect } from 'react-redux';
+import {signup } from '../../../redux/actions/auth';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import picture from '../../../assets/bnr.svg';
 import { Link, Navigate } from 'react-router-dom';
@@ -250,36 +253,54 @@ const InputOption = styled.option`
     border: solid 1px red;
 `;
 
-const SignUp = () => {
+const SignUp = ({singup, isAuthenticated}) => {
     const [focused, setFocused] = useState(false);
-    const [values, setValues] = useState({
+    const [userSingup, setUserSingup] = useState(false);
+    const [formValues, setFormValues] = useState({
         ngoName: '',
         ngoType: '',
-        fullNames: '',
+        fullName: '',
         position: '',
         email: '',
         password: '',
         confirmPassword: '',
     });
 
-    const handleSignup = (e) => {
-        e.preventDefault();
-        // login(email, password)(dispatch);
-    };
+    const notify = () => toast.success("Account created successfuly!");
+
+    const { ngoName, ngoType, fullName, position, email, password, confirmPassword } = formValues
 
     const handleSubmit = (e) => {
         e.preventDefault();
+
+        if (password === confirmPassword) {
+            signup(ngoName, ngoType, fullName, position, email, password, confirmPassword);
+            setUserSingup(true);
+        }
     };
 
     const onChange = (e) => {
-        setValues({ ...values, [e.target.name]: e.target.value });
+        setFormValues({ ...formValues, [e.target.name]: e.target.value });
     };
 
-    console.log(values);
+    if (isAuthenticated) {
+        return <Navigate to='/' />
+    }
+    if (userSingup) {
+        return <Navigate to='/login' />
+    }
+
+    console.log(formValues);
 
     const handleFocus = (e) => {
         setFocused(true);
     };
+
+    function formSubmit(){
+        notify();
+        handleSubmit();
+    }
+
     return (
         <Background>
             <Logo src={image} />
@@ -294,7 +315,7 @@ const SignUp = () => {
                 </Content>
                 <FormContainer>
                     <Title>NGO Sign Up</Title>
-                    <MyForm onSubmit={handleSubmit}>
+                    <MyForm onSubmit={formSubmit} autoComplete='false'>
                         <Form>
                             <Label>NGO name</Label>
                             <InputField
@@ -303,7 +324,7 @@ const SignUp = () => {
                                 type="text"
                                 placeholder="select your NGO name"
                                 errorMessage="Please select your NGO"
-                                required="true"
+                                required={true}
                                 onChange={(e) => onChange(e)}
                                 onBlur={handleFocus}
                                 className="inputs"
@@ -321,7 +342,7 @@ const SignUp = () => {
                                 type="text"
                                 placeholder="select your NGO type"
                                 errorMessage="Please select your NGO"
-                                required="true"
+                                required={true}
                                 onChange={(e) => onChange(e)}
                                 onBlur={handleFocus}
                                 className="inputs"
@@ -344,8 +365,8 @@ const SignUp = () => {
                                 placeholder="input name"
                                 errorMessage="Your names should be 5-25 characters and should not include any special character"
                                 label="Full names"
-                                pattern="^[A-Za-z0-9]{5,25}$"
-                                required="true"
+                                // pattern="^[A-Za-z0-9]{5,25}$"
+                                required={true}
                                 onChange={(e) => onChange(e)}
                                 onBlur={handleFocus}
                                 className="inputs"
@@ -355,14 +376,14 @@ const SignUp = () => {
                             {/* <ErrorMessage className="span">{errorMessage}</ErrorMessage> */}
                         </Form>
                         <Form>
-                            <Label>Full name</Label>
+                            <Label>Position</Label>
                             <InputField
                                 id="4"
                                 name="position"
                                 type="text"
                                 placeholder="input position"
                                 errorMessage="Please input your position"
-                                required="true"
+                                required={true}
                                 onChange={(e) => onChange(e)}
                                 onBlur={handleFocus}
                                 className="inputs"
@@ -379,7 +400,7 @@ const SignUp = () => {
                                 type="email"
                                 placeholder="input email"
                                 errorMessage="Please input a valid email"
-                                required="true"
+                                required={true}
                                 onChange={(e) => onChange(e)}
                                 onBlur={handleFocus}
                                 // onFocus={() => inputProps.name === 'confirmPassword' && setFocused(true)}
@@ -395,7 +416,7 @@ const SignUp = () => {
                                 type="password"
                                 placeholder="input password"
                                 errorMessage="Please input your password"
-                                required="true"
+                                required={true}
                                 onChange={(e) => onChange(e)}
                                 onBlur={handleFocus}
                                 className="inputs"
@@ -412,7 +433,7 @@ const SignUp = () => {
                                 type="password"
                                 placeholder="re-type your password"
                                 errorMessage="Please input a strong password"
-                                required="true"
+                                required={true}
                                 onChange={(e) => onChange(e)}
                                 onBlur={handleFocus}
                                 className="inputs"
@@ -422,7 +443,7 @@ const SignUp = () => {
                             {/* <ErrorMessage className="span">{errorMessage}</ErrorMessage> */}
                         </Form>
                         <ButtonContainer>
-                            <Button type="submit" onClick={handleSignup}>
+                            <Button type="submit" onClick={formSubmit}>
                                 Submit sign up request
                             </Button>
                             <StyledLink to="/login">
@@ -436,4 +457,8 @@ const SignUp = () => {
     );
 };
 
-export default SignUp;
+const mapStateToProps = state => ({
+    isAuthenticated: state.auth.isAuthenticated
+});
+
+export default connect(mapStateToProps, { signup })(SignUp)

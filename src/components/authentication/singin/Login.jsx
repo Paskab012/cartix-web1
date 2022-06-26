@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 import picture from '../../../assets/bnr.svg';
 import { FormInput } from './FormInput';
 import { Link, Navigate } from 'react-router-dom';
@@ -197,6 +198,7 @@ const Login = ({ login, isAuthenticated }) => {
         // const email = 'makutanolucien@gmail.com';
         // const password = '&hg57AS45Ap';
         login(email, password)(dispatch);
+        toast.info("Welcome again!")
     };
 
     const onSubmit = (e) => {

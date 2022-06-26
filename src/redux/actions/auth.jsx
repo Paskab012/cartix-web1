@@ -115,11 +115,15 @@ export const signup =
         const body = JSON.stringify({ full_names, position, email, password, confirm_password });
 
         try {
+<<<<<<< HEAD
             const res = await axios.post(
                 `http://localhost:8000/api/v1/auth/register/`,
                 body,
                 config,
             );
+=======
+            const res = await axios.post(`http://localhost:8000/api/v1/auth/register/`, body, config);
+>>>>>>> e61fcf797a86b2eb4a39e84aae1270e95d21c9ea
             dispatch({
                 type: SIGNUP_SUCCESS,
                 payload: res.data,
