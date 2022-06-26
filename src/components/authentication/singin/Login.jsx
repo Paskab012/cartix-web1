@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 import image from '../../../assets/signup.svg';
 import { media } from '../../../mediaQueries/projectBreakPoints';
 import { login, loginOtp } from '../../../redux/actions/auth';
-import Input from './Input';
+import SnipperLoginBtn from './SpinnerLoginBtn';
 
 const Background = styled.div`
     min-width: 100%;
@@ -179,6 +179,7 @@ const StyledLink = styled(Link)`
 
 const Login = ({ login, isAuthenticated }) => {
     const dispatch = useDispatch();
+    const [loading, setLoading] = useState(false);
     const auth = useSelector((state) => state.auth);
     const [formData, setFormData] = useState({
         email: '',
@@ -191,15 +192,12 @@ const Login = ({ login, isAuthenticated }) => {
 
     const { email, password } = formData;
 
-
     const handleLogin = (e) => {
         e.preventDefault();
         // const email = 'makutanolucien@gmail.com';
         // const password = '&hg57AS45Ap';
         login(email, password)(dispatch);
     };
-
-    console.log(formData);
 
     const onSubmit = (e) => {
         e.preventDefault();
@@ -262,11 +260,20 @@ const Login = ({ login, isAuthenticated }) => {
                             />
                         ))}
                         <ButtonContainer>
-                            <StyledLink to="">
-                                <Button onClick={handleLogin} type="submit">
-                                    Log in
-                                </Button>
-                            </StyledLink>
+                            <SnipperLoginBtn
+                                loading={loading}
+                                onClick={() => {
+                                    setLoading(true);
+                                    setTimeout(() => {
+                                        setLoading(false);
+                                    }, 8000);
+                                    handleLogin();
+                                }}
+                                type="submit"
+                                title={'Login'}
+                            >
+                                Log in
+                            </SnipperLoginBtn>
                             <StyledLink to="/reset-password">
                                 <Paragraph>Reset password</Paragraph>
                             </StyledLink>
