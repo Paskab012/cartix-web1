@@ -2,8 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import picture from '../../assets/bnr.svg';
 import profile from '../../assets/Profile.png';
-import addUser from '../../assets/AddUser.png';
 import { Link } from 'react-router-dom';
+import CountryDropDown from './CountryDropDown';
 
 const Container = styled.div`
     height: 85px;
@@ -82,14 +82,6 @@ const Profile = styled.img`
     cursor: pointer;
 `;
 
-const AddUser = styled.img`
-    width: 21px;
-    height: 19px;
-    object-fit: cover;
-    margin-bottom: 4px;
-    cursor: pointer;
-`;
-
 const StyledLink = styled(Link)`
     color: black;
     text-decoration: none;
@@ -107,7 +99,7 @@ const StyledLink = styled(Link)`
     }
 `;
 
-const Navbar = () => {
+const MapNavbar = () => {
     return (
         <Container>
             <Left>
@@ -126,22 +118,22 @@ const Navbar = () => {
                             Map
                         </StyledLink>
                     </MenuItem>
-                    <MenuItem>Downloads</MenuItem>
-                    <MenuItem>BNR</MenuItem>
+                    <MenuItem>
+                        <StyledLink className="animate__animated" to="/savings-group-map/data">
+                            Data
+                        </StyledLink>
+                    </MenuItem>
                 </Menu>
             </Left>
             <Wrapper>
-                <AddUser src={addUser} />
-                <StyledLink className="animate__animated" to="/signup">
-                    <Button>Sign Up</Button>
-                </StyledLink>
+                <Button>
+                    <CountryDropDown />
+                </Button>
                 <Profile src={profile} />
-                <StyledLink className="animate__animated" to="/login">
-                    <Button>Sign In</Button>
-                </StyledLink>
+                <Button>Mugisha Roger</Button>
             </Wrapper>
         </Container>
     );
 };
 
-export default Navbar;
+export default MapNavbar;
