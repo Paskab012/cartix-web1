@@ -2,25 +2,24 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import goBack from '../../assets/goback.svg';
+import DataNav from '../../components/data/DataNavbar';
 
 const Container = styled.div`
-    width: 80%;
-    height: 65px;
-    margin-top: 4%;
+    width: 100%;
+    height: 100vh;
     display: flex;
-    align-items: center;
-    align-content: center;
-    background: white;
+    justify-content: center;
+    background: #f2f2f2;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.03);
     border-radius: 5px;
 `;
 
 const Header = styled.div`
-    width: 100%;
+    width: 60%;
+    height: 70%;
     display: flex;
-    justify-content: space-between;
-    align-content: center;
-    margin: 2%;
+    margin: 7%;
+    background-color: red;
 `;
 
 const Item = styled.li`
@@ -29,8 +28,12 @@ const Item = styled.li`
     font-size: 15px;
     line-height: 18px;
     display: flex;
+    margin-right: 3%;
+    background-color: green;
+    width: 10%;
+    height: 10%;
     align-items: center;
-    margin-right: 4%;
+    justify-content: center;
 `;
 
 const SavingsButton = styled.button`
@@ -45,7 +48,7 @@ const SavingsButton = styled.button`
 const StyledLink = styled(Link)`
     color: rgba(0, 0, 0, 0.5);
     text-decoration: none;
-    font-size: 15px;
+    font-size: 14px;
     transition: 0.3s all ease-in-out;
     user-select: none; /* supported by Chrome and Opera */
     -webkit-user-select: none; /* Safari */
@@ -55,19 +58,12 @@ const StyledLink = styled(Link)`
     &:hover {
         transition: 0.2s all ease-in-out;
         color: black;
-        font-weight: 700;
-        padding: 22px;
     }
 `;
 
-const Hdr = styled.div`
-    width: 70%;
-    display: flex;
-`;
-
 const GoBack = styled.img`
-    width: 100%;
-    height: 100%;
+    width: 30%;
+    height: 30%;
     mix-blend-mode: luminosity;
     opacity: 0.9;
 `;
@@ -75,16 +71,15 @@ const GoBack = styled.img`
 const XlsxUpload = () => {
     return (
         <>
+            {/* <DataNav /> */}
             <Container>
                 <Header>
-                    <Hdr>
-                        <Item>
-                            <GoBack src={goBack} />
-                            <StyledLink className="animate__animated" to="/savings-group-map/data">
-                                Go back
-                            </StyledLink>
-                        </Item>
-                    </Hdr>
+                    <Item>
+                        <GoBack src={goBack} />
+                        <StyledLink className="animate__animated" to="/savings-group-map/data">
+                            Go back
+                        </StyledLink>
+                    </Item>
                 </Header>
             </Container>
             ;

@@ -1,9 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
+import { connect } from 'react-redux';
+
 import picture from '../../assets/bnr.svg';
 import profile from '../../assets/Profile.png';
 import addUser from '../../assets/AddUser.png';
 import { Link } from 'react-router-dom';
+import { logout } from '../../redux/actions/auth';
 
 const Container = styled.div`
     height: 85px;
@@ -68,6 +71,17 @@ const Button = styled.button`
     margin-right: 24px;
 `;
 
+const LogoutButton = styled.button`
+    background-color: #753918;
+    padding: 8% 18% 8% 18%;
+    color: white;
+    font-weight: 500;
+    cursor: pointer;
+    font-size: 15px;
+    margin-right: 24px;
+    border-radius: 5px;
+`;
+
 const Picture = styled.img`
     width: 70px;
     height: 70px;
@@ -107,7 +121,30 @@ const StyledLink = styled(Link)`
     }
 `;
 
-const Navbar = () => {
+const Navbar = ({ logout, isAuthenticated }) => {
+    const loginGuest = () => (
+        <>
+            <Wrapper>
+                <AddUser src={addUser} />
+                <StyledLink className="animate__animated" to="/signup">
+                    <Button>Sign Up</Button>
+                </StyledLink>
+                <Profile src={profile} />
+                <StyledLink className="animate__animated" to="/login">
+                    <Button>Sign In</Button>
+                </StyledLink>
+            </Wrapper>
+        </>
+    );
+
+    const authUser = () => (
+        <Wrapper>
+            <StyledLink className="animate__animated" to="/">
+                <LogoutButton onClick={logout}>Logout</LogoutButton>
+            </StyledLink>
+        </Wrapper>
+    );
+
     return (
         <Container>
             <Left>
@@ -130,18 +167,13 @@ const Navbar = () => {
                     <MenuItem>BNR</MenuItem>
                 </Menu>
             </Left>
-            <Wrapper>
-                <AddUser src={addUser} />
-                <StyledLink className="animate__animated" to="/signup">
-                    <Button>Sign Up</Button>
-                </StyledLink>
-                <Profile src={profile} />
-                <StyledLink className="animate__animated" to="/login">
-                    <Button>Sign In</Button>
-                </StyledLink>
-            </Wrapper>
+            {isAuthenticated ? authUser() : loginGuest()}
         </Container>
     );
 };
 
-export default Navbar;
+const mapStateToProps = (state) => ({
+    isAuthenticated: state.auth.isAuthenticated,
+});
+
+export default connect(mapStateToProps, { logout })(Navbar);
