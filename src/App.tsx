@@ -14,11 +14,13 @@ import Activate from './components/authentication/resetPassword/Activate';
 import ConfirmResetPass from './components/authentication/resetPassword/ConfirmResetPass';
 import Layout from './components/helpers/Layout';
 import LoginOTP from './components/authentication/singin/loginOtp';
+import { ToastContainer } from 'react-toastify';
 
 const App: React.FC = () => {
     return (
         <Router>
             <Layout>
+                <ToastContainer/>
                 <Routes>
                     <Route path="/" element={<MainPage />}></Route>
                     <Route path="/savings-group-map" element={<Map />}></Route>

@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import image from '../../../assets/signup.svg';
-import { media } from '../../../mediaQueries/projectBreakPoints';
 import { connect } from 'react-redux';
-import {signup } from '../../../redux/actions/auth';
+import { signup } from '../../../redux/actions/auth';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -31,10 +30,6 @@ const Logo = styled.img`
     mix-blend-mode: lighten;
     opacity: 1;
     position: absolute;
-
-    ${media.xxl`
-       width:100%;
-    `};
 `;
 
 const Container = styled.div`
@@ -45,14 +40,6 @@ const Container = styled.div`
     color: black;
     display: flex;
     justify-content: center;
-
-    ${media.md`
-      height: 650px;
-  `}
-
-    ${media.xl`
-      height: 750px;
-  `}
 `;
 
 const Content = styled.div`
@@ -73,11 +60,6 @@ const Header = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-around;
-
-    ${media.xl`
-    font-size: 22px;
-    margin-left: -10px;
-      `}
 `;
 
 const Picture = styled.img`
@@ -90,14 +72,6 @@ const LogoHeader = styled.h1`
     font-weight: bold;
     font-size: 22px;
     margin-left: -10px;
-
-    ${media.md`
-    font-size: 18px;
-      `}
-
-    ${media.xl`
-        font-size: 22px;
-      `}
 `;
 
 const Small = styled.span`
@@ -107,10 +81,6 @@ const Small = styled.span`
     line-height: 27px;
     letter-spacing: 0.015em;
     text-align: left;
-
-    ${media.md`
-    font-size: 18px;
-      `}
 `;
 
 const Title = styled.h1`
@@ -144,11 +114,13 @@ const ButtonContainer = styled.div`
 `;
 
 const Button = styled.button`
-    width: 70%;
+    width: 64%;
     background-color: #3981ed;
     color: white;
     border-radius: 5px;
-    padding: 12px 20px;
+    padding: 0.8rem;
+    border: none;
+    cursor: pointer;
 `;
 
 const Login = styled.p`
@@ -200,7 +172,7 @@ const ErrorMessage = styled.span`
 `;
 
 const InputField = styled.input`
-    width: 100%;
+    width: 94%;
     background-color: #ffffff;
     display: flex;
     flex-direction: row;
@@ -253,7 +225,7 @@ const InputOption = styled.option`
     border: solid 1px red;
 `;
 
-const SignUp = ({signup, isAuthenticated}) => {
+const SignUp = ({ signup, isAuthenticated }) => {
     const [focused, setFocused] = useState(false);
     const [userSignup, setUserSignup] = useState(false);
     const [formValues, setFormValues] = useState({
@@ -266,9 +238,9 @@ const SignUp = ({signup, isAuthenticated}) => {
         confirmPassword: '',
     });
 
-    const notify = () => toast.success("Account created successfully!");
+    const notify = () => toast.success('Account created successfully!');
 
-    const { ngoName, ngoType, fullName, position, email, password, confirmPassword } = formValues
+    const { ngoName, ngoType, fullName, position, email, password, confirmPassword } = formValues;
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -284,10 +256,10 @@ const SignUp = ({signup, isAuthenticated}) => {
     };
 
     if (isAuthenticated) {
-        return <Navigate to='/' />
+        return <Navigate to="/" />;
     }
     if (userSignup) {
-        return <Navigate to='/login' />
+        return <Navigate to="/login" />;
     }
 
     console.log(formValues);
@@ -296,7 +268,7 @@ const SignUp = ({signup, isAuthenticated}) => {
         setFocused(true);
     };
 
-    function formSubmit(){
+    function formSubmit() {
         notify();
         handleSubmit();
     }
@@ -315,7 +287,7 @@ const SignUp = ({signup, isAuthenticated}) => {
                 </Content>
                 <FormContainer>
                     <Title>NGO Sign Up</Title>
-                    <MyForm onSubmit={formSubmit} autoComplete='false'>
+                    <MyForm onSubmit={formSubmit} autoComplete="false">
                         <Form>
                             <Label>NGO name</Label>
                             <InputField
@@ -349,10 +321,8 @@ const SignUp = ({signup, isAuthenticated}) => {
                                 /* onFocus={() => inputProps.name === 'confirmPassword' && setFocused(true)} */
                                 focused={focused.toString()}
                             >
-                                <InputOption value="Pam">Pam</InputOption>
-                                <InputOption value="Unicef">Unicef</InputOption>
-                                <InputOption value="Croix rouge">Croix rouge</InputOption>
-                                <InputOption value="Save children">Save Children</InputOption>
+                                <InputOption value="International">International</InputOption>
+                                <InputOption value="National">National</InputOption>
                             </InputFieldSelect>
                             {/* <ErrorMessage className="span">{errorMessage}</ErrorMessage> */}
                         </Form>
@@ -457,8 +427,8 @@ const SignUp = ({signup, isAuthenticated}) => {
     );
 };
 
-const mapStateToProps = state => ({
-    isAuthenticated: state.auth.isAuthenticated
+const mapStateToProps = (state) => ({
+    isAuthenticated: state.auth.isAuthenticated,
 });
 
-export default connect(mapStateToProps, { signup })(SignUp)
+export default connect(mapStateToProps, { signup })(SignUp);

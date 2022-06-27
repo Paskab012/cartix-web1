@@ -8,7 +8,6 @@ import { Link, Navigate } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import image from '../../../assets/signup.svg';
-import { media } from '../../../mediaQueries/projectBreakPoints';
 import { login, loginOtp } from '../../../redux/actions/auth';
 import SnipperLoginBtn from './SpinnerLoginBtn';
 
@@ -33,10 +32,6 @@ const Logo = styled.img`
     mix-blend-mode: lighten;
     opacity: 1;
     position: absolute;
-
-    ${media.xxl`
-       width:100%;
-    `};
 `;
 
 const Container = styled.div`
@@ -47,14 +42,6 @@ const Container = styled.div`
     color: black;
     display: flex;
     flex-direction: column;
-
-    ${media.md`
-      height: 650px;
-  `}
-
-    ${media.xl`
-      height: 750px;
-  `}
 `;
 
 const Content = styled.div`
@@ -75,11 +62,6 @@ const Header = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-around;
-
-    ${media.xl`
-    font-size: 22px;
-    margin-left: -10px;
-      `}
 `;
 
 const Picture = styled.img`
@@ -109,10 +91,6 @@ const Small = styled.span`
     line-height: 27px;
     letter-spacing: 0.015em;
     text-align: left;
-
-    ${media.md`
-    font-size: 18px;
-      `}
 `;
 
 const Title = styled.h1`
@@ -197,7 +175,7 @@ const Login = ({ login, isAuthenticated }) => {
         // const email = 'makutanolucien@gmail.com';
         // const password = '&hg57AS45Ap';
         login(email, password)(dispatch);
-        toast.info("Welcome again!")
+        toast.info('Welcome again!');
     };
 
     const onSubmit = (e) => {
@@ -267,7 +245,7 @@ const Login = ({ login, isAuthenticated }) => {
                                     setLoading(true);
                                     setTimeout(() => {
                                         setLoading(false);
-                                    }, 8000);
+                                    }, 2000);
                                     handleLogin();
                                 }}
                                 type="submit"
