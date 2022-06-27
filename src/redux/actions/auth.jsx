@@ -1,4 +1,5 @@
 import axios from '../../axios/axiosConfig';
+import { toast } from 'react-toastify';
 
 import {
     LOGIN_SUCCESS,
@@ -20,8 +21,7 @@ import {
 
 export const checkAuthenticated = () => async (dispatch) => {
     if (localStorage.getItem('access')) {
-        const body = JSON.stringify(
-            { token: localStorage.getItem('access') });
+        const body = JSON.stringify({ token: localStorage.getItem('access') });
 
         try {
             const res = await axios.post(`auth/verify`, body);
@@ -77,10 +77,18 @@ export const login = (email, password) => async (dispatch) => {
             type: LOGIN_SUCCESS,
             payload: res.data,
         });
+        toast.success('User logged in successfully', {
+            position: 'bottom-left',
+            autoClose: '3000',
+        });
         // dispatch(load_user());
     } catch (err) {
         dispatch({
             type: LOGIN_FAIL,
+        });
+        toast.error('Invalid credentials, Input the correct values', {
+            position: 'top-right',
+            autoClose: '3000',
         });
     }
 };
@@ -90,10 +98,7 @@ export const signup =
         const body = JSON.stringify({ full_names, position, email, password, confirm_password });
 
         try {
-            const res = await axios.post(
-                `/auth/register/`,
-                body,
-            );
+            const res = await axios.post(`/auth/register/`, body);
             dispatch({
                 type: SIGNUP_SUCCESS,
                 payload: res.data,
@@ -138,10 +143,7 @@ export const reset_password_confirm =
     (uid, token, new_password, re_new_password) => async (dispatch) => {
         const body = JSON.stringify({ uid, token, new_password, re_new_password });
         try {
-            await axios.post(
-                `auth/reset-password-confirm/`,
-                body,
-            );
+            await axios.post(`auth/reset-password-confirm/`, body);
             dispatch({
                 type: PASSWORD_RESET_CONFIRM_SUCCESS,
             });

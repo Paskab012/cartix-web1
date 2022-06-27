@@ -25,7 +25,7 @@ const ErrorMessage = styled.span`
 `;
 
 const InputField = styled.input`
-    width: 100%;
+    width: 90%;
     background-color: #ffffff;
     display: flex;
     flex-direction: row;
