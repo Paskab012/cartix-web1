@@ -31,7 +31,7 @@ const App: React.FC = () => {
                     <Route path="/reset-password" element={<ResetPassword />}></Route>
                     <Route
                         path="/password/reset/confirm/:uid/:token"
-                        element={<ConfirmResetPass />}
+                        element={<ConfirmResetPass match={undefined} />}
                     ></Route>
                     <Route path="/activate/:uid/:token" element={<LoginOTP />}></Route>
                 </Routes>
