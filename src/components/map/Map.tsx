@@ -4,8 +4,6 @@ import MapHeader from './header/MapHeader';
 import MapNavbar from './MapHeader';
 import { Rwanda } from './rwandaCountry/Rwanda';
 
-`;
-
 function Map() {
     return (
         <>
