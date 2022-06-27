@@ -26,12 +26,12 @@ const App: React.FC = () => {
                     <Route path="/SavingData" element={<SavingsGroupsdata />}></Route>
                     <Route path="/ConsentForm" element={<ConsentFormData />}></Route>
                     <Route path="/UploadData" element={<XlsxUpload />}></Route>
-                    <Route path="/signup" element={<SignUp />}></Route>
+                    <Route path="/signup" element={<SignUp singup={undefined} />}></Route>
                     <Route path="/login" element={<Login />}></Route>
                     <Route path="/reset-password" element={<ResetPassword />}></Route>
                     <Route
                         path="/password/reset/confirm/:uid/:token"
-                        element={<ConfirmResetPass />}
+                        element={<ConfirmResetPass match={undefined} />}
                     ></Route>
                     <Route path="/activate/:uid/:token" element={<LoginOTP />}></Route>
                 </Routes>

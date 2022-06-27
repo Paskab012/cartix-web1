@@ -215,7 +215,7 @@ const Login = ({ login, isAuthenticated }) => {
 
     if (isAuthenticated) {
         return <Navigate to="/" />;
-    }
+    } 
     const Inputs = [
         {
             id: 1,
