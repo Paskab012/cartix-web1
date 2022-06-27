@@ -64,8 +64,8 @@ const Content = styled.div`
     color: white;
     background-color: #88714e;
     height: 94px;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.03);
-    border-radius: 5px 5px 0px 0px;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.03);
+    border-radius: 5px 5px 0 0;
     position: absolute;
     width: 28%;
 `;
@@ -103,7 +103,7 @@ const Picture = styled.img`
 // `;
 
 const Small = styled.span`
-    font-family: Montserrat;
+    font-family: Montserrat, sans-serif;
     font-size: 22px;
     font-weight: 400;
     line-height: 27px;
@@ -174,7 +174,6 @@ const StyledLink = styled(Link)`
         transition: 0.2s all ease-in-out;
         color: #753918;
         font-weight: normal;
-        color: red;
     }
 `;
 
@@ -221,8 +220,8 @@ const Login = ({ login, isAuthenticated }) => {
             id: 1,
             name: 'email',
             type: 'email',
-            placeholder: 'input email',
-            errorMessage: 'Please enter a valid email adress',
+            placeholder: 'Enter email',
+            errorMessage: 'Please enter a valid email address',
             label: 'Email',
             required: true,
         },
@@ -232,7 +231,7 @@ const Login = ({ login, isAuthenticated }) => {
             type: 'password',
             placeholder: 'password',
             errorMessage:
-                'Please enter a 8-20 characters and it should inlude at least 1 letter, 1 number and 1 special character!',
+                'Please enter a 8-20 characters and it should include at least 1 letter, 1 number and 1 special character!',
             label: 'Input password',
             pattern: '^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$',
             required: true,

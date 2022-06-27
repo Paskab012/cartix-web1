@@ -62,8 +62,8 @@ const Content = styled.div`
     color: white;
     background-color: #88714e;
     height: 94px;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.03);
-    border-radius: 5px 5px 0px 0px;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.03);
+    border-radius: 5px 5px 0 0;
     position: absolute;
     width: 28%;
 `;
@@ -101,7 +101,7 @@ const LogoHeader = styled.h1`
 `;
 
 const Small = styled.span`
-    font-family: Montserrat;
+    font-family: Montserrat, sans-serif;
     font-size: 22px;
     font-weight: 400;
     line-height: 27px;
@@ -253,9 +253,9 @@ const InputOption = styled.option`
     border: solid 1px red;
 `;
 
-const SignUp = ({singup, isAuthenticated}) => {
+const SignUp = ({signup, isAuthenticated}) => {
     const [focused, setFocused] = useState(false);
-    const [userSingup, setUserSingup] = useState(false);
+    const [userSignup, setUserSignup] = useState(false);
     const [formValues, setFormValues] = useState({
         ngoName: '',
         ngoType: '',
@@ -266,7 +266,7 @@ const SignUp = ({singup, isAuthenticated}) => {
         confirmPassword: '',
     });
 
-    const notify = () => toast.success("Account created successfuly!");
+    const notify = () => toast.success("Account created successfully!");
 
     const { ngoName, ngoType, fullName, position, email, password, confirmPassword } = formValues
 
@@ -275,7 +275,7 @@ const SignUp = ({singup, isAuthenticated}) => {
 
         if (password === confirmPassword) {
             signup(ngoName, ngoType, fullName, position, email, password, confirmPassword);
-            setUserSingup(true);
+            setUserSignup(true);
         }
     };
 
@@ -286,13 +286,13 @@ const SignUp = ({singup, isAuthenticated}) => {
     if (isAuthenticated) {
         return <Navigate to='/' />
     }
-    if (userSingup) {
+    if (userSignup) {
         return <Navigate to='/login' />
     }
 
     console.log(formValues);
 
-    const handleFocus = (e) => {
+    const handleFocus = (_) => {
         setFocused(true);
     };
 
@@ -337,7 +337,7 @@ const SignUp = ({singup, isAuthenticated}) => {
                             <Label>NGO type</Label>
                             <InputFieldSelect
                                 classname="js-example-basic-single"
-                                id="1"
+                                id="2"
                                 name="ngoName"
                                 type="text"
                                 placeholder="select your NGO type"
@@ -363,8 +363,8 @@ const SignUp = ({singup, isAuthenticated}) => {
                                 name="fullName"
                                 type="text"
                                 placeholder="input name"
-                                errorMessage="Your names should be 5-25 characters and should not include any special character"
-                                label="Full names"
+                                errorMessage="Your name should be 5-25 characters and should not include any special character"
+                                label="Full name"
                                 // pattern="^[A-Za-z0-9]{5,25}$"
                                 required={true}
                                 onChange={(e) => onChange(e)}
@@ -426,7 +426,7 @@ const SignUp = ({singup, isAuthenticated}) => {
                             {/* <ErrorMessage className="span">{errorMessage}</ErrorMessage> */}
                         </Form>
                         <Form>
-                            <Label>Confirm Passwoord</Label>
+                            <Label>Confirm Password</Label>
                             <InputField
                                 id="7"
                                 name="password"
