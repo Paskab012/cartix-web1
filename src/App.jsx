@@ -20,7 +20,7 @@ const App: React.FC = () => {
     return (
         <Router>
             <Layout>
-                <ToastContainer/>
+                <ToastContainer />
                 <Routes>
                     <Route path="/" element={<MainPage />}></Route>
                     <Route path="/savings-group-map" element={<Map />}></Route>
@@ -33,7 +33,7 @@ const App: React.FC = () => {
                     <Route path="/reset-password" element={<ResetPassword />}></Route>
                     <Route
                         path="/password/reset/confirm/:uid/:token"
-                        element={<ConfirmResetPass match={undefined} />}
+                        element={<ConfirmResetPass />}
                     ></Route>
                     <Route path="/activate/:uid/:token" element={<LoginOTP />}></Route>
                 </Routes>
