@@ -118,8 +118,11 @@ const MapNavbar = () => {
                             Map
                         </StyledLink>
                     </MenuItem>
-                    <MenuItem>Downloads</MenuItem>
-                    <MenuItem>BNR</MenuItem>
+                    <MenuItem>
+                        <StyledLink className="animate__animated" to="/savings-group-map/data">
+                            Data
+                        </StyledLink>
+                    </MenuItem>
                 </Menu>
             </Left>
             <Wrapper>

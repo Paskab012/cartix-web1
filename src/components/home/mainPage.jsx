@@ -74,7 +74,7 @@ export const MainPage = () => {
         <>
             <Nav />
             <Container>
-                <AnimatedBack />
+                {/* <AnimatedBack /> */}
                 <Left>
                     <Title>Welcome to the Savings Groups Map</Title>
                     <Paragraphe>
