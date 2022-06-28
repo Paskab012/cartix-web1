@@ -8,7 +8,7 @@ import { Link, Navigate } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import image from '../../../assets/signup.svg';
-import { login, loginOtp } from '../../../redux/actions/auth';
+import { login } from '../../../redux/actions/auth';
 import SnipperLoginBtn from './SpinnerLoginBtn';
 
 const Background = styled.div`
@@ -175,7 +175,6 @@ const Login = ({ login, isAuthenticated }) => {
         // const email = 'makutanolucien@gmail.com';
         // const password = '&hg57AS45Ap';
         login(email, password)(dispatch);
-        toast.info('Welcome again!');
     };
 
     const onSubmit = (e) => {
@@ -183,15 +182,8 @@ const Login = ({ login, isAuthenticated }) => {
         login(email, password)(dispatch);
     };
 
-    const handleLoginOtp = () => {
-        const token = auth.token;
-        const code = 'agdajsdeyu23';
-        // console.log('CallLogin action');
-        loginOtp(token, code)(dispatch);
-    };
-
     if (isAuthenticated) {
-        return <Navigate to="/" />;
+        return <Navigate to="/activate/:uid/:token" />;
     }
     const Inputs = [
         {
