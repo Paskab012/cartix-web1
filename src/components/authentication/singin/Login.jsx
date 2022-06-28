@@ -158,7 +158,7 @@ const StyledLink = styled(Link)`
 const Login = ({ login, isAuthenticated }) => {
     const dispatch = useDispatch();
     const [loading, setLoading] = useState(false);
-    const auth = useSelector((state) => state.auth);
+    // const auth = useSelector((state) => state.auth);
     const [formData, setFormData] = useState({
         email: '',
         password: '',

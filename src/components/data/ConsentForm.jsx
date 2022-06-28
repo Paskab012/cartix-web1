@@ -40,6 +40,7 @@ const SavingsButton = styled.button`
     transition: 0.2s all ease-in-out;
     padding: 12px 20px;
     border-radius: 5px;
+    border: white;
 
     &:hover {
         border: 1px solid white;

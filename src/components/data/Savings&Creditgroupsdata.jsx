@@ -41,6 +41,7 @@ const SavingsButton = styled.button`
     border-radius: 5px;
     transition: 0.3s all ease-in-out;
     cursor: pointer;
+    border: white;
 
     &:hover {
         border: 1px solid white;
@@ -48,6 +49,7 @@ const SavingsButton = styled.button`
         background-color: #dba628;
         font-weight: bold;
         color: black;
+        border: none;
     }
 `;
 

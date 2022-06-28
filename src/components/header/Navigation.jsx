@@ -22,6 +22,31 @@ const Wrapper = styled.div`
     justify-content: space-between;
 `;
 
+const LeftWrapper = styled.div`
+    padding: 0.4rem 0.5rem;
+    margin-right: 1rem;
+    display: flex;
+    justify-content: center;
+
+    &:hover {
+        transition: 0.2s all ease-in-out;
+        border: 1px solid black;
+        font-weight: 600;
+    }
+`;
+
+const RightWrapper = styled.div`
+    padding: 0.3rem 0.5rem;
+    display: flex;
+    justify-content: center;
+
+    &:hover {
+        transition: 0.2s all ease-in-out;
+        border: 1px solid black;
+        font-weight: 600;
+    }
+`;
+
 const Left = styled.div`
     width: 50%;
     display: flex;
@@ -69,6 +94,8 @@ const Button = styled.button`
     cursor: pointer;
     font-size: 15px;
     margin-right: 24px;
+    background-color: white;
+    border: none;
 `;
 
 const LogoutButton = styled.button`
@@ -94,14 +121,16 @@ const Profile = styled.img`
     object-fit: cover;
     margin-bottom: 4px;
     cursor: pointer;
+    margin-left: 1rem;
 `;
 
 const AddUser = styled.img`
-    width: 21px;
-    height: 19px;
+    width: 20px;
+    height: 18px;
     object-fit: cover;
     margin-bottom: 4px;
     cursor: pointer;
+    margin-left: 1rem;
 `;
 
 const StyledLink = styled(Link)`
@@ -125,14 +154,19 @@ const Navbar = ({ logout, isAuthenticated }) => {
     const loginGuest = () => (
         <>
             <Wrapper>
-                <AddUser src={addUser} />
-                <StyledLink className="animate__animated" to="/signup">
-                    <Button>Sign Up</Button>
-                </StyledLink>
-                <Profile src={profile} />
-                <StyledLink className="animate__animated" to="/login">
-                    <Button>Sign In</Button>
-                </StyledLink>
+                <LeftWrapper>
+                    <AddUser src={addUser} />
+                    <StyledLink className="animate__animated" to="/signup">
+                        <Button>Sign Up</Button>
+                    </StyledLink>
+                </LeftWrapper>
+
+                <RightWrapper>
+                    <Profile src={profile} />
+                    <StyledLink className="animate__animated" to="/login">
+                        <Button>Sign In</Button>
+                    </StyledLink>
+                </RightWrapper>
             </Wrapper>
         </>
     );

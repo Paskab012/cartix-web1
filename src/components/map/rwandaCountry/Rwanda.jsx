@@ -27,7 +27,7 @@ const Left = styled.div`
 `;
 
 const CardMap = styled.img`
-    width: 100%
+    width: 100%;
     object-fit: contain;
     height: 100%;
     mix-blend-mode: luminosity;
