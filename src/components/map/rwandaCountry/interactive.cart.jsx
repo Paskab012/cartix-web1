@@ -5,8 +5,8 @@ import './cart_region.css';
 
 const RwdCart = styled.div`
 position:relative
-  backgroun:none;
-  overflow : hidden;
+  /* backgroun:none;
+  overflow : hidden; */
 
   svg {
     position: absolute;

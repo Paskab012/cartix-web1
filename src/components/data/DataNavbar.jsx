@@ -65,6 +65,8 @@ const Button = styled.button`
     cursor: pointer;
     font-size: 15px;
     margin-right: 24px;
+    border: none;
+    background-color: white;
 `;
 
 const Picture = styled.img`
