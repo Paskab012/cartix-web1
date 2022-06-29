@@ -77,7 +77,7 @@ export const login = (email, password) => async (dispatch) => {
             type: LOGIN_SUCCESS,
             payload: res.data,
         });
-        toast.success('User logged in successfully', {
+        toast.success('User logged in successfully, an OTP code is sent in your inbox', {
             position: 'bottom-left',
             autoClose: '3000',
         });
@@ -86,7 +86,7 @@ export const login = (email, password) => async (dispatch) => {
         dispatch({
             type: LOGIN_FAIL,
         });
-        toast.error('Invalid credentials, Input the correct values', {
+        toast.error('Login fail, invalid credentials, Input the correct ones', {
             position: 'top-right',
             autoClose: '3000',
         });

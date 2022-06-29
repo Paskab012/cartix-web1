@@ -14,7 +14,7 @@ const Container = styled.div`
     display: flex;
     justify-content: space-between;
     width: 100%;
-    position: fixed;
+    /* position: fixed; */
     background-color: white;
     z-index: 999px;
 `;
@@ -23,6 +23,9 @@ const Wrapper = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
+    /* background-color: red; */
+    z-index: 1;
+    cursor: pointer;
 `;
 
 const LeftWrapper = styled.div`
@@ -30,6 +33,8 @@ const LeftWrapper = styled.div`
     margin-right: 1rem;
     display: flex;
     justify-content: center;
+    z-index: 999;
+    cursor: pointer;
 
     &:hover {
         transition: 0.2s all ease-in-out;

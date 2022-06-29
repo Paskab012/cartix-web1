@@ -13,6 +13,7 @@ import Footer from '../features/Footer';
 const Container = styled.div`
     height: calc(100vh - 85px);
     display: flex;
+    position: relative;
 `;
 
 const Left = styled.div`
