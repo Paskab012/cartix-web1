@@ -10,7 +10,7 @@ import XlsxUpload from './components/uploadFiles/UploadData';
 import SignUp from './components/authentication/signup/SignUp';
 import Login from './components/authentication/singin/Login';
 import ResetPassword from './components/authentication/resetPassword/ResetPassword';
-import Activate from './components/authentication/resetPassword/Activate';
+// import Activate from './components/authentication/resetPassword/Activate';
 import ConfirmResetPass from './components/authentication/resetPassword/ConfirmResetPass';
 import Layout from './components/helpers/Layout';
 import LoginOTP from './components/authentication/singin/loginOtp';
