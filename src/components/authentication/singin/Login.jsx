@@ -154,10 +154,9 @@ const StyledLink = styled(Link)`
     }
 `;
 
-const Login = ({ login, isAuthenticated }) => {
+const Login = ({ login, isAuthenticated, history }) => {
     const dispatch = useDispatch();
-    const [loading, setLoading] = useState(false);
-    // const auth = useSelector((state) => state.auth);
+    const [isLoading, setIsLoading] = useState(false);
     const [formData, setFormData] = useState({
         email: '',
         password: '',
@@ -171,19 +170,25 @@ const Login = ({ login, isAuthenticated }) => {
 
     const handleLogin = (e) => {
         e.preventDefault();
-        // const email = 'makutanolucien@gmail.com';
-        // const password = '&hg57AS45Ap';
-        login(email, password)(dispatch);
+        const navigate = () => history.push('/activate');
+        if (!isLoading){
+            setIsLoading(true);
+            login(email, password, navigate, setIsLoading)(dispatch);
+        }
     };
 
     const onSubmit = (e) => {
         e.preventDefault();
-        login(email, password)(dispatch);
+        const navigate = () => history.push('/activate');
+        if (!isLoading){
+            setIsLoading(true);
+            login(email, password, navigate, setIsLoading)(dispatch);
+        }
     };
 
-    if (isAuthenticated) {
-        return <Navigate to="/activate/:uid/:token" />;
-    }
+    if (isAuthenticated)
+        return <Navigate to="/activate" />;
+
     const Inputs = [
         {
             id: 1,
@@ -231,14 +236,8 @@ const Login = ({ login, isAuthenticated }) => {
                         ))}
                         <ButtonContainer>
                             <SnipperLoginBtn
-                                loading={loading}
-                                onClick={() => {
-                                    setLoading(true);
-                                    setTimeout(() => {
-                                        setLoading(false);
-                                    }, 2000);
-                                    handleLogin();
-                                }}
+                                loading={isLoading}
+                                onClick={handleLogin}
                                 type="submit"
                                 title={'Login'}
                             >

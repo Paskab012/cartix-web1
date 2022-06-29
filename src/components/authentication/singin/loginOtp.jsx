@@ -103,17 +103,11 @@ const Logo = styled.img`
 const EnteredOtp = styled.p`
     margin: 2%;
 `;
-const LoginOTP = ({ isAuthenticated }) => {
+const LoginOTP = ({ isAuthenticated, history }) => {
     const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
-    const auth = useSelector((state) => state.auth);
+    const { data } = useSelector((state) => state.auth);
     const [otp, setOtp] = useState(new Array(6).fill(''));
-    const [otpData, setOtpData] = useState({
-        token: '',
-        code: '',
-    });
-
-    const { token, code } = otpData;
 
     const handleChange = (element, index) => {
         if (isNaN(element.value)) return false;
@@ -126,16 +120,18 @@ const LoginOTP = ({ isAuthenticated }) => {
         }
     };
 
-    const handleLoginOtp = () => {
-        // const token = auth.token;
-        // const code = 'agdajsdeyu23';
-        // console.log('CallLogin action');
-        loginOtp(token, code)(dispatch);
+    const handleLoginOtp = (e) => {
+        e.preventDefault();
+
+        const navigate = () => history.push('/');
+        if (!loading){
+            setLoading(true);
+            loginOtp(data.token, otp, navigate, setLoading)(dispatch);
+        }
     };
 
-    if (isAuthenticated) {
+    if (isAuthenticated)
         return <Navigate to="/" />;
-    }
 
     return (
         <>
@@ -171,7 +167,7 @@ const LoginOTP = ({ isAuthenticated }) => {
                         <p>
                             <ClearBtn
                                 className="mr-2 btn btn-secondary"
-                                onClick={(e) => setOtp([...otp.map((v) => '')])}
+                                onClick={(e) => setOtp([...otp.map((_) => '')])}
                             >
                                 Clear
                             </ClearBtn>
@@ -179,13 +175,7 @@ const LoginOTP = ({ isAuthenticated }) => {
                                 <SnipperLoginBtn
                                     className="btn btn-primary"
                                     loading={loading}
-                                    onClick={(e) => {
-                                        alert('Entered OTP is ' + otp.join(''));
-                                        setTimeout(() => {
-                                            setLoading(false);
-                                        }, 2000);
-                                        handleLoginOtp();
-                                    }}
+                                    onClick={handleLoginOtp}
                                     type="submit"
                                     title={'Verify account'}
                                 >
