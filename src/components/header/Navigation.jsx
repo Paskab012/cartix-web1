@@ -14,6 +14,9 @@ const Container = styled.div`
     display: flex;
     justify-content: space-between;
     width: 100%;
+    position: fixed;
+    background-color: white;
+    z-index: 999px;
 `;
 const Wrapper = styled.div`
     padding: 10px 20px;
