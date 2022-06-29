@@ -71,7 +71,7 @@ const GoBack = styled.img`
 const XlsxUpload = () => {
     return (
         <>
-            {/* <DataNav /> */}
+            <DataNav />
             <Container>
                 <Header>
                     <Item>
