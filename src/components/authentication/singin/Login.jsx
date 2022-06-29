@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch} from 'react-redux';
 import { toast } from 'react-toastify';
 import picture from '../../../assets/bnr.svg';
 import { FormInput } from './FormInput';
@@ -8,7 +8,7 @@ import { Link, Navigate } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import image from '../../../assets/signup.svg';
-import { login, loginOtp } from '../../../redux/actions/auth';
+import { login } from '../../../redux/actions/auth';
 import SnipperLoginBtn from './SpinnerLoginBtn';
 
 const Background = styled.div`
@@ -123,13 +123,13 @@ const ButtonContainer = styled.div`
     position: relative;
 `;
 
-const Button = styled.button`
-    width: 100%;
-    background-color: #3981ed;
-    color: white;
-    border-radius: 5px;
-    padding: 12px 20px;
-`;
+// const Button = styled.button`
+//     width: 100%;
+//     background-color: #3981ed;
+//     color: white;
+//     border-radius: 5px;
+//     padding: 12px 20px;
+// `;
 
 const Paragraph = styled.p`
     font-size: 14px;
@@ -158,7 +158,7 @@ const StyledLink = styled(Link)`
 const Login = ({ login, isAuthenticated }) => {
     const dispatch = useDispatch();
     const [loading, setLoading] = useState(false);
-    const auth = useSelector((state) => state.auth);
+    // const auth = useSelector((state) => state.auth);
     const [formData, setFormData] = useState({
         email: '',
         password: '',
@@ -183,12 +183,12 @@ const Login = ({ login, isAuthenticated }) => {
         login(email, password)(dispatch);
     };
 
-    const handleLoginOtp = () => {
-        const token = auth.token;
-        const code = 'agdajsdeyu23';
-        // console.log('CallLogin action');
-        loginOtp(token, code)(dispatch);
-    };
+    // const handleLoginOtp = () => {
+    //     const token = auth.token;
+    //     const code = 'agdajsdeyu23';
+    //     // console.log('CallLogin action');
+    //     loginOtp(token, code)(dispatch);
+    // };
 
     if (isAuthenticated) {
         return <Navigate to="/" />;

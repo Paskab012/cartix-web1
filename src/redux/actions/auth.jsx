@@ -94,8 +94,11 @@ export const login = (email, password) => async (dispatch) => {
 };
 
 export const signup =
-    (full_names, position, email, password, confirm_password) => async (dispatch) => {
-        const body = JSON.stringify({ full_names, position, email, password, confirm_password });
+    (ngoName, _, fullName, position, email, password, notify) => async (dispatch) => {
+        const body = JSON.stringify({ email: email, password: password, ngo: ngoName, profile: {
+                name: fullName,
+                job_title: position
+            }});
 
         try {
             const res = await axios.post(`/auth/register/`, body);
@@ -103,6 +106,8 @@ export const signup =
                 type: SIGNUP_SUCCESS,
                 payload: res.data,
             });
+            console.log(res);
+            notify();
         } catch (err) {
             dispatch({
                 type: SIGNUP_FAIL,
