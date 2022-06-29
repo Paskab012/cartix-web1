@@ -1,0 +1,79 @@
+.data_container {
+  width: 100%;
+  height: 100vh;
+  background-color: #f2f2f2;
+}
+
+.center-flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.center_clm_flex {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.card_data {
+  width: 60%;
+}
+
+.upload_header {
+  width: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.data_upload {
+  background-color: #fff;
+  padding: 40px;
+}
+
+.dropzone{
+  border: 2px dashed rgb(0, 132, 255);
+  border-radius: 10px;
+  padding: 40px 0;
+  text-align: center;
+  color: rgba(7, 7, 7, 0.959);
+  font-size: 12px;
+}
+
+.dropzone.active{
+  border-color:rgb(0, 102, 255);
+}
+
+.dropzone img {
+  margin-bottom: 0.7rem;
+}
+
+.uppload_text {
+  font-weight: 600;
+}
+
+.file{
+  text-decoration:none;
+  color: rgb(255, 255, 255);
+  display:block;
+  background-color: #00db5b;
+  border-radius: 10px;
+  margin-top: 20px;
+  padding: 10px;
+  position:relative;
+  overflow: hidden;
+}
+.file .progress {
+  background-color: rgba(0, 0, 133);
+  position: absolute;
+  inset:0;
+  width:0;
+  padding-top: 10px;
+  text-align: center;
+}
+.file .progress.done{
+  top: 100px;
+}

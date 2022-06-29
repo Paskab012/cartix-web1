@@ -15,6 +15,7 @@
         "assert": "^2.0.0",
         "axios": "^0.27.2",
         "classnames": "^2.3.1",
+        "formik": "^2.2.9",
         "fs": "^0.0.1-security",
         "https-browserify": "^1.0.0",
         "os": "^0.1.2",
