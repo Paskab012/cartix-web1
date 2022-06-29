@@ -3,6 +3,7 @@ import { useState } from 'react';
 const CountryDropDown = () => {
     const [isList, setIsList] = useState(false);
     const [isSubList, setIsSubList] = useState(3);
+    console.log(isSubList);
     return (
         <div>
             <div

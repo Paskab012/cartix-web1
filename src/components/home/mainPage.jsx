@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import AnimatedBack from '../animations/AnimatedBack';
+// import AnimatedBack from '../animations/AnimatedBack';
 
 import Nav from '../header/Navigation';
 import map from '../../assets/map.png';

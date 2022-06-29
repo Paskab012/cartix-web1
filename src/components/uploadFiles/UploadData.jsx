@@ -10,7 +10,7 @@ const Container = styled.div`
     display: flex;
     justify-content: center;
     background: #f2f2f2;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.03);
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.03);
     border-radius: 5px;
 `;
 
@@ -36,14 +36,14 @@ const Item = styled.li`
     justify-content: center;
 `;
 
-const SavingsButton = styled.button`
-    background-color: #3981ed;
-    color: white;
-    font-size: 12px;
-    font-weight: normal;
-    padding: 12px 20px;
-    border-radius: 5px;
-`;
+// const SavingsButton = styled.button`
+//     background-color: #3981ed;
+//     color: white;
+//     font-size: 12px;
+//     font-weight: normal;
+//     padding: 12px 20px;
+//     border-radius: 5px;
+// `;
 
 const StyledLink = styled(Link)`
     color: rgba(0, 0, 0, 0.5);
