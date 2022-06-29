@@ -5,6 +5,7 @@ import GoBack from '../../assets/goback.svg';
 import UploadIcon from '../../assets/upload_icon.svg';
 import './data_style.css';
 import DownloadIcon from '../../assets/download_icon.svg';
+import DocIcon from '../../assets/doc_icon.svg';
 
 const chunkSize = 10 * 1024;
 const XlsxUpload = () => {
@@ -98,6 +99,10 @@ const XlsxUpload = () => {
           <p>Go back</p>
         </div>
         <div className="data_upload">
+          <div className="data_header">
+            <p>SCGs data compilation template</p>
+            <img src={DownloadIcon} alt="download_icon"/>
+          </div>
           <div
             onDragOver={e => {setDropzoneActive(true); e.preventDefault();}}
             onDragLeave={e => {setDropzoneActive(false); e.preventDefault();}}
@@ -105,6 +110,7 @@ const XlsxUpload = () => {
             className={"dropzone" + (dropzoneActive ? " active" : "")}>
             <img src={UploadIcon} alt='upload_icon' />
             <p><span className='uppload_text'>Click to upload</span> or drag and drop</p>
+            <p>XLSX, XLS, CSV</p>
           </div>
           <div className="files">
             {files.map((file,fileIndex) => {
@@ -123,9 +129,15 @@ const XlsxUpload = () => {
               return (
                 <a className="file" target="_blank"
                   href={'http://localhost:4001/uploads/'+file.finalFilename} rel="noreferrer">
-                  <div className="name">{file.name}</div>
+                  <img src={DocIcon} alt="doc_icon" />
+                  <div className='file_details'>
+                    <p id="file_name">{file.name}</p>
+                    <p>{file.size / 100}Kb</p>
+                  </div>
                   <div className={"progress " + (progress === 100 ? 'done' : '')}
-                      style={{width:progress+'%'}}>{progress}%</div>
+                      style={{width:progress+'%'}}>
+                  </div>
+                  <span id="value">{progress}%</span>
                 </a>
               );
             })}
