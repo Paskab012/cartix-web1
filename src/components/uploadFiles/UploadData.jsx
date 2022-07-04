@@ -1,11 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import {useState, useEffect} from "react";
 import axios from "axios";
+import {Link} from 'react-router-dom';
 import GoBack from '../../assets/goback.svg';
 import UploadIcon from '../../assets/upload_icon.svg';
 import './data_style.css';
 import DownloadIcon from '../../assets/download_icon.svg';
 import DocIcon from '../../assets/doc_icon.svg';
+import DataNavbar from "../data/DataNavbar";
 
 const chunkSize = 10 * 1024;
 const XlsxUpload = () => {
@@ -42,7 +44,7 @@ const XlsxUpload = () => {
     params.set('currentChunkIndex', currentChunkIndex);
     params.set('totalChunks', Math.ceil(file.size / chunkSize));
     const headers = {'Content-Type': 'application/octet-stream'};
-    const url = 'http://localhost:4001/upload?'+params.toString();
+    const url = 'http://127.0.0.1:8000/api/v1/xls/'+params.toString();
     axios.post(url, data, {headers})
       .then(response => {
         const file = files[currentFileIndex];
@@ -92,55 +94,58 @@ const XlsxUpload = () => {
 
 
   return (
-    <div className='data_container center-flex'>
-      <div className='card_data'>
-        <div className="upload_header">
-          <img src={GoBack} alt="arrow_back" />
-          <p>Go back</p>
-        </div>
-        <div className="data_upload">
-          <div className="data_header">
-            <p>SCGs data compilation template</p>
-            <img src={DownloadIcon} alt="download_icon"/>
-          </div>
-          <div
-            onDragOver={e => {setDropzoneActive(true); e.preventDefault();}}
-            onDragLeave={e => {setDropzoneActive(false); e.preventDefault();}}
-            onDrop={e => handleDrop(e)}
-            className={"dropzone" + (dropzoneActive ? " active" : "")}>
-            <img src={UploadIcon} alt='upload_icon' />
-            <p><span className='uppload_text'>Click to upload</span> or drag and drop</p>
-            <p>XLSX, XLS, CSV</p>
-          </div>
-          <div className="files">
-            {files.map((file,fileIndex) => {
-              let progress = 0;
-              if (file.finalFilename) {
-                progress = 100;
-              } else {
-                const uploading = fileIndex === currentFileIndex;
-                const chunks = Math.ceil(file.size / chunkSize);
-                if (uploading) {
-                  progress = Math.round(currentChunkIndex / chunks * 100);
+    <div className="data">
+      <DataNavbar />
+      <div className='data_container center-flex'>
+        <div className='card_data'>
+          <Link to="/savings-group-map/data" className="upload_header">
+            <img src={GoBack} alt="arrow_back" />
+            <p>Go back</p>
+          </Link>
+          <div className="data_upload">
+            <div className="data_header">
+              <p>SCGs data compilation template</p>
+              <img src={DownloadIcon} alt="download_icon"/>
+            </div>
+            <div
+              onDragOver={e => {setDropzoneActive(true); e.preventDefault();}}
+              onDragLeave={e => {setDropzoneActive(false); e.preventDefault();}}
+              onDrop={e => handleDrop(e)}
+              className={"dropzone" + (dropzoneActive ? " active" : "")}>
+              <img src={UploadIcon} alt='upload_icon' />
+              <p><span className='uppload_text'>Click to upload</span> or drag and drop</p>
+              <p>XLSX, XLS, CSV</p>
+            </div>
+            <div className="files">
+              {files.map((file,fileIndex) => {
+                let progress = 0;
+                if (file.finalFilename) {
+                  progress = 100;
                 } else {
-                  progress = 0;
+                  const uploading = fileIndex === currentFileIndex;
+                  const chunks = Math.ceil(file.size / chunkSize);
+                  if (uploading) {
+                    progress = Math.round(currentChunkIndex / chunks * 100);
+                  } else {
+                    progress = 0;
+                  }
                 }
-              }
-              return (
-                <a className="file" target="_blank"
-                  href={'http://localhost:4001/uploads/'+file.finalFilename} rel="noreferrer">
-                  <img src={DocIcon} alt="doc_icon" />
-                  <div className='file_details'>
-                    <p id="file_name">{file.name}</p>
-                    <p>{file.size / 100}Kb</p>
-                  </div>
-                  <div className={"progress " + (progress === 100 ? 'done' : '')}
-                      style={{width:progress+'%'}}>
-                  </div>
-                  <span id="value">{progress}%</span>
-                </a>
-              );
-            })}
+                return (
+                  <a className="file" target="_blank"
+                    href={'http://127.0.0.1:8000/media/'+file.finalFilename} rel="noreferrer">
+                    <img src={DocIcon} alt="doc_icon" />
+                    <div className='file_details'>
+                      <p id="file_name">{file.name}</p>
+                      <p>{file.size / 100}Kb</p>
+                    </div>
+                    <div className={"progress " + (progress === 100 ? 'done' : '')}
+                        style={{width:progress+'%'}}>
+                    </div>
+                    <span id="value">{progress}%</span>
+                  </a>
+                );
+              })}
+            </div>
           </div>
         </div>
       </div>
