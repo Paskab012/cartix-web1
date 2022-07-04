@@ -18,9 +18,7 @@ import {
 } from '../actions/types';
 
 const initialState = {
-    // access: localStorage.getItem('access'),
-    // refresh: localStorage.getItem('refresh'),
-    isAuthenticated: null,
+    isAuthenticated: false,
     data: null,
 };
 
@@ -38,8 +36,6 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 isAuthenticated: true,
-                // access: payload.access,
-                // refresh: payload.refresh,
                 data: payload,
             };
         case SIGNUP_SUCCESS:

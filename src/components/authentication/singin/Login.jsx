@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { useDispatch, useSelector } from 'react-redux';
-import { toast } from 'react-toastify';
+import { useDispatch} from 'react-redux';
 import picture from '../../../assets/bnr.svg';
 import { FormInput } from './FormInput';
 import { Link, Navigate } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import image from '../../../assets/signup.svg';
-import { login, loginOtp } from '../../../redux/actions/auth';
+import { login } from '../../../redux/actions/auth';
 import SnipperLoginBtn from './SpinnerLoginBtn';
 
 const Background = styled.div`
@@ -123,13 +122,13 @@ const ButtonContainer = styled.div`
     position: relative;
 `;
 
-const Button = styled.button`
-    width: 100%;
-    background-color: #3981ed;
-    color: white;
-    border-radius: 5px;
-    padding: 12px 20px;
-`;
+// const Button = styled.button`
+//     width: 100%;
+//     background-color: #3981ed;
+//     color: white;
+//     border-radius: 5px;
+//     padding: 12px 20px;
+// `;
 
 const Paragraph = styled.p`
     font-size: 14px;
@@ -155,10 +154,9 @@ const StyledLink = styled(Link)`
     }
 `;
 
-const Login = ({ login, isAuthenticated }) => {
+const Login = ({ login, isAuthenticated, history }) => {
     const dispatch = useDispatch();
-    const [loading, setLoading] = useState(false);
-    const auth = useSelector((state) => state.auth);
+    const [isLoading, setIsLoading] = useState(false);
     const [formData, setFormData] = useState({
         email: '',
         password: '',
@@ -172,27 +170,25 @@ const Login = ({ login, isAuthenticated }) => {
 
     const handleLogin = (e) => {
         e.preventDefault();
-        // const email = 'makutanolucien@gmail.com';
-        // const password = '&hg57AS45Ap';
-        login(email, password)(dispatch);
-        toast.info('Welcome again!');
+        const navigate = () => history.push('/activate');
+        if (!isLoading){
+            setIsLoading(true);
+            login(email, password, navigate, setIsLoading)(dispatch);
+        }
     };
 
     const onSubmit = (e) => {
         e.preventDefault();
-        login(email, password)(dispatch);
+        const navigate = () => history.push('/activate');
+        if (!isLoading){
+            setIsLoading(true);
+            login(email, password, navigate, setIsLoading)(dispatch);
+        }
     };
 
-    const handleLoginOtp = () => {
-        const token = auth.token;
-        const code = 'agdajsdeyu23';
-        // console.log('CallLogin action');
-        loginOtp(token, code)(dispatch);
-    };
+    if (isAuthenticated)
+        return <Navigate to="/activate" />;
 
-    if (isAuthenticated) {
-        return <Navigate to="/" />;
-    }
     const Inputs = [
         {
             id: 1,
@@ -240,14 +236,8 @@ const Login = ({ login, isAuthenticated }) => {
                         ))}
                         <ButtonContainer>
                             <SnipperLoginBtn
-                                loading={loading}
-                                onClick={() => {
-                                    setLoading(true);
-                                    setTimeout(() => {
-                                        setLoading(false);
-                                    }, 2000);
-                                    handleLogin();
-                                }}
+                                loading={isLoading}
+                                onClick={handleLogin}
                                 type="submit"
                                 title={'Login'}
                             >

@@ -1,13 +1,16 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
-import image from '../../../assets/signup.svg';
-import { connect } from 'react-redux';
-import { signup } from '../../../redux/actions/auth';
+import { useDispatch} from 'react-redux';
+import {connect, useSelector} from 'react-redux';
 import { toast } from 'react-toastify';
+import { Link, Navigate } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 
+import image from '../../../assets/signup.svg';
+import { signup } from '../../../redux/actions/auth';
+import { fetch_ngos } from '../../../redux/actions/ngos';
 import picture from '../../../assets/bnr.svg';
-import { Link, Navigate } from 'react-router-dom';
+import SnipperLoginBtn from '../singin/SpinnerLoginBtn';
 
 const Background = styled.div`
     min-width: 100%;
@@ -113,23 +116,23 @@ const ButtonContainer = styled.div`
     position: relative;
 `;
 
-const Button = styled.button`
-    width: 64%;
-    background-color: #3981ed;
-    color: white;
-    border-radius: 5px;
-    padding: 0.8rem;
-    border: none;
-    cursor: pointer;
-`;
+// const Button = styled.button`
+//     width: 64%;
+//     background-color: #3981ed;
+//     color: white;
+//     border-radius: 5px;
+//     padding: 0.8rem;
+//     border: none;
+//     cursor: pointer;
+// `;
 
-const Login = styled.p`
-    font-size: 14px;
-    line-height: 17px;
-    color: #3981ed;
-    text-decoration-line: underline;
-    cursor: pointer;
-`;
+// const Login = styled.p`
+//     font-size: 14px;
+//     line-height: 17px;
+//     color: #3981ed;
+//     text-decoration-line: underline;
+//     cursor: pointer;
+// `;
 
 const StyledLink = styled(Link)`
     color: black;
@@ -225,9 +228,19 @@ const InputOption = styled.option`
     border: solid 1px red;
 `;
 
-const SignUp = ({ signup, isAuthenticated }) => {
+const Paragraph = styled.p`
+    font-size: 14px;
+    line-height: 17px;
+    color: #3981ed;
+    text-decoration-line: underline;
+    cursor: pointer;
+`;
+
+const SignUp = ({ signup, isAuthenticated, fetch_ngos }) => {
+    const dispatch = useDispatch();
     const [focused, setFocused] = useState(false);
     const [userSignup, setUserSignup] = useState(false);
+    const [loading, setLoading] = useState(false);
     const [formValues, setFormValues] = useState({
         ngoName: '',
         ngoType: '',
@@ -238,6 +251,11 @@ const SignUp = ({ signup, isAuthenticated }) => {
         confirmPassword: '',
     });
 
+    useEffect(() => {
+        fetch_ngos();
+    }, [fetch_ngos])
+
+    const { ngos } = useSelector((state) => state.ngos);
     const notify = () => toast.success('Account created successfully!');
 
     const { ngoName, ngoType, fullName, position, email, password, confirmPassword } = formValues;
@@ -246,9 +264,23 @@ const SignUp = ({ signup, isAuthenticated }) => {
         e.preventDefault();
 
         if (password === confirmPassword) {
-            signup(ngoName, ngoType, fullName, position, email, password, confirmPassword);
+            console.log("From button handleSubmit");
+            signup(
+                ngoName, 
+                ngoType, 
+                fullName, 
+                position, email, password, notify)(dispatch);
             setUserSignup(true);
         }
+    };
+
+    const onSubmit = (e) => {
+        e.preventDefault();
+        signup(
+            ngoName, 
+            ngoType, 
+            fullName, 
+            position, email, password, notify)(dispatch);
     };
 
     const onChange = (e) => {
@@ -262,16 +294,9 @@ const SignUp = ({ signup, isAuthenticated }) => {
         return <Navigate to="/login" />;
     }
 
-    console.log(formValues);
-
     const handleFocus = (_) => {
         setFocused(true);
     };
-
-    function formSubmit() {
-        notify();
-        handleSubmit();
-    }
 
     return (
         <Background>
@@ -287,32 +312,16 @@ const SignUp = ({ signup, isAuthenticated }) => {
                 </Content>
                 <FormContainer>
                     <Title>NGO Sign Up</Title>
-                    <MyForm onSubmit={formSubmit} autoComplete="false">
+                    <MyForm onSubmit={(e) => onSubmit(e)} autoComplete="false">
                         <Form>
                             <Label>NGO name</Label>
-                            <InputField
-                                id="1"
-                                name="ngoName"
-                                type="text"
-                                placeholder="select your NGO name"
-                                errorMessage="Please select your NGO"
-                                required={true}
-                                onChange={(e) => onChange(e)}
-                                onBlur={handleFocus}
-                                className="inputs"
-                                // onFocus={() => inputProps.name === 'confirmPassword' && setFocused(true)}
-                                focused={focused.toString()}
-                            />
-                            {/* <ErrorMessage className="span">{errorMessage}</ErrorMessage> */}
-                        </Form>
-                        <Form>
-                            <Label>NGO type</Label>
                             <InputFieldSelect
                                 classname="js-example-basic-single"
-                                id="2"
+                                id="1"
+                                key={1}
                                 name="ngoName"
                                 type="text"
-                                placeholder="select your NGO type"
+                                placeholder="Select your NGO"
                                 errorMessage="Please select your NGO"
                                 required={true}
                                 onChange={(e) => onChange(e)}
@@ -321,8 +330,34 @@ const SignUp = ({ signup, isAuthenticated }) => {
                                 /* onFocus={() => inputProps.name === 'confirmPassword' && setFocused(true)} */
                                 focused={focused.toString()}
                             >
+                                {ngos.map((ngo) =>
+                                    <InputOption key={ngo.id} value={ngo.id}>
+                                        {ngo.name === "Admin" ? "" : ngo.name }
+                                    </InputOption>
+                                )}
+                            </InputFieldSelect>
+                            {/* <ErrorMessage className="span">{errorMessage}</ErrorMessage> */}
+                        </Form>
+                        <Form>
+                            <Label>NGO type</Label>
+                            <InputFieldSelect
+                                classname="js-example-basic-single"
+                                id="2"
+                                key={2}
+                                name="ngoType"
+                                type="text"
+                                placeholder="Select your NGO type"
+                                errorMessage="Please select your NGO"
+                                required={true}
+                                onChange={(e) => onChange(e)}
+                                onBlur={handleFocus}
+                                className="inputs"
+                                /* onFocus={() => inputProps.name === 'confirmPassword' && setFocused(true)} */
+                                focused={focused.toString()}
+                            >
+                                <InputOption></InputOption>
                                 <InputOption value="International">International</InputOption>
-                                <InputOption value="National">National</InputOption>
+                                <InputOption value="Local">Local</InputOption>
                             </InputFieldSelect>
                             {/* <ErrorMessage className="span">{errorMessage}</ErrorMessage> */}
                         </Form>
@@ -330,6 +365,7 @@ const SignUp = ({ signup, isAuthenticated }) => {
                             <Label>Full name</Label>
                             <InputField
                                 id="3"
+                                key={3}
                                 name="fullName"
                                 type="text"
                                 placeholder="input name"
@@ -349,6 +385,7 @@ const SignUp = ({ signup, isAuthenticated }) => {
                             <Label>Position</Label>
                             <InputField
                                 id="4"
+                                key={4}
                                 name="position"
                                 type="text"
                                 placeholder="input position"
@@ -366,6 +403,7 @@ const SignUp = ({ signup, isAuthenticated }) => {
                             <Label>Email</Label>
                             <InputField
                                 id="5"
+                                key={5}
                                 name="email"
                                 type="email"
                                 placeholder="input email"
@@ -382,6 +420,7 @@ const SignUp = ({ signup, isAuthenticated }) => {
                             <Label>Password</Label>
                             <InputField
                                 id="6"
+                                key={6}
                                 name="password"
                                 type="password"
                                 placeholder="input password"
@@ -399,6 +438,7 @@ const SignUp = ({ signup, isAuthenticated }) => {
                             <Label>Confirm Password</Label>
                             <InputField
                                 id="7"
+                                key={7}
                                 name="password"
                                 type="password"
                                 placeholder="re-type your password"
@@ -413,11 +453,22 @@ const SignUp = ({ signup, isAuthenticated }) => {
                             {/* <ErrorMessage className="span">{errorMessage}</ErrorMessage> */}
                         </Form>
                         <ButtonContainer>
-                            <Button type="submit" onClick={formSubmit}>
-                                Submit sign up request
-                            </Button>
+                            <SnipperLoginBtn
+                                loading={loading}
+                                onClick={() => {
+                                    setLoading(true);
+                                    setTimeout(() => {
+                                        setLoading(false);
+                                    }, 2000);
+                                    handleSubmit();
+                                }}
+                                type="submit"
+                                title={'Submit an account request'}
+                            >
+                                Log in
+                            </SnipperLoginBtn>
                             <StyledLink to="/login">
-                                <Login>Login</Login>
+                                <Paragraph>Login</Paragraph>
                             </StyledLink>
                         </ButtonContainer>
                     </MyForm>
@@ -431,4 +482,4 @@ const mapStateToProps = (state) => ({
     isAuthenticated: state.auth.isAuthenticated,
 });
 
-export default connect(mapStateToProps, { signup })(SignUp);
+export default connect(mapStateToProps, { signup, fetch_ngos })(SignUp);

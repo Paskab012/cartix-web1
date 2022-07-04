@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
+import { loginOtp } from '../../../redux/actions/auth';
+import { useDispatch, useSelector } from 'react-redux';
+import { Navigate } from 'react-router-dom';
+
 import styled from 'styled-components';
 import picture from '../../../assets/bnr.svg';
+import SnipperLoginBtn from './SpinnerLoginBtn';
 
 const Background = styled.div`
     min-width: 100%;
@@ -29,8 +34,8 @@ const TextColor = styled.div`
     background-color: white;
     width: 40%;
     height: 45%;
+    text-align: center;
     align-items: center;
-    flex-direction: column;
     position: absolute;
     box-shadow: 0px 4px 24px rgba(0, 0, 0, 0.05);
     border-radius: 5px;
@@ -53,28 +58,34 @@ const Paragraphe = styled.h2`
 
 const OtpInput = styled.input`
     background-color: #f2f2f2;
-    border-bottom: solid 1px #88714e;
     font-size: 13px;
     font-weight: normal;
     margin: 1.4%;
-    width: 12%;
-    height: 12%;
+    width: 6%;
+    height: 10%;
     padding-left: 5%;
     border-radius: 3px;
+    outline: none;
+    border: white;
+    border-bottom: solid 1px #88714e;
+    cursor: pointer;
 `;
 
 const ClearBtn = styled.button`
     border: 1px solid white;
     border-radius: 5px;
-    padding: 1.5% 3% 1.5% 3%;
+    padding: 1rem 2rem;
+    height: 3.25rem;
     background-color: red;
     color: white;
+    margin-right: 3%;
+    cursor: pointer;
 `;
 
 const VerifyBtn = styled.button`
-    border: 1px solid white;
+    border: none;
     border-radius: 5px;
-    padding: 1.5% 3% 1.5% 3%;
+    padding: none;
     background-color: #3981ed;
     color: white;
 `;
@@ -92,7 +103,10 @@ const Logo = styled.img`
 const EnteredOtp = styled.p`
     margin: 2%;
 `;
-const LoginOTP = () => {
+const LoginOTP = ({ isAuthenticated, history }) => {
+    const [loading, setLoading] = useState(false);
+    const dispatch = useDispatch();
+    const { data } = useSelector((state) => state.auth);
     const [otp, setOtp] = useState(new Array(6).fill(''));
 
     const handleChange = (element, index) => {
@@ -105,6 +119,19 @@ const LoginOTP = () => {
             element.nextSibling.focus();
         }
     };
+
+    const handleLoginOtp = (e) => {
+        e.preventDefault();
+
+        const navigate = () => history.push('/');
+        if (!loading){
+            setLoading(true);
+            loginOtp(data.token, otp, navigate, setLoading)(dispatch);
+        }
+    };
+
+    if (isAuthenticated)
+        return <Navigate to="/" />;
 
     return (
         <>
@@ -140,15 +167,20 @@ const LoginOTP = () => {
                         <p>
                             <ClearBtn
                                 className="mr-2 btn btn-secondary"
-                                onClick={(e) => setOtp([...otp.map((v) => '')])}
+                                onClick={(e) => setOtp([...otp.map((_) => '')])}
                             >
                                 Clear
                             </ClearBtn>
-                            <VerifyBtn
-                                className="btn btn-primary"
-                                onClick={(e) => alert('Entered OTP is ' + otp.join(''))}
-                            >
-                                Verify account
+                            <VerifyBtn>
+                                <SnipperLoginBtn
+                                    className="btn btn-primary"
+                                    loading={loading}
+                                    onClick={handleLoginOtp}
+                                    type="submit"
+                                    title={'Verify account'}
+                                >
+                                    Verify account
+                                </SnipperLoginBtn>
                             </VerifyBtn>
                         </p>
                     </TextColor>

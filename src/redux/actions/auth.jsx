@@ -24,7 +24,7 @@ export const checkAuthenticated = () => async (dispatch) => {
         const body = JSON.stringify({ token: localStorage.getItem('access') });
 
         try {
-            const res = await axios.post(`auth/verify`, body);
+            const res = await axios.post(`auth/verify/`, body);
 
             if (res.data.code !== 'token_not_valid') {
                 dispatch({
@@ -68,7 +68,7 @@ export const load_user = () => async (dispatch) => {
     }
 };
 
-export const login = (email, password) => async (dispatch) => {
+export const login = (email, password, navigate, setIsLoading) => async (dispatch) => {
     const body = JSON.stringify({ email, password });
 
     try {
@@ -77,25 +77,30 @@ export const login = (email, password) => async (dispatch) => {
             type: LOGIN_SUCCESS,
             payload: res.data,
         });
-        toast.success('User logged in successfully', {
+        toast.success('User logged in successfully, an OTP code is sent in your inbox', {
             position: 'bottom-left',
-            autoClose: '3000',
+            autoClose: '2000',
         });
-        // dispatch(load_user());
+        setIsLoading(false);
+        // navigate();
     } catch (err) {
         dispatch({
             type: LOGIN_FAIL,
         });
-        toast.error('Invalid credentials, Input the correct values', {
+        toast.error('Login fail, invalid credentials, Input the correct ones', {
             position: 'top-right',
-            autoClose: '3000',
+            autoClose: '2000',
         });
+        setIsLoading(false);
     }
 };
 
 export const signup =
-    (full_names, position, email, password, confirm_password) => async (dispatch) => {
-        const body = JSON.stringify({ full_names, position, email, password, confirm_password });
+    (ngoName, _, fullName, position, email, password, notify) => async (dispatch) => {
+        const body = JSON.stringify({ email: email, password: password, ngo: ngoName, profile: {
+                name: fullName,
+                job_title: position
+            }});
 
         try {
             const res = await axios.post(`/auth/register/`, body);
@@ -103,6 +108,8 @@ export const signup =
                 type: SIGNUP_SUCCESS,
                 payload: res.data,
             });
+            console.log(res);
+            notify();
         } catch (err) {
             dispatch({
                 type: SIGNUP_FAIL,
@@ -110,18 +117,21 @@ export const signup =
         }
     };
 
-export const loginOtp = (token, otp) => async (dispatch) => {
-    const body = JSON.stringify({ token, otp });
+export const loginOtp = (token, otp, navigate, setLoading) => async (dispatch) => {
+    const body = JSON.stringify({ email: token, password: otp });
 
     try {
         await axios.post(`/auth/token/`, body);
         dispatch({
             type: ACTIVATE_SUCCESS,
         });
+        setLoading(false);
+        // navigate();
     } catch (err) {
         dispatch({
             type: ACTIVATE_FAIL,
         });
+        setLoading(false);
     }
 };
 
