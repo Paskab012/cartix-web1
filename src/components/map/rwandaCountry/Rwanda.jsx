@@ -45,24 +45,20 @@ const Diagrams = styled.img`
 export const Rwanda = () => {
     const [imageSize, setImageSize] = useState({
         width: 739,
-        height: 640
-      });
-    
+        height: 640,
+    });
+
     let imgRef = useRef(null);
     return (
         <Container>
             <Left>
                 <CardMap src={map} />
-                <InteractiveCart imageSize={imageSize} imgRef={imgRef}/>
-                <Buttons
-                    imgRef={imgRef}
-                    setImageSize={setImageSize}
-                />
+                <InteractiveCart imageSize={imageSize} imgRef={imgRef} />
+                <Buttons imgRef={imgRef} setImageSize={setImageSize} />
             </Left>
             <Right>
                 <Diagrams src={chart} />
             </Right>
-
         </Container>
     );
 };

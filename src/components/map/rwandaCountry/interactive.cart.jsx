@@ -4,16 +4,16 @@ import ReactTooltip from 'react-tooltip';
 import './cart_region.css';
 
 const RwdCart = styled.div`
-position:relative
+    position:relative
   /* backgroun:none;
   overflow : hidden; */
 
   svg {
-    position: absolute;
-    z-index: 100;
-    top: 5%;
-    left: 5%;
-  }
+        position: absolute;
+        z-index: 100;
+        top: 5%;
+        left: 5%;
+    }
 `;
 
 const InteractiveCart = ({ imageSize, imgRef }) => (
