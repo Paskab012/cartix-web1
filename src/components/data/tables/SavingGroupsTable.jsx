@@ -5,7 +5,7 @@ import DATA from './SCGs_DATA.json';
 import { COLUMNS } from './columns';
 import './table.css';
 
-export default function SavingGroupsTable(Elem: React.ComponentClass<any>) {
+export default function SavingGroupsTable() {
     const columns = useMemo(() => COLUMNS, []);
     const data = useMemo(() => DATA, []);
 

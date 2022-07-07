@@ -1,10 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
+import { connect } from 'react-redux';
+
 import picture from '../../assets/bnr.svg';
 import profile from '../../assets/Profile.png';
 import addUser from '../../assets/AddUser.png';
 import { Link } from 'react-router-dom';
-
+import { logout } from '../../redux/actions/auth';
 
 const Container = styled.div`
     height: 85px;
@@ -12,12 +14,43 @@ const Container = styled.div`
     display: flex;
     justify-content: space-between;
     width: 100%;
+    /* position: fixed; */
+    background-color: white;
+    z-index: 999px;
 `;
 const Wrapper = styled.div`
     padding: 10px 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    /* background-color: red; */
+    z-index: 1;
+    cursor: pointer;
+`;
+
+const LeftWrapper = styled.div`
+    padding: 0.4rem 0.5rem;
+    margin-right: 1rem;
+    display: flex;
+    justify-content: center;
+    z-index: 999;
+    cursor: pointer;
+    &:hover {
+        transition: 0.2s all ease-in-out;
+        border: 1px solid black;
+        font-weight: 600;
+    }
+`;
+
+const RightWrapper = styled.div`
+    padding: 0.3rem 0.5rem;
+    display: flex;
+    justify-content: center;
+    &:hover {
+        transition: 0.2s all ease-in-out;
+        border: 1px solid black;
+        font-weight: 600;
+    }
 `;
 
 const Left = styled.div`
@@ -46,7 +79,6 @@ const Small = styled.span`
 const Menu = styled.ul`
     display: flex;
     list-style: none;
-
     @media only screen and (max-width: 480px) {
         display: none;
     }
@@ -67,6 +99,19 @@ const Button = styled.button`
     cursor: pointer;
     font-size: 15px;
     margin-right: 24px;
+    background-color: white;
+    border: none;
+`;
+
+const LogoutButton = styled.button`
+    background-color: #753918;
+    padding: 8% 18% 8% 18%;
+    color: white;
+    font-weight: 500;
+    cursor: pointer;
+    font-size: 15px;
+    margin-right: 24px;
+    border-radius: 5px;
 `;
 
 const Picture = styled.img`
@@ -81,6 +126,16 @@ const Profile = styled.img`
     object-fit: cover;
     margin-bottom: 4px;
     cursor: pointer;
+    margin-left: 1rem;
+`;
+
+const AddUser = styled.img`
+    width: 20px;
+    height: 18px;
+    object-fit: cover;
+    margin-bottom: 4px;
+    cursor: pointer;
+    margin-left: 1rem;
 `;
 
 const StyledLink = styled(Link)`
@@ -99,6 +154,35 @@ const StyledLink = styled(Link)`
         font-weight: 600;
     }
 `;
+
+const Navbar = ({ logout, isAuthenticated }) => {
+    const loginGuest = () => (
+        <>
+            <Wrapper>
+                <LeftWrapper>
+                    <AddUser src={addUser} />
+                    <StyledLink className="animate__animated" to="/signup">
+                        <Button>Sign Up</Button>
+                    </StyledLink>
+                </LeftWrapper>
+
+                <RightWrapper>
+                    <Profile src={profile} />
+                    <StyledLink className="animate__animated" to="/login">
+                        <Button>Sign In</Button>
+                    </StyledLink>
+                </RightWrapper>
+            </Wrapper>
+        </>
+    );
+
+    const authUser = () => (
+        <Wrapper>
+            <StyledLink className="animate__animated" to="/">
+                <LogoutButton onClick={logout}>Logout</LogoutButton>
+            </StyledLink>
+        </Wrapper>
+    );
 
     return (
         <Container>
@@ -122,7 +206,13 @@ const StyledLink = styled(Link)`
                     <MenuItem>BNR</MenuItem>
                 </Menu>
             </Left>
+            {isAuthenticated ? authUser() : loginGuest()}
         </Container>
     );
 };
 
+const mapStateToProps = (state) => ({
+    isAuthenticated: state.auth.isAuthenticated,
+});
+
+export default connect(mapStateToProps, { logout })(Navbar);
