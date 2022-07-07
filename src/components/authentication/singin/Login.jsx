@@ -192,7 +192,7 @@ const Login = ({ login, isAuthenticated, history }) => {
         }
     };
 
-    if (isAuthenticated) return <Navigate to="/activate" />;
+    if (isAuthenticated) return <Navigate to="/" />;
 
     const Inputs = [
         {

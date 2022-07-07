@@ -4,13 +4,12 @@ import ReactTooltip from 'react-tooltip';
 import './cart_region.css';
 
 const RwdCart = styled.div`
-    position:relative
-  /* backgroun:none;
-  overflow : hidden; */
+    margin-top: 4rem !important;
+    cursor: pointer;
 
-  svg {
+    svg {
         position: absolute;
-        z-index: 100;
+        z-index: 999;
         top: 5%;
         left: 5%;
     }

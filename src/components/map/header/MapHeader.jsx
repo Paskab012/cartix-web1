@@ -11,6 +11,7 @@ const Container = styled.section`
     margin-top: 1%;
     position: absolute;
     margin-left: 2%;
+    background-color: white;
 `;
 
 const TitleElement = styled.h3`
@@ -80,7 +81,7 @@ const BoxesDisplayFlex = styled.div`
     justify-content: center;
 `;
 const Item1 = styled.span`
-    width: 42px;
+    width: 40px;
     height: 42px;
     background-color: #dba628;
     border-radius: 14.8571px;
@@ -89,7 +90,7 @@ const Item1 = styled.span`
 `;
 
 const Item2 = styled.span`
-    width: 42px;
+    width: 40px;
     height: 42px;
     background-color: #88714e;
     border-radius: 14.8571px;
@@ -98,7 +99,7 @@ const Item2 = styled.span`
 `;
 
 const Item3 = styled.span`
-    width: 42px;
+    width: 40px;
     height: 42px;
     background-color: #ac8a2f;
     border-radius: 14.8571px;
@@ -107,7 +108,7 @@ const Item3 = styled.span`
 `;
 
 const Item4 = styled.span`
-    width: 42px;
+    width: 40px;
     height: 42px;
     background-color: #eccd8f;
     border-radius: 14.8571px;
@@ -116,7 +117,7 @@ const Item4 = styled.span`
 `;
 
 const Item5 = styled.span`
-    width: 42px;
+    width: 40px;
     height: 42px;
     background-color: #f2dfb8;
     border-radius: 14.8571px;
