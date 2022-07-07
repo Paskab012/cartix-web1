@@ -1,0 +1,14 @@
+.span {
+    font-size: 12px;
+    color: white;
+    border-radius: 2px;
+    font-weight: semi-bold;
+    display: none;
+    position: absolute;
+    background-color: red;
+    width: 100%;
+}
+
+input:invalid ~ .span {
+    display: block;
+}
