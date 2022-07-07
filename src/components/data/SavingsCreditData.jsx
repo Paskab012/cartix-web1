@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import DataNav from './DataNavbar';
 import SavingsCreditgroupsdata from './Savings&Creditgroupsdata';
-import SavingGroupsTable from '../data/tables/SavingGroupsTable';
+import SavingGroupsTable from './tables/SavingGroupsTable';
 
 const Container = styled.section`
     background-color: #f2f2f2;
