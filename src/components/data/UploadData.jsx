@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import goBack from '../../assets/goback.svg';
 
 const Container = styled.div`
     width: 80%;
@@ -32,24 +33,14 @@ const Item = styled.li`
     margin-right: 4%;
 `;
 
-const SavingsButton = styled.button`
-    background-color: #3981ed;
-    color: white;
-    font-size: 12px;
-    font-weight: normal;
-    padding: 12px 20px;
-    border-radius: 5px;
-    transition: 0.3s all ease-in-out;
-    cursor: pointer;
-
-    &:hover {
-        border: 1px solid white;
-        transition: 0.2s all ease-in-out;
-        background-color: #dba628;
-        font-weight: bold;
-        color: black;
-    }
-`;
+// const SavingsButton = styled.button`
+//     background-color: #3981ed;
+//     color: white;
+//     font-size: 12px;
+//     font-weight: normal;
+//     padding: 12px 20px;
+//     border-radius: 5px;
+// `;
 
 const StyledLink = styled(Link)`
     color: rgba(0, 0, 0, 0.5);
@@ -65,16 +56,8 @@ const StyledLink = styled(Link)`
         transition: 0.2s all ease-in-out;
         color: black;
         font-weight: 700;
-        border-bottom: 3px solid #dba628;
         padding: 22px;
     }
-`;
-
-const Btn = styled.div`
-    width: 30%;
-    align-items: center;
-    display: flex;
-    justify-content: flex-end;
 `;
 
 const Hdr = styled.div`
@@ -82,34 +65,26 @@ const Hdr = styled.div`
     display: flex;
 `;
 
-const StylelinkUpload = styled(Link)`
-    color: rgba(0, 0, 0, 0.5);
-    text-decoration: none;
-    font-size: 15px;
+const GoBack = styled.img`
+    width: 100%;
+    height: 100%;
+    mix-blend-mode: luminosity;
+    opacity: 0.9;
 `;
 
-const SavingsCreditgroupsdata = () => {
+const XlsxUpload = () => {
     return (
         <>
             <Container>
                 <Header>
                     <Hdr>
                         <Item>
-                            <StyledLink className="animate__animated" to="/SavingData">
-                                Saving&Credit groups data
-                            </StyledLink>
-                        </Item>
-                        <Item>
-                            <StyledLink className="animate__animated" to="/Consentform">
-                                Consent form
+                            <GoBack src={goBack} />
+                            <StyledLink className="animate__animated" to="/savings-group-map/data">
+                                Go back
                             </StyledLink>
                         </Item>
                     </Hdr>
-                    <Btn>
-                        <StylelinkUpload className="animate__animated" to="/UploadData">
-                            <SavingsButton>Upload data</SavingsButton>
-                        </StylelinkUpload>
-                    </Btn>
                 </Header>
             </Container>
             ;
@@ -117,4 +92,4 @@ const SavingsCreditgroupsdata = () => {
     );
 };
 
-export default SavingsCreditgroupsdata;
+export default XlsxUpload;

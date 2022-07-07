@@ -65,8 +65,6 @@ const Button = styled.button`
     cursor: pointer;
     font-size: 15px;
     margin-right: 24px;
-    border: none;
-    background-color: white;
 `;
 
 const Picture = styled.img`
@@ -128,7 +126,7 @@ const DataNavbar = () => {
             </Left>
             <Wrapper>
                 <Profile src={profile} />
-                <Button>Uwimana Jean Jacques</Button>
+
             </Wrapper>
         </Container>
     );
