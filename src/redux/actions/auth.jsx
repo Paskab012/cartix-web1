@@ -87,7 +87,7 @@ export const login = (email, password, navigate, setIsLoading) => async (dispatc
         dispatch({
             type: LOGIN_FAIL,
         });
-        toast.error('Login fail, invalid credentials, Input the correct ones', {
+        toast.error('Login fail. Hint : invalid credentials, Input the correct ones; Bad connection', {
             position: 'top-right',
             autoClose: '2000',
         });

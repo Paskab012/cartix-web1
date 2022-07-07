@@ -260,10 +260,10 @@ const SignUp = ({ signup, isAuthenticated, fetch_ngos }) => {
 
     const { ngoName, ngoType, fullName, position, email, password, confirmPassword } = formValues;
 
-    console.log('form values-------', formValues)
+    console.log('form values-------', formValues);
 
     const handleSubmit = (e) => {
-        console.log('==hhhhh===', handleSubmit)
+        console.log('==hhhhh===', handleSubmit);
         e.preventDefault();
         if (password === confirmPassword) {
             signup(ngoName, ngoType, fullName, position, email, password, notify)(dispatch);
@@ -308,7 +308,7 @@ const SignUp = ({ signup, isAuthenticated, fetch_ngos }) => {
                 </Content>
                 <FormContainer>
                     <Title>NGO Sign Up</Title>
-                    <MyForm onSubmit={(e) => onSubmit(e)} autoComplete="false">
+                    <MyForm onSubmit={(e) => handleSubmit(e)} autoComplete="false">
                         <Form>
                             <Label>NGO name</Label>
                             <InputFieldSelect
