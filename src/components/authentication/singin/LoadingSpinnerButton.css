@@ -1,0 +1,21 @@
+.loading-spinner-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #3981ed;
+    color: white;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+    padding: 1rem 2rem;
+    height: 3rem;
+}
+.loading-spinner-button:hover {
+    box-shadow: 10px 10px 5px 129px rgba(0, 0, 0, 0.1) inset;
+    -webkit-box-shadow: 10px 10px 5px 129px rgba(0, 0, 0, 0.1) inset;
+    -moz-box-shadow: 10px 10px 5px 129px rgba(0, 0, 0, 0.1) inset;
+}
+.loading-spinner-button > img {
+    max-width: 25px;
+    margin: 0.5rem;
+}
