@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { useDispatch} from 'react-redux';
-import {connect, useSelector} from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { Link, Navigate } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
@@ -253,35 +253,30 @@ const SignUp = ({ signup, isAuthenticated, fetch_ngos }) => {
 
     useEffect(() => {
         fetch_ngos();
-    }, [fetch_ngos])
+    }, [fetch_ngos]);
 
     const { ngos } = useSelector((state) => state.ngos);
     const notify = () => toast.success('Account created successfully!');
 
     const { ngoName, ngoType, fullName, position, email, password, confirmPassword } = formValues;
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
+    console.log('form values-------', formValues)
 
+    const handleSubmit = (e) => {
+        console.log('==hhhhh===', handleSubmit)
+        e.preventDefault();
         if (password === confirmPassword) {
-            console.log("From button handleSubmit");
-            signup(
-                ngoName, 
-                ngoType, 
-                fullName, 
-                position, email, password, notify)(dispatch);
+            signup(ngoName, ngoType, fullName, position, email, password, notify)(dispatch);
             setUserSignup(true);
+        } else {
+            return <p>password do not match</p>;
         }
     };
 
-    const onSubmit = (e) => {
-        e.preventDefault();
-        signup(
-            ngoName, 
-            ngoType, 
-            fullName, 
-            position, email, password, notify)(dispatch);
-    };
+    // const onSubmit = (e) => {
+    //     e.preventDefault();
+    //     signup(ngoName, ngoType, fullName, position, email, password, notify)(dispatch);
+    // };
 
     const onChange = (e) => {
         setFormValues({ ...formValues, [e.target.name]: e.target.value });
@@ -291,6 +286,7 @@ const SignUp = ({ signup, isAuthenticated, fetch_ngos }) => {
         return <Navigate to="/" />;
     }
     if (userSignup) {
+        console.log('----------->>>', userSignup);
         return <Navigate to="/login" />;
     }
 
@@ -330,11 +326,11 @@ const SignUp = ({ signup, isAuthenticated, fetch_ngos }) => {
                                 /* onFocus={() => inputProps.name === 'confirmPassword' && setFocused(true)} */
                                 focused={focused.toString()}
                             >
-                                {ngos.map((ngo) =>
+                                {ngos.map((ngo) => (
                                     <InputOption key={ngo.id} value={ngo.id}>
-                                        {ngo.name === "Admin" ? "" : ngo.name }
+                                        {ngo.name === 'Admin' ? '' : ngo.name}
                                     </InputOption>
-                                )}
+                                ))}
                             </InputFieldSelect>
                             {/* <ErrorMessage className="span">{errorMessage}</ErrorMessage> */}
                         </Form>
@@ -439,7 +435,7 @@ const SignUp = ({ signup, isAuthenticated, fetch_ngos }) => {
                             <InputField
                                 id="7"
                                 key={7}
-                                name="password"
+                                name="confirmPassword"
                                 type="password"
                                 placeholder="re-type your password"
                                 errorMessage="Please input a strong password"
@@ -456,10 +452,7 @@ const SignUp = ({ signup, isAuthenticated, fetch_ngos }) => {
                             <SnipperLoginBtn
                                 loading={loading}
                                 onClick={() => {
-                                    setLoading(true);
-                                    setTimeout(() => {
-                                        setLoading(false);
-                                    }, 2000);
+                                    setLoading(false);
                                     handleSubmit();
                                 }}
                                 type="submit"

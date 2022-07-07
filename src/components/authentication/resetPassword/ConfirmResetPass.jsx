@@ -35,11 +35,11 @@ const Logo = styled.img`
 const Container = styled.div`
     width: 40%;
     background-color: white;
-    height: 400px !important;
     border-radius: 5px;
     color: black;
     display: flex;
     flex-direction: column;
+    height: 30%;
 `;
 
 const Content = styled.div`
@@ -71,7 +71,7 @@ const Picture = styled.img`
 const SmallLogo = styled.h1`
     font-weight: bold;
     font-size: 22px;
-    margin-left: -180px;
+    margin-left: -150px;
 `;
 
 const Small = styled.span`
@@ -118,6 +118,8 @@ const Button = styled.button`
     color: white;
     border-radius: 5px;
     padding: 12px 20px;
+    border: none;
+    cursor: pointer;
 `;
 
 const Login = styled.p`
@@ -157,10 +159,10 @@ const ConfirmResetPass = ({ match, reset_password_confirm }) => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        const uid = match.params.uid;
+        const code = match.params.code;
         const token = match.params.token;
 
-        reset_password_confirm(uid, token, new_password, re_new_password)(dispatch);
+        reset_password_confirm(token, code, new_password, re_new_password)(dispatch);
         setRequestSent(true);
     };
 
@@ -216,7 +218,7 @@ const ConfirmResetPass = ({ match, reset_password_confirm }) => {
                             />
                         ))}
                         <ButtonContainer>
-                            <Button onClick={handleSubmit}>confirm password</Button>
+                            <Button onClick={handleSubmit}>Reset Password</Button>
                             <StyledLink to="/login">
                                 <Login>Back</Login>
                             </StyledLink>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { useDispatch} from 'react-redux';
+import { useDispatch } from 'react-redux';
 import picture from '../../../assets/bnr.svg';
 import { FormInput } from './FormInput';
 import { Link, Navigate } from 'react-router-dom';
@@ -114,6 +114,12 @@ const MyForm = styled.form`
     /* background-color: aqua; */
 `;
 
+const LogoHeader = styled.h1`
+    font-weight: bold;
+    font-size: 22px;
+    margin-left: -10px;
+`;
+
 const ButtonContainer = styled.div`
     display: flex;
     width: 100%;
@@ -171,7 +177,7 @@ const Login = ({ login, isAuthenticated, history }) => {
     const handleLogin = (e) => {
         e.preventDefault();
         const navigate = () => history.push('/activate');
-        if (!isLoading){
+        if (!isLoading) {
             setIsLoading(true);
             login(email, password, navigate, setIsLoading)(dispatch);
         }
@@ -180,14 +186,13 @@ const Login = ({ login, isAuthenticated, history }) => {
     const onSubmit = (e) => {
         e.preventDefault();
         const navigate = () => history.push('/activate');
-        if (!isLoading){
+        if (!isLoading) {
             setIsLoading(true);
             login(email, password, navigate, setIsLoading)(dispatch);
         }
     };
 
-    if (isAuthenticated)
-        return <Navigate to="/activate" />;
+    if (isAuthenticated) return <Navigate to="/activate" />;
 
     const Inputs = [
         {
@@ -220,7 +225,9 @@ const Login = ({ login, isAuthenticated, history }) => {
                     <Header>
                         <Picture src={picture} />
                         <Logo />
-                        BNR <Small>CSGs Data Map</Small>
+                        <LogoHeader>
+                            BNR <Small>CSGs Data Map</Small>
+                        </LogoHeader>
                     </Header>
                 </Content>
                 <FormContainer>

@@ -96,11 +96,17 @@ export const login = (email, password, navigate, setIsLoading) => async (dispatc
 };
 
 export const signup =
-    (ngoName, _, fullName, position, email, password, notify) => async (dispatch) => {
-        const body = JSON.stringify({ email: email, password: password, ngo: ngoName, profile: {
+    (ngoName, _, fullName, position, email, password, confirmPassword) => async (dispatch) => {
+        const body = JSON.stringify({
+            email: email,
+            password: password,
+            ngo: ngoName,
+            profile: {
                 name: fullName,
-                job_title: position
-            }});
+                job_title: position,
+            },
+            confirmPassword,
+        });
 
         try {
             const res = await axios.post(`/auth/register/`, body);
@@ -109,7 +115,7 @@ export const signup =
                 payload: res.data,
             });
             console.log(res);
-            notify();
+            // notify();
         } catch (err) {
             dispatch({
                 type: SIGNUP_FAIL,
@@ -136,7 +142,7 @@ export const loginOtp = (token, otp, navigate, setLoading) => async (dispatch) =
 };
 
 export const reset_password = (email) => async (dispatch) => {
-    const body = JSON.stringify({ email });
+    const body = JSON.stringify({ token: email });
     try {
         await axios.post(`auth/reset-password/`, body);
         dispatch({
@@ -149,20 +155,23 @@ export const reset_password = (email) => async (dispatch) => {
     }
 };
 
-export const reset_password_confirm =
-    (uid, token, new_password, re_new_password) => async (dispatch) => {
-        const body = JSON.stringify({ uid, token, new_password, re_new_password });
-        try {
-            await axios.post(`auth/reset-password-confirm/`, body);
-            dispatch({
-                type: PASSWORD_RESET_CONFIRM_SUCCESS,
-            });
-        } catch (err) {
-            dispatch({
-                type: PASSWORD_RESET_CONFIRM_FAIL,
-            });
-        }
-    };
+export const reset_password_confirm = (token, code, new_password) => async (dispatch) => {
+    const body = JSON.stringify({
+        email: token,
+        password: code,
+        new_password,
+    });
+    try {
+        await axios.post(`auth/reset-password-confirm/`, body);
+        dispatch({
+            type: PASSWORD_RESET_CONFIRM_SUCCESS,
+        });
+    } catch (err) {
+        dispatch({
+            type: PASSWORD_RESET_CONFIRM_FAIL,
+        });
+    }
+};
 
 export const logout = () => (dispatch) => {
     dispatch({

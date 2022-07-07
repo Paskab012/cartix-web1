@@ -8,6 +8,7 @@ import picture from '../../../assets/bnr.svg';
 import { FormInput } from './FormInput';
 import { Link, Navigate } from 'react-router-dom';
 import { reset_password } from '../../../redux/actions/auth';
+import SnipperLoginBtn from '../singin/SpinnerLoginBtn';
 
 const Background = styled.div`
     min-width: 100%;
@@ -71,7 +72,7 @@ const Picture = styled.img`
 const SmallLogo = styled.h1`
     font-weight: bold;
     font-size: 22px;
-    margin-left: -180px;
+    margin-left: -150px;
 `;
 
 const Small = styled.span`
@@ -149,6 +150,7 @@ const StyledLink = styled(Link)`
 const ResetPassword = ({ reset_password }) => {
     const dispatch = useDispatch();
     const [requestSent, setRequestSent] = useState(false);
+    const [loading, setLoading] = useState(false);
     const [values, setValues] = useState({
         email: '',
     });
@@ -204,7 +206,20 @@ const ResetPassword = ({ reset_password }) => {
                             />
                         ))}
                         <ButtonContainer>
-                            <Button onClick={handleSubmit}>Reset password</Button>
+                        <SnipperLoginBtn
+                                loading={loading}
+                                onClick={() => {
+                                    setLoading(true);
+                                    setTimeout(() => {
+                                        setLoading(false);
+                                    }, 2000);
+                                    handleSubmit();
+                                }}
+                                type="submit"
+                                title={'Send Request'}
+                            >
+                                Send Request
+                            </SnipperLoginBtn>
                             <StyledLink to="/login">
                                 <Login>Back</Login>
                             </StyledLink>

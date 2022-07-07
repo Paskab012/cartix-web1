@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import { loginOtp } from '../../../redux/actions/auth';
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import styled from 'styled-components';
 import picture from '../../../assets/bnr.svg';
 import SnipperLoginBtn from './SpinnerLoginBtn';
+import { match } from 'assert';
 
 const Background = styled.div`
     min-width: 100%;
@@ -103,7 +105,8 @@ const Logo = styled.img`
 const EnteredOtp = styled.p`
     margin: 2%;
 `;
-const LoginOTP = ({ isAuthenticated, history }) => {
+const LoginOTP = ({ loginOtp }) => {
+    const [verified, setVerified] = useState(false);
     const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
     const { data } = useSelector((state) => state.auth);
@@ -121,17 +124,18 @@ const LoginOTP = ({ isAuthenticated, history }) => {
     };
 
     const handleLoginOtp = (e) => {
-        e.preventDefault();
-
-        const navigate = () => history.push('/');
-        if (!loading){
-            setLoading(true);
-            loginOtp(data.token, otp, navigate, setLoading)(dispatch);
+        const otpCode = match.params.otp;
+        const token = match.params.token;
+        setLoading(true);
+        if (!loading) {
+            loginOtp(token, otpCode, setLoading)(dispatch);
+            setVerified(true);
         }
     };
 
-    if (isAuthenticated)
+    if (verified) {
         return <Navigate to="/" />;
+    }
 
     return (
         <>
@@ -190,4 +194,4 @@ const LoginOTP = ({ isAuthenticated, history }) => {
     );
 };
 
-export default LoginOTP;
+export default connect(null, { loginOtp })(LoginOTP);
