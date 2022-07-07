@@ -5,6 +5,7 @@ import profile from '../../assets/Profile.png';
 import addUser from '../../assets/AddUser.png';
 import { Link } from 'react-router-dom';
 
+
 const Container = styled.div`
     height: 85px;
     box-shadow: 0px 4px 4px 0px #00000008;
@@ -82,14 +83,6 @@ const Profile = styled.img`
     cursor: pointer;
 `;
 
-const AddUser = styled.img`
-    width: 21px;
-    height: 19px;
-    object-fit: cover;
-    margin-bottom: 4px;
-    cursor: pointer;
-`;
-
 const StyledLink = styled(Link)`
     color: black;
     text-decoration: none;
@@ -107,7 +100,6 @@ const StyledLink = styled(Link)`
     }
 `;
 
-const Navbar = () => {
     return (
         <Container>
             <Left>
@@ -130,18 +122,7 @@ const Navbar = () => {
                     <MenuItem>BNR</MenuItem>
                 </Menu>
             </Left>
-            <Wrapper>
-                <AddUser src={addUser} />
-                <StyledLink className="animate__animated" to="/signup">
-                    <Button>Sign Up</Button>
-                </StyledLink>
-                <Profile src={profile} />
-                <StyledLink className="animate__animated" to="/login">
-                    <Button>Sign In</Button>
-                </StyledLink>
-            </Wrapper>
         </Container>
     );
 };
 
-export default Navbar;

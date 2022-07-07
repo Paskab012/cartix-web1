@@ -126,7 +126,7 @@ const DataNavbar = () => {
             </Left>
             <Wrapper>
                 <Profile src={profile} />
-                <Button>Mugisha Roger</Button>
+
             </Wrapper>
         </Container>
     );

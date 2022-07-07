@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { useDispatch} from 'react-redux';
-import picture from '../../../assets/bnr.svg';
-import { FormInput } from './FormInput';
-import { Link, Navigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { connect } from 'react-redux';
 
 import image from '../../../assets/signup.svg';
-import { login } from '../../../redux/actions/auth';
-import SnipperLoginBtn from './SpinnerLoginBtn';
+import picture from '../../../assets/bnr.svg';
+import { FormInput } from './FormInput';
+import { Link, Navigate } from 'react-router-dom';
+import { reset_password_confirm } from '../../../redux/actions/auth';
 
 const Background = styled.div`
     min-width: 100%;
@@ -34,9 +33,9 @@ const Logo = styled.img`
 `;
 
 const Container = styled.div`
-    width: 28%;
+    width: 40%;
     background-color: white;
-    height: 50% !important;
+    height: 400px !important;
     border-radius: 5px;
     color: black;
     display: flex;
@@ -50,10 +49,10 @@ const Content = styled.div`
     color: white;
     background-color: #88714e;
     height: 94px;
-    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.03);
-    border-radius: 5px 5px 0 0;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.03);
+    border-radius: 5px 5px 0px 0px;
     position: absolute;
-    width: 28%;
+    width: 40%;
 `;
 
 const Header = styled.div`
@@ -64,27 +63,19 @@ const Header = styled.div`
 `;
 
 const Picture = styled.img`
-    width: 70px;
-    height: 70px;
+    width: 80px;
+    height: 80px;
     object-fit: cover;
 `;
 
-// const Logo = styled.h1`
-//     font-weight: bold;
-//     font-size: 22px;
-//     margin-left: -10px;
-
-//     ${media.md`
-//     font-size: 18px;
-//       `}
-
-//     ${media.xl`
-//         font-size: 22px;
-//       `}
-// `;
+const SmallLogo = styled.h1`
+    font-weight: bold;
+    font-size: 22px;
+    margin-left: -180px;
+`;
 
 const Small = styled.span`
-    font-family: Montserrat, sans-serif;
+    font-family: Montserrat;
     font-size: 22px;
     font-weight: 400;
     line-height: 27px;
@@ -111,7 +102,6 @@ const FormContainer = styled.div`
 
 const MyForm = styled.form`
     width: 100%;
-    /* background-color: aqua; */
 `;
 
 const ButtonContainer = styled.div`
@@ -122,15 +112,15 @@ const ButtonContainer = styled.div`
     position: relative;
 `;
 
-// const Button = styled.button`
-//     width: 100%;
-//     background-color: #3981ed;
-//     color: white;
-//     border-radius: 5px;
-//     padding: 12px 20px;
-// `;
+const Button = styled.button`
+    width: 35%;
+    background-color: #3981ed;
+    color: white;
+    border-radius: 5px;
+    padding: 12px 20px;
+`;
 
-const Paragraph = styled.p`
+const Login = styled.p`
     font-size: 14px;
     line-height: 17px;
     color: #3981ed;
@@ -138,7 +128,7 @@ const Paragraph = styled.p`
     cursor: pointer;
 `;
 const StyledLink = styled(Link)`
-    width: 32%;
+    color: black;
     text-decoration: none;
     font-size: 15px;
     transition: 0.2s all ease-in-out;
@@ -150,101 +140,85 @@ const StyledLink = styled(Link)`
     &:hover {
         transition: 0.2s all ease-in-out;
         color: #753918;
-        font-weight: normal;
+        font-weight: 600;
     }
 `;
 
-const Login = ({ login, isAuthenticated, history }) => {
+const ConfirmResetPass = ({ match, reset_password_confirm }) => {
     const dispatch = useDispatch();
-    const [isLoading, setIsLoading] = useState(false);
-    const [formData, setFormData] = useState({
-        email: '',
-        password: '',
+    const [requestSent, setRequestSent] = useState(false);
+    const [values, setValues] = useState({
+        new_password: '',
+        re_new_password: '',
     });
 
+    const { new_password, re_new_password } = values;
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        const uid = match.params.uid;
+        const token = match.params.token;
+
+        reset_password_confirm(uid, token, new_password, re_new_password)(dispatch);
+        setRequestSent(true);
+    };
+
     const onChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
+        setValues({ ...values, [e.target.name]: e.target.value });
     };
 
-    const { email, password } = formData;
-
-    const handleLogin = (e) => {
-        e.preventDefault();
-        const navigate = () => history.push('/activate');
-        if (!isLoading){
-            setIsLoading(true);
-            login(email, password, navigate, setIsLoading)(dispatch);
-        }
-    };
-
-    const onSubmit = (e) => {
-        e.preventDefault();
-        const navigate = () => history.push('/activate');
-        if (!isLoading){
-            setIsLoading(true);
-            login(email, password, navigate, setIsLoading)(dispatch);
-        }
-    };
-
-    if (isAuthenticated)
-        return <Navigate to="/activate" />;
+    if (requestSent) {
+        return <Navigate to="/" />;
+    }
 
     const Inputs = [
         {
             id: 1,
-            name: 'email',
-            type: 'email',
-            placeholder: 'Enter email',
-            errorMessage: 'Please enter a valid email address',
-            label: 'Email',
+            name: 'new_password',
+            type: 'password',
+            placeholder: 'Input new password',
+            errorMessage: 'enter a strong password',
+            label: 'Password',
             required: true,
         },
         {
             id: 2,
-            name: 'password',
+            name: 're_new_password',
             type: 'password',
-            placeholder: 'password',
-            errorMessage:
-                'Please enter a 8-20 characters and it should include at least 1 letter, 1 number and 1 special character!',
-            label: 'Input password',
-            pattern: '^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$',
+            placeholder: 'Confirm new password',
+            errorMessage: 'enter a strong password',
+            label: 'Confirm Password',
             required: true,
         },
     ];
     return (
         <Background>
             <Logo src={image} />
-            {/* <Input handleLogin={handleLogin} onChange={onChange} /> */}
             <Container>
                 <Content>
                     <Header>
                         <Picture src={picture} />
-                        <Logo />
-                        BNR <Small>CSGs Data Map</Small>
+                        <SmallLogo>
+                            BNR <Small>CSGs Data Map</Small>
+                        </SmallLogo>
                     </Header>
                 </Content>
                 <FormContainer>
-                    <Title>Admin login</Title>
-                    <MyForm onSubmit={(e) => onSubmit(e)}>
+                    <Title>Confirm the reset password!</Title>
+                    <MyForm onSubmit={handleSubmit}>
                         {Inputs.map((input) => (
                             <FormInput
                                 key={input.id}
                                 {...input}
-                                value={formData[input.name]}
-                                onChange={(e) => onChange(e)}
+                                value={values[input.name]}
+                                onChange={onChange}
                             />
                         ))}
                         <ButtonContainer>
-                            <SnipperLoginBtn
-                                loading={isLoading}
-                                onClick={handleLogin}
-                                type="submit"
-                                title={'Login'}
-                            >
-                                Log in
-                            </SnipperLoginBtn>
-                            <StyledLink to="/reset-password">
-                                <Paragraph>Reset password</Paragraph>
+                            <Button onClick={handleSubmit}>confirm password</Button>
+                            <StyledLink to="/login">
+                                <Login>Back</Login>
                             </StyledLink>
                         </ButtonContainer>
                     </MyForm>
@@ -254,8 +228,4 @@ const Login = ({ login, isAuthenticated, history }) => {
     );
 };
 
-const mapStateToProps = (state) => ({
-    isAuthenticated: state.auth.isAuthenticated,
-});
-
-export default connect(mapStateToProps, { login })(Login);
+export default connect(null, { reset_password_confirm })(ConfirmResetPass);
