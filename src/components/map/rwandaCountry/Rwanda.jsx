@@ -2,7 +2,6 @@ import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
 
 import map from '../../../assets/mappage.png';
-import chart from '../../../assets/groups.png';
 import InteractiveCart from './interactive.cart';
 import Buttons from './zoomBtn';
 import Chart from './Chart';
@@ -36,7 +35,7 @@ const CardMap = styled.img`
 `;
 
 const Right = styled.div`
-    width: 27.89%;
+    width: 28%;
     height: 96vh;
 `;
 

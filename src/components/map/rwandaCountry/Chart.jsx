@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import SavingGroupAnalytics from './LineChart';
 
 const Container = styled.div`
-    background-color: aqua;
+    width: 100%;
 `;
 
 const InputFieldSelect = styled.select`
@@ -25,7 +25,6 @@ const InputFieldSelect = styled.select`
 `;
 
 const InputOption = styled.option`
-    background-color: red;
     color: white;
     border: solid 1px red;
 `;

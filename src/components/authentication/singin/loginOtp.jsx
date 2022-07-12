@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { loginOtp } from '../../../redux/actions/auth';
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import styled from 'styled-components';
 import picture from '../../../assets/bnr.svg';
@@ -30,7 +32,7 @@ const Container = styled.div`
     position: absolute;
 `;
 
-const TextColor = styled.div`
+const TextFormInput = styled.form`
     background-color: white;
     width: 40%;
     height: 45%;
@@ -107,13 +109,11 @@ const LoginOTP = ({ isAuthenticated, history }) => {
     const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
     const { data } = useSelector((state) => state.auth);
-    const [otp, setOtp] = useState(new Array(6).fill(''));
+    const [inputOtp, setInputOtp] = useState(new Array(6).fill(''));
 
     const handleChange = (element, index) => {
         if (isNaN(element.value)) return false;
-
-        setOtp([...otp.map((d, idx) => (idx === index ? element.value : d))]);
-
+        setInputOtp([...inputOtp.map((d, idx) => (idx === index ? element.value : d))]);
         //Focus next input
         if (element.nextSibling) {
             element.nextSibling.focus();
@@ -122,32 +122,32 @@ const LoginOTP = ({ isAuthenticated, history }) => {
 
     const handleLoginOtp = (e) => {
         e.preventDefault();
-
         const navigate = () => history.push('/');
-        if (!loading){
+        if (!loading) {
             setLoading(true);
-            loginOtp(data.token, otp, navigate, setLoading)(dispatch);
+            loginOtp(data.token, navigate, setLoading)(dispatch);
+        } else {
+            toast.warn('Otp code incorrect', {
+                position: 'top-right',
+                autoClose: '2000',
+            });
         }
     };
 
-    if (isAuthenticated)
-        return <Navigate to="/" />;
+    if (isAuthenticated) return <Navigate to="/" />;
 
     return (
         <>
-            {/* <Header title="Building OTP box using Hooks" /> */}
-
-            {/* <ExternalInfo page="otpBox" /> */}
             <Background>
                 <Container className="row">
                     <Logo src={picture} />
-                    <TextColor className="text-center col">
+                    <TextFormInput className="text-center col" onSubmit={handleLoginOtp}>
                         <Title>OTP verification code!</Title>
                         <Paragraphe>
                             Enter the OTP sent into your email to verify your identity...
                         </Paragraphe>
 
-                        {otp.map((data, index) => {
+                        {inputOtp.map((data, index) => {
                             return (
                                 <OtpInput
                                     className="otp-field"
@@ -162,12 +162,12 @@ const LoginOTP = ({ isAuthenticated, history }) => {
                             );
                         })}
 
-                        <EnteredOtp>OTP Entered - {otp.join('')}</EnteredOtp>
+                        <EnteredOtp>OTP Entered - {inputOtp.join('')}</EnteredOtp>
                         <Paragraphe>The verification code will be expired in 5mins</Paragraphe>
                         <p>
                             <ClearBtn
                                 className="mr-2 btn btn-secondary"
-                                onClick={(e) => setOtp([...otp.map((_) => '')])}
+                                onClick={(e) => setInputOtp([...inputOtp.map((_) => '')])}
                             >
                                 Clear
                             </ClearBtn>
@@ -175,7 +175,7 @@ const LoginOTP = ({ isAuthenticated, history }) => {
                                 <SnipperLoginBtn
                                     className="btn btn-primary"
                                     loading={loading}
-                                    onClick={handleLoginOtp}
+                                    // onClick={handleLoginOtp}
                                     type="submit"
                                     title={'Verify account'}
                                 >
@@ -183,7 +183,7 @@ const LoginOTP = ({ isAuthenticated, history }) => {
                                 </SnipperLoginBtn>
                             </VerifyBtn>
                         </p>
-                    </TextColor>
+                    </TextFormInput>
                 </Container>
             </Background>
         </>

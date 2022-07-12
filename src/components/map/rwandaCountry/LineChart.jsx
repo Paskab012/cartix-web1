@@ -1,37 +1,24 @@
 import React from 'react';
+import styled from 'styled-components';
+import MyGraph from '../../../assets/graph.svg';
+import MyGraphCircle from '../../../assets/circle.svg';
 
-import { Line } from 'react-chartjs-2';
+const Container = styled.div`
+    background-color: white;
+    padding: 4%;
+`;
 
-const data = {
-    labels: ['1', '2', '3', '4', '5', '6'],
-    datasets: [
-        {
-            label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
-            fill: false,
-            backgroundColor: 'red',
-            borderColor: 'black',
-        },
-    ],
-};
-
-const options = {
-    scales: {
-        yAxes: [
-            {
-                ticks: {
-                    beginAtZero: true,
-                },
-            },
-        ],
-    },
-};
-
+const Graph = styled.img`
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+`;
 function SavingGroupAnalytics() {
     return (
-        <div className="App">
-            <Line data={data} options={options} />
-        </div>
+        <Container>
+            <Graph src={MyGraph} />
+            <Graph src={MyGraphCircle} />
+        </Container>
     );
 }
 

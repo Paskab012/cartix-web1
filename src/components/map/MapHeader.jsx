@@ -10,10 +10,11 @@ const Container = styled.div`
     display: flex;
     justify-content: space-between;
     width: 100%;
-    /* background-color: white; */
+    background-color: white;
     box-shadow: 0px 4px 4px 0px #00000008;
     overflow: hidden;
-    background-color: white;
+    position: fixed;
+    z-index: 999;
 `;
 const Wrapper = styled.div`
     padding: 10px 20px;

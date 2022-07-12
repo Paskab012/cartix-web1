@@ -191,7 +191,7 @@ const Login = ({ login, isAuthenticated }) => {
         }
     };
 
-    if (isAuthenticated) return <Navigate to="/" />;
+    if (isAuthenticated) return <Navigate to="/activate" />;
 
     const Inputs = [
         {
@@ -246,9 +246,7 @@ const Login = ({ login, isAuthenticated }) => {
                                 // onClick={handleLogin}
                                 type="submit"
                                 title={'Login'}
-                            >
-                                Log in
-                            </SnipperLoginBtn>
+                            ></SnipperLoginBtn>
                             <StyledLink to="/reset-password">
                                 <Paragraph>Reset password</Paragraph>
                             </StyledLink>
