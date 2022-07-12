@@ -160,7 +160,7 @@ const StyledLink = styled(Link)`
     }
 `;
 
-const Login = ({ login, isAuthenticated, history }) => {
+const Login = ({ login, isAuthenticated }) => {
     const dispatch = useDispatch();
     const [isLoading, setIsLoading] = useState(false);
     const [formData, setFormData] = useState({
@@ -174,21 +174,20 @@ const Login = ({ login, isAuthenticated, history }) => {
 
     const { email, password } = formData;
 
-    const handleLogin = (e) => {
-        e.preventDefault();
-        const navigate = () => history.push('/activate');
-        if (!isLoading) {
-            setIsLoading(true);
-            login(email, password, navigate, setIsLoading)(dispatch);
-        }
-    };
+    // const handleLogin = (e) => {
+    //     e.preventDefault();
+    //     const navigate = () => history.push('/activate');
+    //     if (!isLoading) {
+    //         setIsLoading(true);
+    //         login(email, password, navigate, setIsLoading)(dispatch);
+    //     }
+    // };
 
     const onSubmit = (e) => {
         e.preventDefault();
-        const navigate = () => history.push('/activate');
         if (!isLoading) {
             setIsLoading(true);
-            login(email, password, navigate, setIsLoading)(dispatch);
+            login(email, password, setIsLoading)(dispatch);
         }
     };
 
@@ -244,7 +243,7 @@ const Login = ({ login, isAuthenticated, history }) => {
                         <ButtonContainer>
                             <SnipperLoginBtn
                                 loading={isLoading}
-                                onClick={handleLogin}
+                                // onClick={handleLogin}
                                 type="submit"
                                 title={'Login'}
                             >

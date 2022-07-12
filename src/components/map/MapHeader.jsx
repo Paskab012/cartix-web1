@@ -166,9 +166,7 @@ const MapNavbar = () => {
                     placeholder="Year :"
                     className="inputs"
                 >
-                    <InputOption value="Saving groups analytics">
-                        Saving groups analytics
-                    </InputOption>
+                    <InputOption value="2022">Year :2022</InputOption>
                     <InputOption value="2021">Year :2021</InputOption>
                     <InputOption value="2020">Year :2020</InputOption>
                     <InputOption value="2019">Year :2019</InputOption>

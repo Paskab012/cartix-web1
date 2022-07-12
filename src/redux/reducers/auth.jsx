@@ -20,6 +20,7 @@ import {
 const initialState = {
     isAuthenticated: false,
     data: null,
+    isSusseffullySignup: false,
 };
 
 export default function (state = initialState, action) {
@@ -43,6 +44,7 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 isAuthenticated: false,
+                isSusseffullySignup: true,
             };
         case USER_LOADED_SUCCESS:
             return {

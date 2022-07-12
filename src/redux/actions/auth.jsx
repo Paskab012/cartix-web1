@@ -68,7 +68,7 @@ export const load_user = () => async (dispatch) => {
     }
 };
 
-export const login = (email, password, navigate, setIsLoading) => async (dispatch) => {
+export const login = (email, password, setIsLoading) => async (dispatch) => {
     const body = JSON.stringify({ email, password });
 
     try {
@@ -82,7 +82,6 @@ export const login = (email, password, navigate, setIsLoading) => async (dispatc
             autoClose: '2000',
         });
         setIsLoading(false);
-        // navigate();
     } catch (err) {
         dispatch({
             type: LOGIN_FAIL,
@@ -97,13 +96,18 @@ export const login = (email, password, navigate, setIsLoading) => async (dispatc
 
 export const signup =
     (ngoName, _, fullName, position, email, password, notify) => async (dispatch) => {
-        const body = JSON.stringify({ email: email, password: password, ngo: ngoName, profile: {
+        const body = JSON.stringify({
+            email: email,
+            password: password,
+            ngo: ngoName,
+            profile: {
                 name: fullName,
-                job_title: position
-            }});
+                job_title: position,
+            },
+        });
 
         try {
-            const res = await axios.post(`/auth/register/`, body);
+            const res = await axios.post(`auth/register/`, body);
             dispatch({
                 type: SIGNUP_SUCCESS,
                 payload: res.data,
@@ -121,7 +125,7 @@ export const loginOtp = (token, otp, navigate, setLoading) => async (dispatch) =
     const body = JSON.stringify({ email: token, password: otp });
 
     try {
-        await axios.post(`/auth/token/`, body);
+        await axios.post(`auth/token/`, body);
         dispatch({
             type: ACTIVATE_SUCCESS,
         });

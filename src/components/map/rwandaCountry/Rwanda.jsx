@@ -60,7 +60,9 @@ export const Rwanda = () => {
                 <Buttons imgRef={imgRef} setImageSize={setImageSize} />
             </Left>
             <Right>
-                <Diagrams><Chart/> </Diagrams>
+                <Diagrams>
+                    <Chart />
+                </Diagrams>
             </Right>
         </Container>
     );
