@@ -1,0 +1,24 @@
+svg path {
+    stroke: #fefefe;
+    stroke-width: 1px;
+    stroke-dasharray: 4px;
+    transition: fill 0.4s;
+    cursor: pointer;
+}
+
+#northen:hover {
+    fill: #753918;
+}
+
+#eastern:hover {
+    fill: #dba628;
+}
+#western:hover {
+    fill: #88714e;
+}
+#southern:hover {
+    fill: #ac8a2f;
+}
+#kigali-city:hover {
+    fill: #eccd8f;
+}
