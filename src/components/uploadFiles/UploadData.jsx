@@ -1,7 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import {useState, useEffect} from "react";
+import {useState, useEffect, useCallback} from "react";
 import axios from "axios";
 import {Link} from 'react-router-dom';
+import { useDropzone } from 'react-dropzone'
 import GoBack from '../../assets/goback.svg';
 import UploadIcon from '../../assets/upload_icon.svg';
 import './data_style.css';
@@ -17,10 +18,18 @@ const XlsxUpload = () => {
   const [lastUploadedFileIndex, setLastUploadedFileIndex] = useState(null);
   const [currentChunkIndex, setCurrentChunkIndex] = useState(null);
   
-  function handleDrop(e) {
-    e.preventDefault();
-    setFiles([...files, ...e.dataTransfer.files]);
-  }
+  // function handleDrop(e) {
+  //   e.preventDefault();
+  //   setFiles([...files, ...e.dataTransfer.files]);
+  // }
+
+  const onDrop = useCallback(acceptedFiles => {
+      // Do something with the files
+      console.log('acceptedFiles =>', acceptedFiles)
+      if (acceptedFiles.length) {
+         setFiles(acceptedFiles[0]);
+      }
+  }, [])
 
   function readAndUploadCurrentChunk() {
     const reader = new FileReader();
@@ -35,17 +44,16 @@ const XlsxUpload = () => {
     reader.readAsDataURL(blob);
   }
 
-  function uploadChunk(readerEvent) {
-    const file = files[currentFileIndex];
-    const data = readerEvent.target.result;
-    const params = new URLSearchParams();
-    params.set('name', file.name);
-    params.set('size', file.size);
-    params.set('currentChunkIndex', currentChunkIndex);
-    params.set('totalChunks', Math.ceil(file.size / chunkSize));
-    const headers = {'Content-Type': 'application/octet-stream'};
-    const url = 'http://127.0.0.1:8000/api/v1/xls/'+params.toString();
-    axios.post(url, data, {headers})
+  function uploadChunk() {
+    // const data = readerEvent.target.result;
+    // const params = new URLSearchParams();
+    // params.set('name', file.name);
+    // params.set('size', file.size);
+    // params.set('currentChunkIndex', currentChunkIndex);
+    // params.set('totalChunks', Math.ceil(file.size / chunkSize));
+    const headers = {"Content-type": "application/json",};
+    const url = 'http://127.0.0.1:8000/api/v1/xls/';
+    axios.post(url, {headers})
       .then(response => {
         const file = files[currentFileIndex];
         const filesize = files[currentFileIndex].size;
@@ -85,13 +93,12 @@ const XlsxUpload = () => {
       setCurrentChunkIndex(0);
     }
   }, [currentFileIndex]);
-
-  useEffect(() => {
+    
+    useEffect(() => {
     if (currentChunkIndex !== null) {
       readAndUploadCurrentChunk();
     }
   }, [currentChunkIndex, readAndUploadCurrentChunk]);
-
 
   return (
     <div className="data">
@@ -110,7 +117,7 @@ const XlsxUpload = () => {
             <div
               onDragOver={e => {setDropzoneActive(true); e.preventDefault();}}
               onDragLeave={e => {setDropzoneActive(false); e.preventDefault();}}
-              onDrop={e => handleDrop(e)}
+              onDrop={onDrop}
               className={"dropzone" + (dropzoneActive ? " active" : "")}>
               <img src={UploadIcon} alt='upload_icon' />
               <p><span className='uppload_text'>Click to upload</span> or drag and drop</p>
@@ -132,7 +139,7 @@ const XlsxUpload = () => {
                 }
                 return (
                   <a className="file" target="_blank"
-                    href={'http://127.0.0.1:8000/media/'+file.finalFilename} rel="noreferrer">
+                    href={'http://127.0.0.1:8000/api/v1/xls/{id}'} rel="noreferrer">
                     <img src={DocIcon} alt="doc_icon" />
                     <div className='file_details'>
                       <p id="file_name">{file.name}</p>

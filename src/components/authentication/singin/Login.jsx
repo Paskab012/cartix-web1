@@ -168,18 +168,18 @@ const Login = ({ login, isAuthenticated, history }) => {
 
     const { email, password } = formData;
 
-    const handleLogin = (e) => {
-        e.preventDefault();
-        const navigate = () => history.push('/activate');
-        if (!isLoading){
-            setIsLoading(true);
-            login(email, password, navigate, setIsLoading)(dispatch);
-        }
-    };
+    // const handleLogin = (e) => {
+    //     e.preventDefault();
+    //     const navigate = () => history.push('/');
+    //     if (!isLoading){
+    //         setIsLoading(true);
+    //         login(email, password, navigate, setIsLoading)(dispatch);
+    //     }
+    // };
 
     const onSubmit = (e) => {
         e.preventDefault();
-        const navigate = () => history.push('/activate');
+        const navigate = () => history.push('/');
         if (!isLoading){
             setIsLoading(true);
             login(email, password, navigate, setIsLoading)(dispatch);
@@ -187,7 +187,7 @@ const Login = ({ login, isAuthenticated, history }) => {
     };
 
     if (isAuthenticated)
-        return <Navigate to="/activate" />;
+        return <Navigate to="/" />;
 
     const Inputs = [
         {
@@ -236,8 +236,8 @@ const Login = ({ login, isAuthenticated, history }) => {
                         ))}
                         <ButtonContainer>
                             <SnipperLoginBtn
-                                loading={isLoading}
-                                onClick={handleLogin}
+                                // loading={isLoading}
+                                // onClick={(e) => handleLogin(e)}
                                 type="submit"
                                 title={'Login'}
                             >
