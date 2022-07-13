@@ -13,7 +13,7 @@ const Container = styled.div`
     background-color: white;
     box-shadow: 0px 4px 4px 0px #00000008;
     overflow: hidden;
-    position: fixed;
+    /* position: fixed; */
     z-index: 999;
 `;
 const Wrapper = styled.div`

@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
-import Plus from '../../../assets/Plus.svg';
-import Minus from '../../../assets/Minus.svg';
-import InitZoom from '../../../assets/initmap.png';
-import Node from '../../../assets/Node.png';
-import Element from '../../../assets/Element.png';
-import Path from '../../../assets/Path.svg';
+import Plus from '../../../../assets/Plus.svg';
+import Minus from '../../../../assets/Minus.svg';
+import InitZoom from '../../../../assets/initmap.png';
+import Node from '../../../../assets/Node.png';
+import Element from '../../../../assets/Element.png';
+import Path from '../../../../assets/Path.svg';
 
 const Container = styled.div`
     width: 55px;

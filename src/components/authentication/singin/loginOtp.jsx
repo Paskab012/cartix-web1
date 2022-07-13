@@ -122,10 +122,20 @@ const LoginOTP = ({ isAuthenticated, history }) => {
 
     const handleLoginOtp = (e) => {
         e.preventDefault();
+        console.log('data', data, inputOtp.join(''));
         const navigate = () => history.push('/');
         if (!loading) {
+            setTimeout(() => {
+                setLoading(false);
+                <Navigate to="/" />;
+            }, 2000);
+            const formData = {
+                email: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c3IiOjEsInZjaCI6ImFyZ29uMiRhcmdvbjJpZCR2PTE5JG09MTAyNDAwLHQ9MixwPTgkYTNwdE5FZ3pRa3RIYUVJeGJEWlVURzFNUWtoMVV3JDEvWTViVy95WVZyL1diOTZhMzI2TWRKOUtuMTF2SkpYNVA1YVZMZzcyRWMiLCJ2Y24iOiJWZ09yb1o2a3pxIiwiaWF0IjoxNjU3NzE3MTE0LCJleHAiOjE2NTc3MTgwMTR9.9vasF8Mr8roP2USisCOpCJbxuAkgGWFbha4ekP8C5lU',
+                password: inputOtp.join(''),
+                setLoading,
+            };
             setLoading(true);
-            loginOtp(data.token, navigate, setLoading)(dispatch);
+            loginOtp(formData)(dispatch);
         } else {
             toast.warn('Otp code incorrect', {
                 position: 'top-right',

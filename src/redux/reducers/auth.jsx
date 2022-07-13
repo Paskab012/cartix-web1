@@ -81,6 +81,7 @@ export default function (state = initialState, action) {
         case ACTIVATE_FAIL:
             return {
                 ...state,
+                verifyData: payload,
             };
         default:
             return state;

@@ -1,20 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
-import picture from '../../assets/bnr.svg';
-import profile from '../../assets/Profile.png';
+import picture from '../../../assets/bnr.svg';
+import profile from '../../../assets/Profile.png';
 import { Link } from 'react-router-dom';
-// import CountryDropDown from './CountryDropDown';
 
 const Container = styled.div`
     height: 85px;
+    box-shadow: 0px 4px 4px 0px #00000008;
     display: flex;
     justify-content: space-between;
     width: 100%;
-    background-color: white;
-    box-shadow: 0px 4px 4px 0px #00000008;
-    overflow: hidden;
-    position: fixed;
-    z-index: 999;
+    background-color: red;
 `;
 const Wrapper = styled.div`
     padding: 10px 20px;
@@ -24,7 +20,7 @@ const Wrapper = styled.div`
 `;
 
 const Left = styled.div`
-    width: 50%;
+    width: 58%;
     display: flex;
     align-items: center;
     justify-content: space-around;
@@ -55,24 +51,6 @@ const Menu = styled.ul`
     }
 `;
 
-const InputFieldSelect = styled.select`
-    width: 60%;
-    background-color: #f2f2f2;
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    padding: 3%;
-    border: 1.2px solid #dee1e7;
-    border-radius: 4px;
-    text-align: center;
-    margin-left: -38%;
-
-    ::placeholder {
-        color: black;
-        font-size: 12px;
-    }
-`;
-
 const MenuItem = styled.li`
     margin-right: 29px;
     font-size: 15px;
@@ -82,16 +60,12 @@ const MenuItem = styled.li`
 `;
 
 const Button = styled.button`
-    padding: 2%;
+    padding: 2px 3px;
     color: black;
     font-weight: 500;
     cursor: pointer;
-    font-size: 14px;
-    margin-right: 3%;
-    border: none;
-    width: 60%;
-    align-items: center;
-    background-color: white;
+    font-size: 15px;
+    margin-right: 24px;
 `;
 
 const Picture = styled.img`
@@ -101,18 +75,11 @@ const Picture = styled.img`
 `;
 
 const Profile = styled.img`
-    width: 1.2rem;
-    height: 1.3rem;
+    width: 20px;
+    height: 20px;
     object-fit: cover;
+    margin-bottom: 4px;
     cursor: pointer;
-    position: absolute;
-    margin-left: 4%;
-`;
-
-const InputOption = styled.option`
-    background-color: red;
-    color: white;
-    border: solid 1px red;
 `;
 
 const StyledLink = styled(Link)`
@@ -132,7 +99,7 @@ const StyledLink = styled(Link)`
     }
 `;
 
-const MapNavbar = () => {
+const ManagementDataNav = () => {
     return (
         <Container>
             <Left>
@@ -147,46 +114,28 @@ const MapNavbar = () => {
                         </StyledLink>
                     </MenuItem>
                     <MenuItem>
-                        <StyledLink className="animate__animated" to="/savings-group-map">
+                        <StyledLink className="animate__animated" to="/savings-group-map/amin">
                             Map
                         </StyledLink>
                     </MenuItem>
                     <MenuItem>
-                        <StyledLink
-                            className="animate__animated"
-                            to="/savings-group-map/management"
-                        >
+                        <StyledLink className="animate__animated" to="/savings-group-map/admin/management">
                             NGO Management
                         </StyledLink>
                     </MenuItem>
                     <MenuItem>
-                        <StyledLink className="animate__animated" to="/savings-group-map/data">
+                        <StyledLink className="animate__animated" to="/savings-group-map/admin/data">
                             Data
                         </StyledLink>
                     </MenuItem>
                 </Menu>
             </Left>
             <Wrapper>
-                <InputFieldSelect
-                    classname="js-example-basic-single"
-                    id="0"
-                    name="country"
-                    type="text"
-                    placeholder="Year :"
-                    className="inputs"
-                >
-                    <InputOption value="2022">Year :2022</InputOption>
-                    <InputOption value="2021">Year :2021</InputOption>
-                    <InputOption value="2020">Year :2020</InputOption>
-                    <InputOption value="2019">Year :2019</InputOption>
-                    <InputOption value="2018">Year :2018</InputOption>
-                    <InputOption value="2017">Year :2017</InputOption>
-                </InputFieldSelect>
                 <Profile src={profile} />
-                <Button>Mugisha Roger</Button>
+
             </Wrapper>
         </Container>
     );
 };
 
-export default MapNavbar;
+export default ManagementDataNav;

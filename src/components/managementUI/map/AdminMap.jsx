@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import MapHeader from './header/AdminMapHeader';
-import MapNavbar from './AdminMapHeader';
+import AdminMapHeader from './header/AdminMapHeader';
+import AdminMapNavbar from './AdminMapNavbar';
 import { Rwanda } from './rwandaCountry/Rwanda';
 
 const Container = styled.section`
@@ -14,8 +14,8 @@ const Container = styled.section`
 function Map() {
     return (
         <Container>
-            <MapNavbar />
-            <MapHeader />
+            <AdminMapNavbar />
+            <AdminMapHeader />
             <Rwanda />
         </Container>
     );

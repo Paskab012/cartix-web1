@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
 
-import map from '../../../assets/mappage.png';
+import map from '../../../../assets/mappage.png';
 import InteractiveCart from './interactive.cart';
 import Buttons from './zoomBtn';
 import Chart from './Chart';

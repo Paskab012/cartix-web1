@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import MyGraph from '../../../assets/graph.svg';
-import MyGraphCircle from '../../../assets/circle.svg';
+import MyGraph from '../../../../assets/graph.svg';
+import MyGraphCircle from '../../../../assets/circle.svg';
 
 const Container = styled.div`
     background-color: white;

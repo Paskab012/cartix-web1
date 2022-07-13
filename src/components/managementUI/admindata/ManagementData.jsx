@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import DataNav from './DataNavbar';
+import ManagementDataNav from './MgnDataNavbar';
 import SavingsCreditgroupsdata from './ConsentForm';
 import SavingGroupsTable from './tables/ConsentFormTable';
 
@@ -12,10 +12,10 @@ const Container = styled.section`
     align-items: center;
 `;
 
-const Data = () => {
+const ManagementData = () => {
     return (
         <>
-            <DataNav />
+            <ManagementDataNav />
             <Container>
                 <SavingsCreditgroupsdata />
                 <SavingGroupsTable />
@@ -24,4 +24,4 @@ const Data = () => {
     );
 };
 
-export default Data;
+export default ManagementData;

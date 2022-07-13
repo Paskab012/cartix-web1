@@ -121,23 +121,27 @@ export const signup =
         }
     };
 
-export const loginOtp = (token, otp, navigate, setLoading) => async (dispatch) => {
-    const body = JSON.stringify({ email: token, password: otp });
-
-    try {
-        await axios.post(`auth/token/`, body);
-        dispatch({
-            type: ACTIVATE_SUCCESS,
-        });
-        setLoading(false);
-        // navigate();
-    } catch (err) {
-        dispatch({
-            type: ACTIVATE_FAIL,
-        });
-        setLoading(false);
-    }
-};
+export const loginOtp =
+    ({ email, password, setLoading }) =>
+    async (dispatch) => {
+        const body = JSON.stringify({ email, password });
+        console.log('-------------????', body);
+        try {
+            const res = await axios.post(`auth/token/`, body);
+            console.log('[-----]]]', res);
+            dispatch({
+                type: ACTIVATE_SUCCESS,
+                data: res,
+            });
+            setLoading(false);
+            // navigate();
+        } catch (err) {
+            dispatch({
+                type: ACTIVATE_FAIL,
+            });
+            setLoading(false);
+        }
+    };
 
 export const reset_password = (email) => async (dispatch) => {
     const body = JSON.stringify({ email });

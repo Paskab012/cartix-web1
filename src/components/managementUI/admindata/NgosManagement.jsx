@@ -88,7 +88,7 @@ const StylelinkUpload = styled(Link)`
     font-size: 15px;
 `;
 
-const SavingsCreditgroupsdata = () => {
+const NgosManagement = () => {
     return (
         <>
             <Container>
@@ -96,18 +96,18 @@ const SavingsCreditgroupsdata = () => {
                     <Hdr>
                         <Item>
                             <StyledLink className="animate__animated" to="/SavingData">
-                                Saving&Credit groups data
+                                NGOs
                             </StyledLink>
                         </Item>
                         <Item>
                             <StyledLink className="animate__animated" to="/Consentform">
-                                Consent form
+                                Active accounts
                             </StyledLink>
                         </Item>
                     </Hdr>
                     <Btn>
                         <StylelinkUpload className="animate__animated" to="/UploadData">
-                            <SavingsButton>Upload data</SavingsButton>
+                            <SavingsButton>Pending accounts</SavingsButton>
                         </StylelinkUpload>
                     </Btn>
                 </Header>
@@ -117,4 +117,4 @@ const SavingsCreditgroupsdata = () => {
     );
 };
 
-export default SavingsCreditgroupsdata;
+export default NgosManagement;

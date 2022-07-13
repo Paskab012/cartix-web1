@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import DataNav from './DataNavbar';
-import SavingsCreditgroupsdata from './Savings&Creditgroupsdata';
+import DataNav from './MgnDataNavbar';
+import SavingsCreditgroupsdata from './NgosManagement';
 import SavingGroupsTable from './tables/SavingGroupsTable';
 
 const Container = styled.section`

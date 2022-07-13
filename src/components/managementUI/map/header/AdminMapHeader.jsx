@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
-import DoubleIcon from '../../../assets/double.svg';
-import SingleIcon from '../../../assets/single.svg';
-import Hand from '../../../assets/hand.svg';
-import Bank from '../../../assets/bank2.svg';
-import Cloud from '../../../assets/nuage.svg';
-import Coins from '../../../assets/coins.svg';
+import DoubleIcon from '../../../../assets/double.svg';
+import SingleIcon from '../../../../assets/single.svg';
+import Hand from '../../../../assets/hand.svg';
+import Bank from '../../../../assets/bank2.svg';
+import Cloud from '../../../../assets/nuage.svg';
+import Coins from '../../../../assets/coins.svg';
 
 const Container = styled.section`
     width: 96%;
@@ -69,7 +69,7 @@ const BoxesDisplayFlex = styled.div`
     justify-content: center;
 `;
 
-const MapHeader = () => {
+const AdminMapHeader = () => {
     return (
         <Container>
             <TitleElement>2022 Country Overview</TitleElement>
@@ -121,4 +121,4 @@ const MapHeader = () => {
     );
 };
 
-export default MapHeader;
+export default AdminMapHeader;
