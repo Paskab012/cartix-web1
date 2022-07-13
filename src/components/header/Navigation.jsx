@@ -73,8 +73,14 @@ const Navbar = ({ logout, isAuthenticated }) => {
                     </MenuItem>
                     <MenuItem>Downloads</MenuItem>
                     <MenuItem>
-                        <BnrStyledLink className="animate__animated" to="/https://bnr.rw/home/">
-                            BNR
+                        <BnrStyledLink>
+                            <a
+                                href="https://bnr.rw/home/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                BNR
+                            </a>
                         </BnrStyledLink>
                     </MenuItem>
                 </Menu>

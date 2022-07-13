@@ -148,6 +148,24 @@ export const StyledLink = styled(Link)`
     }
 `;
 
-export const BnrStyledLink = styled.a`
+export const BnrStyledLink = styled.div`
+    white-space: nowrap;
+    font-size: 16px;
+    outline: none;
+    border: none;
+    transition: all 0.2s ease-in-out;
     text-decoration: none;
+
+    a {
+        text-decoration: none;
+        cursor: pointer;
+        color: black;
+
+        &:hover {
+            transition: all 0.2s ease-in-out;
+
+            color: #753918;
+            font-weight: bold;
+        }
+    }
 `;
