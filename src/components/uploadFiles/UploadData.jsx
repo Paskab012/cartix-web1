@@ -2,103 +2,72 @@
 import {useState, useEffect, useCallback} from "react";
 import axios from "axios";
 import {Link} from 'react-router-dom';
-import { useDropzone } from 'react-dropzone'
+import { useDropzone } from "react-dropzone";
 import GoBack from '../../assets/goback.svg';
 import UploadIcon from '../../assets/upload_icon.svg';
 import './data_style.css';
 import DownloadIcon from '../../assets/download_icon.svg';
 import DocIcon from '../../assets/doc_icon.svg';
 import DataNavbar from "../data/DataNavbar";
+import { Line } from 'rc-progress';
 
 const chunkSize = 10 * 1024;
 const XlsxUpload = () => {
-  const [dropzoneActive, setDropzoneActive] = useState(false);
-  const [files, setFiles] = useState([]);
-  const [currentFileIndex, setCurrentFileIndex] = useState(null);
-  const [lastUploadedFileIndex, setLastUploadedFileIndex] = useState(null);
-  const [currentChunkIndex, setCurrentChunkIndex] = useState(null);
-  
-  // function handleDrop(e) {
-  //   e.preventDefault();
-  //   setFiles([...files, ...e.dataTransfer.files]);
-  // }
+  const [percentage, setPercentage] = useState(0);
+  // const [files, setFiles] = useState([]);
 
-  const onDrop = useCallback(acceptedFiles => {
-      // Do something with the files
-      console.log('acceptedFiles =>', acceptedFiles)
-      if (acceptedFiles.length) {
-         setFiles(acceptedFiles[0]);
-      }
-  }, [])
+  const onDrop = files  => {
+    setPercentage(0);
+    let data = new FormData();
+    files.forEach(file => {
+      data.append('files[]', file, file.name);
+    })
+    const url = 'https://httpbin.org/post';
 
-  function readAndUploadCurrentChunk() {
-    const reader = new FileReader();
-    const file = files[currentFileIndex];
-    if (!file) {
-      return;
-    }
-    const from = currentChunkIndex * chunkSize;
-    const to = from + chunkSize;
-    const blob = file.slice(from, to);
-    reader.onload = e => uploadChunk(e);
-    reader.readAsDataURL(blob);
-  }
-
-  function uploadChunk() {
-    // const data = readerEvent.target.result;
-    // const params = new URLSearchParams();
-    // params.set('name', file.name);
-    // params.set('size', file.size);
-    // params.set('currentChunkIndex', currentChunkIndex);
-    // params.set('totalChunks', Math.ceil(file.size / chunkSize));
-    const headers = {"Content-type": "application/json",};
-    const url = 'http://127.0.0.1:8000/api/v1/xls/';
-    axios.post(url, {headers})
-      .then(response => {
-        const file = files[currentFileIndex];
-        const filesize = files[currentFileIndex].size;
-        const chunks = Math.ceil(filesize / chunkSize) - 1;
-        const isLastChunk = currentChunkIndex === chunks;
-        if (isLastChunk) {
-          file.finalFilename = response.data.finalFilename;
-          setLastUploadedFileIndex(currentFileIndex);
-          setCurrentChunkIndex(null);
+    const config = {
+      headers: { 'content-type': 'multipart/form-data' },
+      onUploadProgress: progressEvent => {
+        const percent = Math.round(progressEvent.loaded * 100 / progressEvent.total);
+        if (percent >= 100) {
+          setPercentage(percent);
         } else {
-          setCurrentChunkIndex(currentChunkIndex + 1);
+          setPercentage(0);
         }
-      });
-  }
-
-  useEffect(() => {
-    if (lastUploadedFileIndex === null) {
-      return;
-    }
-    const isLastFile = lastUploadedFileIndex === files.length - 1;
-    const nextFileIndex = isLastFile ? null : currentFileIndex + 1;
-    setCurrentFileIndex(nextFileIndex);
-  }, [currentFileIndex, files.length, lastUploadedFileIndex]);
-
-  useEffect(() => {
-    if (files.length > 0) {
-      if (currentFileIndex === null) {
-        setCurrentFileIndex(
-          lastUploadedFileIndex === null ? 0 : lastUploadedFileIndex + 1
-        );
       }
-    }
-  }, [currentFileIndex, files.length, lastUploadedFileIndex]);
+    };
 
-  useEffect(() => {
-    if (currentFileIndex !== null) {
-      setCurrentChunkIndex(0);
-    }
-  }, [currentFileIndex]);
-    
-    useEffect(() => {
-    if (currentChunkIndex !== null) {
-      readAndUploadCurrentChunk();
-    }
-  }, [currentChunkIndex, readAndUploadCurrentChunk]);
+    axios.post(url, data, config)
+      .then(function(response) {
+        console.log(response.data);
+      })
+      .catch(function(error) {
+        console.log(error);
+        setPercentage({ percent: 0 });
+      });
+  };
+
+  const {getRootProps, getInputProps} = useDropzone({onDrop})
+
+  // const thumbs = files.map(file => (
+  //   <div key={file.name}>
+  //     <div className="file">
+  //       <img src={DocIcon} alt="doc_icon" onLoad={() => { URL.revokeObjectURL(file.preview) }}/>
+  //       <div className='file_details'>
+  //         <p id="file_name">{file.name}</p>
+  //         <p>{file.size / 100}Kb</p>
+  //       </div>
+  //       <div>
+  //         <Line percent={percentage} strokeWidth='3' strokeColor='#2db7f5' strokeLinecap='square' />
+  //         {/* <span id="value">{percentage}%</span> */}
+  //       </div>
+  //     </div>
+  //   </div>
+  // ));
+
+  // useEffect(() => {
+  //   // Make sure to revoke the data uris to avoid memory leaks, will run on unmount
+  //   return () => files.forEach(file => URL.revokeObjectURL(file.preview));
+  // }, []);
 
   return (
     <div className="data">
@@ -114,17 +83,17 @@ const XlsxUpload = () => {
               <p>SCGs data compilation template</p>
               <img src={DownloadIcon} alt="download_icon"/>
             </div>
-            <div
-              onDragOver={e => {setDropzoneActive(true); e.preventDefault();}}
-              onDragLeave={e => {setDropzoneActive(false); e.preventDefault();}}
-              onDrop={onDrop}
-              className={"dropzone" + (dropzoneActive ? " active" : "")}>
+            <div {...getRootProps({className: "dropzone active"})}>
+              <input {...getInputProps()} />
               <img src={UploadIcon} alt='upload_icon' />
               <p><span className='uppload_text'>Click to upload</span> or drag and drop</p>
               <p>XLSX, XLS, CSV</p>
+              <Line percent={percentage} strokeWidth='3' strokeColor='#2db7f5'/>
             </div>
             <div className="files">
-              {files.map((file,fileIndex) => {
+            {/* <span id="value">{percentage}%</span> */}
+              {/* {thumbs} */}
+              {/* {files.map((file,fileIndex) => {
                 let progress = 0;
                 if (file.finalFilename) {
                   progress = 100;
@@ -151,7 +120,7 @@ const XlsxUpload = () => {
                     <span id="value">{progress}%</span>
                   </a>
                 );
-              })}
+              })} */}
             </div>
           </div>
         </div>
