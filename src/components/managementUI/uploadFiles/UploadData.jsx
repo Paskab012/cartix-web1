@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import goBack from '../../assets/goback.svg';
-import DataNav from '../data/DataNavbar';
+import DataNav from '../admindata/DataNavbar';
 
 const Container = styled.div`
     width: 100%;

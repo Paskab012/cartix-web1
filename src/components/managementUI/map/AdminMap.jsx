@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import MapHeader from './header/MapHeader';
-import MapNavbar from './MapHeader';
+import MapHeader from './header/AdminMapHeader';
+import MapNavbar from './AdminMapHeader';
 import { Rwanda } from './rwandaCountry/Rwanda';
 
 const Container = styled.section`

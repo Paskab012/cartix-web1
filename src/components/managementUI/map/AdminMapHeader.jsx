@@ -152,6 +152,14 @@ const MapNavbar = () => {
                         </StyledLink>
                     </MenuItem>
                     <MenuItem>
+                        <StyledLink
+                            className="animate__animated"
+                            to="/savings-group-map/management"
+                        >
+                            NGO Management
+                        </StyledLink>
+                    </MenuItem>
+                    <MenuItem>
                         <StyledLink className="animate__animated" to="/savings-group-map/data">
                             Data
                         </StyledLink>
