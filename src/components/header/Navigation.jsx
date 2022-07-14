@@ -23,6 +23,7 @@ import {
     MenuItem,
     BnrStyledLink,
 } from './navigationStyled';
+import App from './Accordion';
 
 const Navbar = ({ logout, isAuthenticated }) => {
     const loginGuest = () => (
@@ -86,6 +87,7 @@ const Navbar = ({ logout, isAuthenticated }) => {
                 </Menu>
             </Left>
             {isAuthenticated ? authUser() : loginGuest()}
+            {/* <App/> */}
         </Container>
     );
 };

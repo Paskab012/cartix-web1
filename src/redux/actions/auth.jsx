@@ -73,6 +73,7 @@ export const login = (email, password, setIsLoading) => async (dispatch) => {
 
     try {
         const res = await axios.post(`auth/otp-code/`, body);
+        localStorage.token = res.data.token;
         dispatch({
             type: LOGIN_SUCCESS,
             payload: res.data,
@@ -122,7 +123,7 @@ export const signup =
     };
 
 export const loginOtp =
-    ({ email, password, setLoading }) =>
+    ({ email, password, setLoading }, navigate) =>
     async (dispatch) => {
         const body = JSON.stringify({ email, password });
         console.log('-------------????', body);
@@ -134,7 +135,7 @@ export const loginOtp =
                 data: res,
             });
             setLoading(false);
-            // navigate();
+            navigate('/savings-group-map');
         } catch (err) {
             dispatch({
                 type: ACTIVATE_FAIL,

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { loginOtp } from '../../../redux/actions/auth';
 import { useDispatch, useSelector } from 'react-redux';
-import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -106,6 +106,7 @@ const EnteredOtp = styled.p`
     margin: 2%;
 `;
 const LoginOTP = ({ isAuthenticated, history }) => {
+    const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
     const { data } = useSelector((state) => state.auth);
@@ -123,19 +124,14 @@ const LoginOTP = ({ isAuthenticated, history }) => {
     const handleLoginOtp = (e) => {
         e.preventDefault();
         console.log('data', data, inputOtp.join(''));
-        const navigate = () => history.push('/');
         if (!loading) {
-            setTimeout(() => {
-                setLoading(false);
-                <Navigate to="/" />;
-            }, 2000);
             const formData = {
-                email: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c3IiOjEsInZjaCI6ImFyZ29uMiRhcmdvbjJpZCR2PTE5JG09MTAyNDAwLHQ9MixwPTgkYTNwdE5FZ3pRa3RIYUVJeGJEWlVURzFNUWtoMVV3JDEvWTViVy95WVZyL1diOTZhMzI2TWRKOUtuMTF2SkpYNVA1YVZMZzcyRWMiLCJ2Y24iOiJWZ09yb1o2a3pxIiwiaWF0IjoxNjU3NzE3MTE0LCJleHAiOjE2NTc3MTgwMTR9.9vasF8Mr8roP2USisCOpCJbxuAkgGWFbha4ekP8C5lU',
+                email: localStorage.token,
                 password: inputOtp.join(''),
                 setLoading,
             };
             setLoading(true);
-            loginOtp(formData)(dispatch);
+            loginOtp(formData, navigate)(dispatch);
         } else {
             toast.warn('Otp code incorrect', {
                 position: 'top-right',
@@ -143,8 +139,6 @@ const LoginOTP = ({ isAuthenticated, history }) => {
             });
         }
     };
-
-    if (isAuthenticated) return <Navigate to="/" />;
 
     return (
         <>

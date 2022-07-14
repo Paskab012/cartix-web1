@@ -277,7 +277,6 @@ const SignUp = ({ signup, isAuthenticated, fetch_ngos, isSusseffullySignup }) =>
         e.preventDefault();
 
         if (password === confirmPassword) {
-            console.log('From button handleSubmit');
             signup(ngoName, ngoType, fullName, position, email, password, notify)(dispatch);
         } else {
             toast.warn('Passwords do not match ', {
