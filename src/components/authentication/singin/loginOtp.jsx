@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { loginOtp } from '../../../redux/actions/auth';
-import { useDispatch, useSelector } from 'react-redux';
+import { connect } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -105,17 +105,15 @@ const Logo = styled.img`
 const EnteredOtp = styled.p`
     margin: 2%;
 `;
-const LoginOTP = ({ isAuthenticated, history }) => {
+const LoginOTP = ({ loginOtp, verifyToken }) => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
-    const dispatch = useDispatch();
-    const { data } = useSelector((state) => state.auth);
     const [inputOtp, setInputOtp] = useState(new Array(6).fill(''));
+    const navigateTo = (path = '/') => navigate(path, { replace: true });
 
     const handleChange = (element, index) => {
         if (isNaN(element.value)) return false;
         setInputOtp([...inputOtp.map((d, idx) => (idx === index ? element.value : d))]);
-        //Focus next input
         if (element.nextSibling) {
             element.nextSibling.focus();
         }
@@ -123,17 +121,13 @@ const LoginOTP = ({ isAuthenticated, history }) => {
 
     const handleLoginOtp = (e) => {
         e.preventDefault();
-        console.log('data', data, inputOtp.join(''));
+
         if (!loading) {
-            const formData = {
-                email: localStorage.token,
-                password: inputOtp.join(''),
-                setLoading,
-            };
+            const code = inputOtp.join('');
             setLoading(true);
-            loginOtp(formData, navigate)(dispatch);
+            loginOtp(verifyToken, code, setLoading, navigateTo);
         } else {
-            toast.warn('Otp code incorrect', {
+            toast.warn('Processing...', {
                 position: 'top-right',
                 autoClose: '2000',
             });
@@ -194,4 +188,8 @@ const LoginOTP = ({ isAuthenticated, history }) => {
     );
 };
 
-export default LoginOTP;
+const mapStateToProps = (state) => ({
+    verifyToken: state.auth.verifyToken,
+});
+
+export default connect(mapStateToProps, { loginOtp })(LoginOTP);
