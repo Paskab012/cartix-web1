@@ -6,12 +6,12 @@ import {
     LOGIN_FAIL,
     SIGNUP_SUCCESS,
     SIGNUP_FAIL,
-    ACTIVATE_SUCCESS,
-    ACTIVATE_FAIL,
     USER_LOADED_SUCCESS,
     USER_LOADED_FAIL,
     AUTHENTICATED_SUCCESS,
     AUTHENTICATED_FAIL,
+    OBTAIN_OTP_CODE_SUCCESS,
+    OBTAIN_OTP_CODE_FAIL,
     PASSWORD_RESET_SUCCESS,
     PASSWORD_RESET_FAIL,
     PASSWORD_RESET_CONFIRM_SUCCESS,
@@ -19,63 +19,48 @@ import {
     LOGOUT,
 } from './types';
 
-export const checkAuthenticated = () => async (dispatch) => {
-    if (localStorage.getItem('access')) {
-        const body = JSON.stringify({ token: localStorage.getItem('access') });
+export const checkAuthenticated = () => async (dispatch, getState) => {
+    const body = JSON.stringify({ token: getState().auth.accessToken });
 
-        try {
-            const res = await axios.post(`auth/verify/`, body);
+    try {
+        await axios.post(`auth/verify/`, body);
 
-            if (res.data.code !== 'token_not_valid') {
-                dispatch({
-                    type: AUTHENTICATED_SUCCESS,
-                });
-            } else {
-                dispatch({
-                    type: AUTHENTICATED_FAIL,
-                });
-            }
-        } catch (err) {
-            dispatch({
-                type: AUTHENTICATED_FAIL,
-            });
-        }
-    } else {
+        dispatch({
+            type: AUTHENTICATED_SUCCESS,
+        });
+    } catch (err) {
         dispatch({
             type: AUTHENTICATED_FAIL,
         });
     }
 };
 
-export const load_user = () => async (dispatch) => {
-    if (localStorage.getItem('access')) {
-        try {
-            const res = await axios.get(`auth/users/me/ `);
+export const load_user = () => async (dispatch, getState) => {
+    const headers = {
+        "Authorization": `Bearer ${getState().auth.accessToken}`
+    }
 
-            dispatch({
-                type: USER_LOADED_SUCCESS,
-                payload: res.data,
-            });
-        } catch (err) {
-            dispatch({
-                type: USER_LOADED_FAIL,
-            });
-        }
-    } else {
+    try {
+        const res = await axios.get(`users/me/ `, headers);
+
+        dispatch({
+            type: USER_LOADED_SUCCESS,
+            payload: res.data,
+        });
+    } catch (err) {
         dispatch({
             type: USER_LOADED_FAIL,
         });
     }
 };
 
-export const login = (email, password, setIsLoading) => async (dispatch) => {
+export const login = (email, password, setIsLoading, redirectTo) => async (dispatch) => {
     const body = JSON.stringify({ email, password });
 
     try {
         const res = await axios.post(`auth/otp-code/`, body);
-        localStorage.token = res.data.token;
         dispatch({
-            type: LOGIN_SUCCESS,
+            type: OBTAIN_OTP_CODE_SUCCESS,
             payload: res.data,
         });
         toast.success('User logged in successfully, an OTP code is sent in your inbox', {
@@ -83,9 +68,10 @@ export const login = (email, password, setIsLoading) => async (dispatch) => {
             autoClose: '2000',
         });
         setIsLoading(false);
+        redirectTo("/activate");
     } catch (err) {
         dispatch({
-            type: LOGIN_FAIL,
+            type: OBTAIN_OTP_CODE_FAIL,
         });
         toast.error('Login fail, invalid credentials, Input the correct ones', {
             position: 'top-right',
@@ -96,7 +82,8 @@ export const login = (email, password, setIsLoading) => async (dispatch) => {
 };
 
 export const signup =
-    (ngoName, _, fullName, position, email, password, notify) => async (dispatch) => {
+    (ngoName, _, fullName, position, email, password, setLoading, redirectTo) =>
+    async (dispatch) => {
         const body = JSON.stringify({
             email: email,
             password: password,
@@ -113,32 +100,31 @@ export const signup =
                 type: SIGNUP_SUCCESS,
                 payload: res.data,
             });
-            console.log(res);
-            notify();
+            setLoading(false);
+            redirectTo('/login');
         } catch (err) {
             dispatch({
                 type: SIGNUP_FAIL,
             });
+            setLoading(false);
         }
     };
 
 export const loginOtp =
-    ({ email, password, setLoading }, navigate) =>
+    (email, password, setLoading, navigateTo) =>
     async (dispatch) => {
         const body = JSON.stringify({ email, password });
-        console.log('-------------????', body);
         try {
             const res = await axios.post(`auth/token/`, body);
-            console.log('[-----]]]', res);
             dispatch({
-                type: ACTIVATE_SUCCESS,
-                data: res,
+                type: LOGIN_SUCCESS,
+                payload: res.data,
             });
             setLoading(false);
-            navigate('/savings-group-map');
+            navigateTo("/savings-group-map");
         } catch (err) {
             dispatch({
-                type: ACTIVATE_FAIL,
+                type: LOGIN_FAIL,
             });
             setLoading(false);
         }
