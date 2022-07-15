@@ -136,6 +136,12 @@ a {
   margin: 20px;
 }
 
+.upload_success {
+  position: absolute;
+  right: 20px;
+  top: 19px
+}
+
 .disabled {
   background-color: #d5ffe5;
   color: #fff;
@@ -151,14 +157,15 @@ a {
   flex: 1;
   height: 5px;
   overflow: hidden;
+  border-radius: 5px;
+  margin-left: 35px;
 }
 
 .progress-file > div {
   height: 100%;
   background: #1649ff;
   transition: all .9s ease;
-  margin-left: 35px;
-  border-radius: 5px;
+
 }
 
 .progress_bar span {
