@@ -3,7 +3,6 @@ import DocIcon from '../../assets/doc_icon.svg';
 import SuccessIcon from '../../assets/uploadsuccess.svg';
 
 const FileItem = ({data}) => {
-
   const [currentProgress, setCurrentProgress] = useState(0);
 
   useEffect(() => {

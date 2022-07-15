@@ -8,8 +8,8 @@ import UploadIcon from '../../assets/upload_icon.svg';
 import './data_style.css';
 import DownloadIcon from '../../assets/download_icon.svg';
 import DataNavbar from "../data/DataNavbar";
-import { Line } from 'rc-progress';
 import FileItem from "./Files";
+import CheckFileType from "./fileFormat";
 
 const XlsxUpload = () => {
   const [files, setFiles] = useState([]);
@@ -19,30 +19,15 @@ const XlsxUpload = () => {
       setFiles(acceptedFiles.map(file => Object.assign(file, {
         preview: URL.createObjectURL(file)
       })));
-      // setPercentage(Math.round((100 * file.loaded) / data.total))
       setFiles([...files, ...acceptedFiles]);
     },
-    accept: ['image/*', '.pdf'],
   })
 
-  const thumbs = files.map((file, fileIndex) => {
-    console.log(file.name);
-    let progress = 0;
-    let type = ".xlsx";
-    let fileName = file.name;
-    let valideName = fileName.split(-type.length) == type;
-    console.log(valideName);
-
-    return(
+  const thumbs = files.map(file => (
     <div key={file.name} className="file-container">
       <FileItem data={file} />
-      {/* { file.name === valideName ?
-        <button className="button disabled" disabled>Submit</button>
-        : 
-        <button className="button">Submit</button> 
-      } */}
     </div>
-  )});
+  ));
 
   useEffect(() => {
     // Make sure to revoke the data uris to avoid memory leaks, will run on unmount
@@ -70,11 +55,15 @@ const XlsxUpload = () => {
               <p>XLSX, XLS, CSV</p>
             </div>
             {thumbs}
-            { !files.length ?
-              ''
-              : 
-              <button className="button">Submit</button> 
-            }
+              
+              { !files.length ?
+                ''
+                :
+                <div className="submit-clm">
+                  <CheckFileType files={files}/>
+                  <button className="button">Submit</button> 
+                </div>
+              }
           </div>
         </div>
       </div>

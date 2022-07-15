@@ -131,9 +131,7 @@ a {
   background-color: #17a64c;
   color: #fff;
   text-align: center;
-  position: absolute;
-  right: 10px;
-  margin: 20px;
+  margin-top: 20px;
 }
 
 .upload_success {
@@ -171,4 +169,10 @@ a {
 .progress_bar span {
   font-size: 12px;
   padding: 11px;
+}
+
+.submit-clm {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
