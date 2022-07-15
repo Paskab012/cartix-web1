@@ -1,9 +1,13 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Navigate, Route } from 'react-router-dom';
 
-const PrivateRoute = (props) => {
-    const token = localStorage.getItem('auth');
-    return <>{token ? <Route {...props} /> : <Navigate to="/login" />}</>;
+const PrivateRoute = ({accessToken, ...props}) => {
+    return <>{accessToken ? <Route {...props} /> : <Navigate to="/login" />}</>;
 };
 
-export default PrivateRoute;
+const mapStateToProps = (state) => ({
+    accessToken: state.auth.accessToken,
+});
+
+export default connect(mapStateToProps, {})(PrivateRoute);
