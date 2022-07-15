@@ -7,9 +7,9 @@ import GoBack from '../../assets/goback.svg';
 import UploadIcon from '../../assets/upload_icon.svg';
 import './data_style.css';
 import DownloadIcon from '../../assets/download_icon.svg';
-import DocIcon from '../../assets/doc_icon.svg';
 import DataNavbar from "../data/DataNavbar";
 import { Line } from 'rc-progress';
+import FileItem from "./Files";
 
 const XlsxUpload = () => {
   const [files, setFiles] = useState([]);
@@ -35,22 +35,12 @@ const XlsxUpload = () => {
 
     return(
     <div key={file.name} className="file-container">
-      <div className="file">
-        <img src={DocIcon} alt="doc_icon" onLoad={() => { URL.revokeObjectURL(file.preview) }}/>
-        <div className='file_details'>
-          <p id="file_name">{file.name}</p>
-          <p>{file.size / 100}Kb</p>
-        </div>
-        <div>
-          <Line percent={progress} strokeWidth='3' strokeColor='#2db7f5' strokeLinecap='square' />
-          <span id="value">{progress}%</span>
-        </div>
-      </div>
-      { file.name === valideName ?
+      <FileItem data={file} />
+      {/* { file.name === valideName ?
         <button className="button disabled" disabled>Submit</button>
         : 
         <button className="button">Submit</button> 
-      }
+      } */}
     </div>
   )});
 
@@ -80,6 +70,11 @@ const XlsxUpload = () => {
               <p>XLSX, XLS, CSV</p>
             </div>
             {thumbs}
+            { !files.length ?
+              ''
+              : 
+              <button className="button">Submit</button> 
+            }
           </div>
         </div>
       </div>

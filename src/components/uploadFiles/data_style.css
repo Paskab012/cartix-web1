@@ -122,23 +122,6 @@ a {
   font-weight: 600;
 }
 
-/* .file-container {
-  position: relative;
-} */
-/* 
-.file .progress {
-  background-color: rgba(0, 0, 133);
-  position: absolute;
-  inset:0;
-  width:0;
-  padding-top: 10px;
-  text-align: center;
-}
-
-.file .progress.done{
-  top: 100px;
-} */
-
 .button {
   width: 128px;
   height: 40px;
@@ -156,4 +139,29 @@ a {
 .disabled {
   background-color: #d5ffe5;
   color: #fff;
+}
+
+.progress_bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.progress-file {
+  flex: 1;
+  height: 5px;
+  overflow: hidden;
+}
+
+.progress-file > div {
+  height: 100%;
+  background: #1649ff;
+  transition: all .9s ease;
+  margin-left: 35px;
+  border-radius: 5px;
+}
+
+.progress_bar span {
+  font-size: 12px;
+  padding: 11px;
 }
