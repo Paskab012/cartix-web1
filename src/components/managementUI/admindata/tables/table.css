@@ -1,0 +1,29 @@
+table {
+    width: 80%;
+    cursor: pointer;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+table td,
+table th {
+    border-bottom: 1px solid #e8e9eb;
+    padding: 2%;
+}
+
+table tr:nth-child(even) {
+    background-color: white;
+}
+
+table tr:hover {
+    background-color: #ddd;
+}
+
+table th {
+    text-align: left;
+    color: #6e717d;
+    font-weight: normal;
+    font-size: 12px;
+}

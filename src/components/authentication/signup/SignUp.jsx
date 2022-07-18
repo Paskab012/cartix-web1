@@ -1,14 +1,14 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { useDispatch} from 'react-redux';
-import {connect, useSelector} from 'react-redux';
+import { connect, useSelector } from 'react-redux';
+import { useNavigate } from "react-router";
 import { toast } from 'react-toastify';
-import { Link, Navigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 
 import image from '../../../assets/signup.svg';
 import { signup } from '../../../redux/actions/auth';
-import { fetch_ngos } from '../../../redux/actions/ngos';
+import { fetch_ngos } from '../../../redux/actions/ngos.jsx';
 import picture from '../../../assets/bnr.svg';
 import SnipperLoginBtn from '../singin/SpinnerLoginBtn';
 
@@ -237,9 +237,8 @@ const Paragraph = styled.p`
 `;
 
 const SignUp = ({ signup, isAuthenticated, fetch_ngos }) => {
-    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [focused, setFocused] = useState(false);
-    const [userSignup, setUserSignup] = useState(false);
     const [loading, setLoading] = useState(false);
     const [formValues, setFormValues] = useState({
         ngoName: '',
@@ -250,37 +249,30 @@ const SignUp = ({ signup, isAuthenticated, fetch_ngos }) => {
         password: '',
         confirmPassword: '',
     });
+    const navigateTo = (path='/') => navigate(path, {replace: true});
 
     useEffect(() => {
         fetch_ngos();
-    }, [fetch_ngos])
+    }, [fetch_ngos]);
 
     const { ngos } = useSelector((state) => state.ngos);
-    const notify = () => toast.success('Account created successfully!');
 
     const { ngoName, ngoType, fullName, position, email, password, confirmPassword } = formValues;
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-
-        if (password === confirmPassword) {
-            console.log("From button handleSubmit");
-            signup(
-                ngoName, 
-                ngoType, 
-                fullName, 
-                position, email, password, notify)(dispatch);
-            setUserSignup(true);
-        }
-    };
-
     const onSubmit = (e) => {
         e.preventDefault();
-        signup(
-            ngoName, 
-            ngoType, 
-            fullName, 
-            position, email, password, notify)(dispatch);
+
+        if (!loading) {
+            setLoading(true);
+            if (password === confirmPassword) {
+                signup(ngoName, ngoType, fullName, position, email, password, setLoading, navigateTo);
+            } else {
+                toast.warn('Passwords do not match ', {
+                    position: 'top-right',
+                    autoClose: '2000',
+                });
+            }
+        }
     };
 
     const onChange = (e) => {
@@ -288,10 +280,7 @@ const SignUp = ({ signup, isAuthenticated, fetch_ngos }) => {
     };
 
     if (isAuthenticated) {
-        return <Navigate to="/" />;
-    }
-    if (userSignup) {
-        return <Navigate to="/login" />;
+        navigateTo();
     }
 
     const handleFocus = (_) => {
@@ -323,20 +312,17 @@ const SignUp = ({ signup, isAuthenticated, fetch_ngos }) => {
                                 type="text"
                                 placeholder="Select your NGO"
                                 errorMessage="Please select your NGO"
-                                required={true}
                                 onChange={(e) => onChange(e)}
                                 onBlur={handleFocus}
                                 className="inputs"
-                                /* onFocus={() => inputProps.name === 'confirmPassword' && setFocused(true)} */
                                 focused={focused.toString()}
                             >
-                                {ngos.map((ngo) =>
+                                {ngos.map((ngo) => (
                                     <InputOption key={ngo.id} value={ngo.id}>
-                                        {ngo.name === "Admin" ? "" : ngo.name }
+                                        {ngo.name === "Admin" ? "" : ngo.name}
                                     </InputOption>
-                                )}
+                                ))}
                             </InputFieldSelect>
-                            {/* <ErrorMessage className="span">{errorMessage}</ErrorMessage> */}
                         </Form>
                         <Form>
                             <Label>NGO type</Label>
@@ -352,14 +338,12 @@ const SignUp = ({ signup, isAuthenticated, fetch_ngos }) => {
                                 onChange={(e) => onChange(e)}
                                 onBlur={handleFocus}
                                 className="inputs"
-                                /* onFocus={() => inputProps.name === 'confirmPassword' && setFocused(true)} */
                                 focused={focused.toString()}
                             >
                                 <InputOption></InputOption>
                                 <InputOption value="International">International</InputOption>
                                 <InputOption value="Local">Local</InputOption>
                             </InputFieldSelect>
-                            {/* <ErrorMessage className="span">{errorMessage}</ErrorMessage> */}
                         </Form>
                         <Form>
                             <Label>Full name</Label>
@@ -371,15 +355,12 @@ const SignUp = ({ signup, isAuthenticated, fetch_ngos }) => {
                                 placeholder="input name"
                                 errorMessage="Your name should be 5-25 characters and should not include any special character"
                                 label="Full name"
-                                // pattern="^[A-Za-z0-9]{5,25}$"
                                 required={true}
                                 onChange={(e) => onChange(e)}
                                 onBlur={handleFocus}
                                 className="inputs"
-                                // onFocus={() => inputProps.name === 'confirmPassword' && setFocused(true)}
                                 focused={focused.toString()}
                             />
-                            {/* <ErrorMessage className="span">{errorMessage}</ErrorMessage> */}
                         </Form>
                         <Form>
                             <Label>Position</Label>
@@ -394,10 +375,8 @@ const SignUp = ({ signup, isAuthenticated, fetch_ngos }) => {
                                 onChange={(e) => onChange(e)}
                                 onBlur={handleFocus}
                                 className="inputs"
-                                // onFocus={() => inputProps.name === 'confirmPassword' && setFocused(true)}
                                 focused={focused.toString()}
                             />
-                            {/* <ErrorMessage className="span">{errorMessage}</ErrorMessage> */}
                         </Form>
                         <Form>
                             <Label>Email</Label>
@@ -411,10 +390,8 @@ const SignUp = ({ signup, isAuthenticated, fetch_ngos }) => {
                                 required={true}
                                 onChange={(e) => onChange(e)}
                                 onBlur={handleFocus}
-                                // onFocus={() => inputProps.name === 'confirmPassword' && setFocused(true)}
                                 focused={focused.toString()}
                             />
-                            {/* <ErrorMessage className="span">{errorMessage}</ErrorMessage> */}
                         </Form>
                         <Form>
                             <Label>Password</Label>
@@ -429,44 +406,31 @@ const SignUp = ({ signup, isAuthenticated, fetch_ngos }) => {
                                 onChange={(e) => onChange(e)}
                                 onBlur={handleFocus}
                                 className="inputs"
-                                // onFocus={() => inputProps.name === 'confirmPassword' && setFocused(true)}
                                 focused={focused.toString()}
                             />
-                            {/* <ErrorMessage className="span">{errorMessage}</ErrorMessage> */}
                         </Form>
                         <Form>
                             <Label>Confirm Password</Label>
                             <InputField
                                 id="7"
                                 key={7}
-                                name="password"
+                                name="confirmPassword"
                                 type="password"
                                 placeholder="re-type your password"
-                                errorMessage="Please input a strong password"
+                                errorMessage="Please enter a strong password"
                                 required={true}
                                 onChange={(e) => onChange(e)}
                                 onBlur={handleFocus}
                                 className="inputs"
-                                // onFocus={() => inputProps.name === 'confirmPassword' && setFocused(true)}
                                 focused={focused.toString()}
                             />
-                            {/* <ErrorMessage className="span">{errorMessage}</ErrorMessage> */}
                         </Form>
                         <ButtonContainer>
                             <SnipperLoginBtn
                                 loading={loading}
-                                onClick={() => {
-                                    setLoading(true);
-                                    setTimeout(() => {
-                                        setLoading(false);
-                                    }, 2000);
-                                    handleSubmit();
-                                }}
                                 type="submit"
                                 title={'Submit an account request'}
-                            >
-                                Log in
-                            </SnipperLoginBtn>
+                            ></SnipperLoginBtn>
                             <StyledLink to="/login">
                                 <Paragraph>Login</Paragraph>
                             </StyledLink>

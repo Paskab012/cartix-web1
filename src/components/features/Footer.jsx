@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-// import App from '../../assets/group.png';
 import { Rectangles } from './Rectangles';
 
 const Container = styled.div`
@@ -26,12 +25,6 @@ const ActualDiv = styled.div`
     align-items: center;
     align-content: center;
 `;
-
-// const Image = styled.img`
-//     width: 1200px;
-//     height: 198px;
-//     object-fit: cover;
-// `;
 
 const Boxes = styled.div`
     width: 100%;

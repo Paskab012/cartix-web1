@@ -8,12 +8,10 @@ const Container = styled.div`
 `;
 
 function Layout(props) {
-    const { checkAuthenticated, load_user } = props;
-    
     useEffect(() => {
-        checkAuthenticated();
-        load_user();
-    }, [checkAuthenticated, load_user]);
+        props.checkAuthenticated();
+        props.load_user();
+    }, [props]);
 
     return (
         <>

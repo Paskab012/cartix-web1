@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router';
 import styled from 'styled-components';
-import { useDispatch} from 'react-redux';
 import picture from '../../../assets/bnr.svg';
 import { FormInput } from './FormInput';
 import { Link, Navigate } from 'react-router-dom';
@@ -130,6 +130,12 @@ const ButtonContainer = styled.div`
 //     padding: 12px 20px;
 // `;
 
+const LogoHeader = styled.h1`
+    font-weight: bold;
+    font-size: 22px;
+    margin-left: -10px;
+`;
+
 const Paragraph = styled.p`
     font-size: 14px;
     line-height: 17px;
@@ -154,13 +160,14 @@ const StyledLink = styled(Link)`
     }
 `;
 
-const Login = ({ login, isAuthenticated, history }) => {
-    const dispatch = useDispatch();
+const Login = ({ login, isAuthenticated }) => {
+    const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(false);
     const [formData, setFormData] = useState({
         email: '',
         password: '',
     });
+    const redirectTo = (to = '/', options = { replace: true }) => navigate(to, options);
 
     const onChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -168,26 +175,15 @@ const Login = ({ login, isAuthenticated, history }) => {
 
     const { email, password } = formData;
 
-    // const handleLogin = (e) => {
-    //     e.preventDefault();
-    //     const navigate = () => history.push('/');
-    //     if (!isLoading){
-    //         setIsLoading(true);
-    //         login(email, password, navigate, setIsLoading)(dispatch);
-    //     }
-    // };
-
     const onSubmit = (e) => {
         e.preventDefault();
-        const navigate = () => history.push('/');
-        if (!isLoading){
+        if (!isLoading) {
             setIsLoading(true);
-            login(email, password, navigate, setIsLoading)(dispatch);
+            login(email, password, setIsLoading, redirectTo);
         }
     };
 
-    if (isAuthenticated)
-        return <Navigate to="/" />;
+    if (isAuthenticated) return <Navigate to="/activate" />;
 
     const Inputs = [
         {
@@ -214,13 +210,14 @@ const Login = ({ login, isAuthenticated, history }) => {
     return (
         <Background>
             <Logo src={image} />
-            {/* <Input handleLogin={handleLogin} onChange={onChange} /> */}
             <Container>
                 <Content>
                     <Header>
                         <Picture src={picture} />
                         <Logo />
-                        BNR <Small>CSGs Data Map</Small>
+                        <LogoHeader>
+                            BNR <Small>CSGs Data Map</Small>
+                        </LogoHeader>
                     </Header>
                 </Content>
                 <FormContainer>
@@ -236,13 +233,10 @@ const Login = ({ login, isAuthenticated, history }) => {
                         ))}
                         <ButtonContainer>
                             <SnipperLoginBtn
-                                // loading={isLoading}
-                                // onClick={(e) => handleLogin(e)}
+                                loading={isLoading}
                                 type="submit"
                                 title={'Login'}
-                            >
-                                Log in
-                            </SnipperLoginBtn>
+                            ></SnipperLoginBtn>
                             <StyledLink to="/reset-password">
                                 <Paragraph>Reset password</Paragraph>
                             </StyledLink>
