@@ -59,14 +59,14 @@ const MenuItem = styled.li`
     cursor: pointer;
 `;
 
-const Button = styled.button`
-    padding: 2px 3px;
-    color: black;
-    font-weight: 500;
-    cursor: pointer;
-    font-size: 15px;
-    margin-right: 24px;
-`;
+// const Button = styled.button`
+//     padding: 2px 3px;
+//     color: black;
+//     font-weight: 500;
+//     cursor: pointer;
+//     font-size: 15px;
+//     margin-right: 24px;
+// `;
 
 const Picture = styled.img`
     width: 70px;

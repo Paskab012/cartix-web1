@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router';
 import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
 import picture from '../../../assets/bnr.svg';
 import { FormInput } from './FormInput';
 import { Link, Navigate } from 'react-router-dom';
@@ -161,12 +161,13 @@ const StyledLink = styled(Link)`
 `;
 
 const Login = ({ login, isAuthenticated }) => {
-    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(false);
     const [formData, setFormData] = useState({
         email: '',
         password: '',
     });
+    const redirectTo = (to = '/', options = { replace: true }) => navigate(to, options);
 
     const onChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -174,20 +175,11 @@ const Login = ({ login, isAuthenticated }) => {
 
     const { email, password } = formData;
 
-    // const handleLogin = (e) => {
-    //     e.preventDefault();
-    //     const navigate = () => history.push('/activate');
-    //     if (!isLoading) {
-    //         setIsLoading(true);
-    //         login(email, password, navigate, setIsLoading)(dispatch);
-    //     }
-    // };
-
     const onSubmit = (e) => {
         e.preventDefault();
         if (!isLoading) {
             setIsLoading(true);
-            login(email, password, setIsLoading)(dispatch);
+            login(email, password, setIsLoading, redirectTo);
         }
     };
 
@@ -218,7 +210,6 @@ const Login = ({ login, isAuthenticated }) => {
     return (
         <Background>
             <Logo src={image} />
-            {/* <Input handleLogin={handleLogin} onChange={onChange} /> */}
             <Container>
                 <Content>
                     <Header>
@@ -243,7 +234,6 @@ const Login = ({ login, isAuthenticated }) => {
                         <ButtonContainer>
                             <SnipperLoginBtn
                                 loading={isLoading}
-                                // onClick={handleLogin}
                                 type="submit"
                                 title={'Login'}
                             ></SnipperLoginBtn>
