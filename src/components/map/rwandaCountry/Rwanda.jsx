@@ -5,6 +5,7 @@ import map from '../../../assets/mappage.png';
 import InteractiveCart from './interactive.cart';
 import Buttons from './zoomBtn';
 import Chart from './Chart';
+import FilterHelper from './filterHelper';
 
 const Container = styled.div`
     width: 95%;
@@ -32,6 +33,7 @@ const CardMap = styled.img`
     object-fit: cover;
     height: 100%;
     mix-blend-mode: luminosity;
+    position: absolute;
 `;
 
 const Right = styled.div`
@@ -55,6 +57,7 @@ export const Rwanda = () => {
         <Container>
             <Left>
                 <CardMap src={map} />
+                <FilterHelper/>
                 <InteractiveCart imageSize={imageSize} imgRef={imgRef} />
                 <Buttons imgRef={imgRef} setImageSize={setImageSize} />
             </Left>

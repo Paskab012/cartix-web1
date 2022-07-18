@@ -17,6 +17,7 @@ import {
     PASSWORD_RESET_CONFIRM_SUCCESS,
     PASSWORD_RESET_CONFIRM_FAIL,
     LOGOUT,
+
 } from './types';
 
 export const checkAuthenticated = () => async (dispatch, getState) => {
