@@ -57,7 +57,7 @@ export const Rwanda = () => {
         <Container>
             <Left>
                 <CardMap src={map} />
-                <FilterHelper/>
+                <FilterHelper />
                 <InteractiveCart imageSize={imageSize} imgRef={imgRef} />
                 <Buttons imgRef={imgRef} setImageSize={setImageSize} />
             </Left>

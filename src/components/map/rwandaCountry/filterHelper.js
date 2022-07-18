@@ -17,8 +17,8 @@ function FilterHelper() {
         <Container>
             <ProvinceFilterHelper />
             <DistrictFilterHelper />
-            <SectorFilterHelper/>
-            <SavingGroupsFilter/>
+            <SectorFilterHelper />
+            <SavingGroupsFilter />
         </Container>
     );
 }

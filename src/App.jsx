@@ -45,7 +45,11 @@ const App = () => {
                         path="/savings-group-map/admin/management"
                         element={<ManagementData />}
                     ></Route>
-                    <Route exact path="/savings-group-map/admin/management/data" element={<NgosManagement />}></Route>
+                    <Route
+                        exact
+                        path="/savings-group-map/admin/management/data"
+                        element={<NgosManagement />}
+                    ></Route>
                 </Routes>
             </Layout>
         </Router>

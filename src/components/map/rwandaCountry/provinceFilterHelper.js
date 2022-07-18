@@ -17,14 +17,14 @@ function ProvinceFilterHelper() {
         border-radius: 4px;
         text-align: center;
         font-size: 11px;
-        color: #9DA1A8;
+        color: #9da1a8;
     `;
     const InputOption = styled.option`
         background-color: red;
         color: white;
         border: solid 1px red;
         font-weight: bolder;
-        
+
         ::option {
             color: black;
             font-size: 3px;

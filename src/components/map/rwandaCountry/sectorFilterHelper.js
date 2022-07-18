@@ -17,8 +17,7 @@ function SectorFilterHelper() {
         border-radius: 4px;
         text-align: center;
         font-size: 11px;
-        color: #9DA1A8;
-
+        color: #9da1a8;
     `;
     const InputOption = styled.option`
         background-color: red;

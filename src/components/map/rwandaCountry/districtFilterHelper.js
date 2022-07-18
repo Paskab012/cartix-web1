@@ -18,7 +18,6 @@ function DistrictFilterHelper() {
         text-align: center;
         font-size: 11px;
         color: #9da1a8;
-        
     `;
     const InputOption = styled.option`
         background-color: red;

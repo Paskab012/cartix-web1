@@ -6,16 +6,16 @@ const initialState = {
 };
 
 export default function (state = initialState, action) {
-    const {type, payload} = action;
+    const { type, payload } = action;
 
     switch (type) {
         case FETCH_NGOS_SUCCESS:
             return {
                 ...state,
-                ngos: payload
-            }
+                ngos: payload,
+            };
         case FETCH_NGOS_FAIL:
         default:
-            return state
+            return state;
     }
 }
