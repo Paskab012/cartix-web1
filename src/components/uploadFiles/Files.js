@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import {useState, useEffect} from "react";
 import DocIcon from '../../assets/doc_icon.svg';
 import SuccessIcon from '../../assets/uploadsuccess.svg';
 

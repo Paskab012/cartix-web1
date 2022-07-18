@@ -13,15 +13,31 @@ import CheckFileType from "./fileFormat";
 
 const XlsxUpload = () => {
   const [files, setFiles] = useState([]);
+  const onDrop = (acceptedFiles) => {
+    setFiles(acceptedFiles);
+  }
 
-  const {getRootProps, getInputProps} = useDropzone({
-    onDrop: acceptedFiles => {
-      setFiles(acceptedFiles.map(file => Object.assign(file, {
-        preview: URL.createObjectURL(file)
-      })));
-      setFiles([...files, ...acceptedFiles]);
-    },
-  })
+  const {getRootProps, getInputProps} = useDropzone({ onDrop })
+
+  const handleSubmit = () => {
+    const formData = new FormData();
+    const category = "SCGs";
+    files.forEach(file => {
+      formData.append('file', file);  
+      formData.append('category', category);
+      console.log(file, category);
+    }
+    );
+    axios.post('/api/upload', formData)
+      .then(res => {
+        console.log(res);
+      }
+      )
+      .catch(err => {
+        console.log(err);
+      }
+      )
+  }
 
   const thumbs = files.map(file => (
     <div key={file.name} className="file-container">
@@ -61,7 +77,12 @@ const XlsxUpload = () => {
                 :
                 <div className="submit-clm">
                   <CheckFileType files={files}/>
-                  <button className="button">Submit</button> 
+                  <button
+                    className="button"
+                    onClick={handleSubmit}
+                  >
+                    Submit
+                  </button> 
                 </div>
               }
           </div>
