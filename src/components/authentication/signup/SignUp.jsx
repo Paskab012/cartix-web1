@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { useDispatch} from 'react-redux';
-import {connect, useSelector} from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { Link, Navigate } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
@@ -236,10 +236,9 @@ const Paragraph = styled.p`
     cursor: pointer;
 `;
 
-const SignUp = ({ signup, isAuthenticated, fetch_ngos }) => {
+const SignUp = ({ signup, isAuthenticated, fetch_ngos, isSusseffullySignup }) => {
     const dispatch = useDispatch();
     const [focused, setFocused] = useState(false);
-    const [userSignup, setUserSignup] = useState(false);
     const [loading, setLoading] = useState(false);
     const [formValues, setFormValues] = useState({
         ngoName: '',
@@ -253,34 +252,42 @@ const SignUp = ({ signup, isAuthenticated, fetch_ngos }) => {
 
     useEffect(() => {
         fetch_ngos();
-    }, [fetch_ngos])
+    }, [fetch_ngos]);
 
     const { ngos } = useSelector((state) => state.ngos);
     const notify = () => toast.success('Account created successfully!');
 
     const { ngoName, ngoType, fullName, position, email, password, confirmPassword } = formValues;
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
+    // const handleSubmit = (e) => {
+    //     e.preventDefault();
 
-        if (password === confirmPassword) {
-            console.log("From button handleSubmit");
-            signup(
-                ngoName, 
-                ngoType, 
-                fullName, 
-                position, email, password, notify)(dispatch);
-            setUserSignup(true);
-        }
-    };
+    //     if (password === confirmPassword) {
+    //         console.log('From button handleSubmit');
+    //         signup(ngoName, ngoType, fullName, position, email, password, notify)(dispatch);
+    //         setUserSignup(true);
+    //     }
+    //     setLoading(true);
+    //     setTimeout(() => {
+    //         setLoading(false);
+    //     }, 2000);
+    // };
 
     const onSubmit = (e) => {
         e.preventDefault();
-        signup(
-            ngoName, 
-            ngoType, 
-            fullName, 
-            position, email, password, notify)(dispatch);
+
+        if (password === confirmPassword) {
+            signup(ngoName, ngoType, fullName, position, email, password, notify)(dispatch);
+        } else {
+            toast.warn('Passwords do not match ', {
+                position: 'top-right',
+                autoClose: '2000',
+            });
+        }
+        setLoading(true);
+        setTimeout(() => {
+            setLoading(false);
+        }, 2000);
     };
 
     const onChange = (e) => {
@@ -290,9 +297,9 @@ const SignUp = ({ signup, isAuthenticated, fetch_ngos }) => {
     if (isAuthenticated) {
         return <Navigate to="/" />;
     }
-    if (userSignup) {
+    if (isSusseffullySignup) {
         return <Navigate to="/login" />;
-    }
+    } 
 
     const handleFocus = (_) => {
         setFocused(true);
@@ -323,18 +330,18 @@ const SignUp = ({ signup, isAuthenticated, fetch_ngos }) => {
                                 type="text"
                                 placeholder="Select your NGO"
                                 errorMessage="Please select your NGO"
-                                required={true}
+                                // required={false}
                                 onChange={(e) => onChange(e)}
                                 onBlur={handleFocus}
                                 className="inputs"
                                 /* onFocus={() => inputProps.name === 'confirmPassword' && setFocused(true)} */
                                 focused={focused.toString()}
                             >
-                                {ngos.map((ngo) =>
+                                {ngos.map((ngo) => (
                                     <InputOption key={ngo.id} value={ngo.id}>
-                                        {ngo.name === "Admin" ? "" : ngo.name }
+                                        {ngo.name === 'Admin' ? '' : ngo.name}
                                     </InputOption>
-                                )}
+                                ))}
                             </InputFieldSelect>
                             {/* <ErrorMessage className="span">{errorMessage}</ErrorMessage> */}
                         </Form>
@@ -455,18 +462,10 @@ const SignUp = ({ signup, isAuthenticated, fetch_ngos }) => {
                         <ButtonContainer>
                             <SnipperLoginBtn
                                 loading={loading}
-                                onClick={() => {
-                                    setLoading(true);
-                                    setTimeout(() => {
-                                        setLoading(false);
-                                    }, 2000);
-                                    handleSubmit();
-                                }}
+                                // onClick= {handleSubmit}
                                 type="submit"
                                 title={'Submit an account request'}
-                            >
-                                Log in
-                            </SnipperLoginBtn>
+                            ></SnipperLoginBtn>
                             <StyledLink to="/login">
                                 <Paragraph>Login</Paragraph>
                             </StyledLink>

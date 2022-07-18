@@ -20,6 +20,7 @@ import {
 const initialState = {
     isAuthenticated: false,
     data: null,
+    isSusseffullySignup: false,
 };
 
 export default function (state = initialState, action) {
@@ -30,6 +31,7 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 isAuthenticated: true,
+                isSusseffullySignup: false,
             };
         case LOGIN_SUCCESS:
             localStorage.setItem('access', payload.access);
@@ -37,22 +39,26 @@ export default function (state = initialState, action) {
                 ...state,
                 isAuthenticated: true,
                 data: payload,
+                isSusseffullySignup: false,
             };
         case SIGNUP_SUCCESS:
             localStorage.setItem();
             return {
                 ...state,
                 isAuthenticated: false,
+                isSusseffullySignup: true,
             };
         case USER_LOADED_SUCCESS:
             return {
                 ...state,
                 user: payload,
+                isSusseffullySignup: false,
             };
         case AUTHENTICATED_FAIL:
             return {
                 ...state,
                 isAuthenticated: false,
+                isSusseffullySignup: false,
             };
         case USER_LOADED_FAIL:
             return {
@@ -79,6 +85,8 @@ export default function (state = initialState, action) {
         case ACTIVATE_FAIL:
             return {
                 ...state,
+                verifyData: payload,
+                isAuthenticated: true,
             };
         default:
             return state;
