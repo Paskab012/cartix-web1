@@ -25,10 +25,11 @@ const XlsxUpload = () => {
     files.forEach(file => {
       formData.append('file', file);  
       formData.append('category', category);
-      console.log(file, category);
+      console.log(file);
+      console.log(category);
     }
     );
-    axios.post('/api/upload', formData)
+    axios.post('https://httpbin.org/post', formData)
       .then(res => {
         console.log(res);
       }
