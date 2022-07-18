@@ -26,8 +26,8 @@ const App = () => {
                 <ToastContainer />
                 <Routes>
                     <Route path="/" element={<MainPage />}></Route>
-                    <Route path="/savings-group-map" element={<Map />}></Route>
-                    <Route path="/savings-group-map/data" element={<Data />}></Route>
+                    <Route exact path="/savings-group-map" element={<Map />}></Route>
+                    <Route exact path="/savings-group-map/data" element={<Data />}></Route>
                     <Route path="/SavingData" element={<SavingsGroupsdata />}></Route>
                     <Route path="/ConsentForm" element={<ConsentFormData />}></Route>
                     <Route path="/UploadData" element={<XlsxUpload />}></Route>
@@ -39,12 +39,13 @@ const App = () => {
                         element={<ConfirmResetPass />}
                     ></Route>
                     <Route path="/activate" element={<LoginOTP />}></Route>
-                    <Route path="/savings-group-map/admin" element={<AdminMap />}></Route>
+                    <Route exact path="/savings-group-map/admin" element={<AdminMap />}></Route>
                     <Route
+                        exact
                         path="/savings-group-map/admin/management"
                         element={<ManagementData />}
                     ></Route>
-                    <Route path="/savings-group-map/admin/management/data" element={<NgosManagement />}></Route>
+                    <Route exact path="/savings-group-map/admin/management/data" element={<NgosManagement />}></Route>
                 </Routes>
             </Layout>
         </Router>

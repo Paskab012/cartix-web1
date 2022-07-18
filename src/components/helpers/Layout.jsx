@@ -11,7 +11,7 @@ function Layout(props) {
     useEffect(() => {
         props.checkAuthenticated();
         props.load_user();
-    }, []);
+    }, [props]);
 
     return (
         <>
