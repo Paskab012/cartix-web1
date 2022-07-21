@@ -1,90 +1,96 @@
-import React from 'react';
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
-import goBack from '../../assets/goback.svg';
-import DataNav from '../data/DataNavbar';
-
-const Container = styled.div`
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    background: #f2f2f2;
-    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.03);
-    border-radius: 5px;
-`;
-
-const Header = styled.div`
-    width: 60%;
-    height: 70%;
-    display: flex;
-    margin: 7%;
-    background-color: red;
-`;
-
-const Item = styled.li`
-    color: black;
-    font-weight: 600;
-    font-size: 15px;
-    line-height: 18px;
-    display: flex;
-    margin-right: 3%;
-    background-color: green;
-    width: 10%;
-    height: 10%;
-    align-items: center;
-    justify-content: center;
-`;
-
-// const SavingsButton = styled.button`
-//     background-color: #3981ed;
-//     color: white;
-//     font-size: 12px;
-//     font-weight: normal;
-//     padding: 12px 20px;
-//     border-radius: 5px;
-// `;
-
-const StyledLink = styled(Link)`
-    color: rgba(0, 0, 0, 0.5);
-    text-decoration: none;
-    font-size: 14px;
-    transition: 0.3s all ease-in-out;
-    user-select: none; /* supported by Chrome and Opera */
-    -webkit-user-select: none; /* Safari */
-    -khtml-user-select: none; /* Konqueror HTML */
-    -moz-user-select: none; /* Firefox */
-    -ms-user-select: none; /* Internet Explorer/Edge */
-    &:hover {
-        transition: 0.2s all ease-in-out;
-        color: black;
-    }
-`;
-
-const GoBack = styled.img`
-    width: 30%;
-    height: 30%;
-    mix-blend-mode: luminosity;
-    opacity: 0.9;
-`;
+/* eslint-disable react-hooks/exhaustive-deps */
+import {useState, useEffect} from "react";
+import axios from "axios";
+import {Link} from 'react-router-dom';
+import {useDropzone} from 'react-dropzone'
+import GoBack from '../../assets/goback.svg';
+import UploadIcon from '../../assets/upload_icon.svg';
+import './data_style.css';
+import DownloadIcon from '../../assets/download_icon.svg';
+import DataNavbar from "../data/DataNavbar";
+import FileItem from "./Files";
+import CheckFileType from "./fileFormat";
 
 const XlsxUpload = () => {
-    return (
-        <>
-            <DataNav />
-            <Container>
-                <Header>
-                    <Item>
-                        <GoBack src={goBack} />
-                        <StyledLink className="animate__animated" to="/savings-group-map/data">
-                            Go back
-                        </StyledLink>
-                    </Item>
-                </Header>
-            </Container>
-            ;
-        </>
+  const [files, setFiles] = useState([]);
+  const onDrop = (acceptedFiles) => {
+    setFiles(acceptedFiles);
+  }
+
+  const {getRootProps, getInputProps} = useDropzone({ onDrop })
+
+  const handleSubmit = () => {
+    const formData = new FormData();
+    const category = "SCGs";
+    files.forEach(file => {
+      formData.append('file', file);  
+      formData.append('category', category);
+      console.log(file);
+      console.log(category);
+    }
     );
+    axios.post('https://httpbin.org/post', formData)
+      .then(res => {
+        console.log(res);
+      }
+      )
+      .catch(err => {
+        console.log(err);
+      }
+      )
+  }
+
+  const thumbs = files.map(file => (
+    <div key={file.name} className="file-container">
+      <FileItem data={file} />
+    </div>
+  ));
+
+  useEffect(() => {
+    // Make sure to revoke the data uris to avoid memory leaks, will run on unmount
+    return () => files.forEach(file => URL.revokeObjectURL(file.preview));
+  }, []);
+
+  return (
+    <div className="data">
+      <DataNavbar />
+      <div className='data_container center-flex'>
+        <div className='card_data'>
+          <Link to="/savings-group-map/data" className="upload_header">
+            <img src={GoBack} alt="arrow_back" />
+            <p>Go back</p>
+          </Link>
+          <div className="data_upload">
+            <div className="data_header">
+              <p>SCGs data compilation template</p>
+              <img src={DownloadIcon} alt="download_icon"/>
+            </div>
+            <div {...getRootProps({className: "dropzone active"})}>
+              <input {...getInputProps()} />
+              <img src={UploadIcon} alt='upload_icon' />
+              <p><span className='uppload_text'>Click to upload</span> or drag and drop</p>
+              <p>XLSX, XLS, CSV</p>
+            </div>
+            {thumbs}
+              
+              { !files.length ?
+                ''
+                :
+                <div className="submit-clm">
+                  <CheckFileType files={files}/>
+                  <button
+                    className="button"
+                    onClick={handleSubmit}
+                  >
+                    Submit
+                  </button> 
+                </div>
+              }
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default XlsxUpload;
